@@ -1,0 +1,90 @@
+﻿@model DashboardUI.Models.TelevisionShowModel
+
+@{
+    ViewBag.Title = "ShowDetails";
+}
+
+<h2>ShowDetails</h2>
+
+<div>
+    <h4>TelevisionShowModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DriveLetter)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DriveLetter)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MediaType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MediaType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FileName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FileName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FullPath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FullPath)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FileSize)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FileSize)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShowName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShowName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SeasonCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SeasonCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EpisodeCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EpisodeCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UploadTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UploadTime)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

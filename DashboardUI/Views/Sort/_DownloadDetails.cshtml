@@ -1,0 +1,106 @@
+﻿@model DashboardUI.Models.MediaDownloadModel
+
+<div class="modal-header">
+    <h4 class="modal-title" style="text-align: center;"><b>Download ID:</b> @Model.pk_torrentID </h4>
+</div>
+<div class="modal-body">
+    <div class="form-horizontal">
+            
+        <div class="demo-section k-content wide" style="max-width: 800px; background-color: white; color: black; padding-left: 30px;">
+            <table class="table">
+                <tr>
+                    <th style="text-align: center;" colspan="4">---- File Information ----</th>
+                </tr>
+                <tr>
+                    <td style="float: right; font-weight: bold;">[Media Name:] </td>
+                    <td colspan="3">&nbsp;@Model.TorrentName</td>
+                </tr>
+                <tr>
+                    <td colspan="4"><br /></td>
+                </tr>
+                <tr>
+                    <th style="text-align: center;"  colspan="4">---- Download Statistics ----</th>
+                </tr>
+                <tr>
+                    <td style="float: right; font-weight: bold;">Client Source: </td>
+                    <td style="font-size: 12px;">&nbsp;Deluge Client</td>
+                    <td style="float: right; font-weight: bold;">Begin Time: </td>
+                    <td style="font-size: 12px;">&nbsp;@Model.DownloadStarted</td>
+                </tr>
+                <tr>
+                    <td style="float: right; font-weight: bold;">Total Time: </td>
+                    <td style="font-size: 12px;">&nbsp;@Model.DownloadDuration</td>
+                    <td style="float: right; font-weight: bold;">Finish Time: </td>
+                    <td style="font-size: 12px;">&nbsp;@Model.DownloadFinished</td>
+                </tr>
+                <tr>
+                    <td colspan="4"><br /></td>
+                </tr>
+                <tr>
+                    <th style="text-align: center;"  colspan="4">---- Automation Status ----</th>
+                </tr>
+                <tr>
+                    <td style="float: right; font-weight: bold;">[Last Stage:]</td>
+                    <td style="font-size: 12px;">&nbsp;@Model.automationStatusDisplay</td>
+                    <td style="float: right; font-weight: bold;">[Next Stage:]</td>
+                    <td style="font-size: 12px;">&nbsp;Sanitize File</td>
+                </tr>
+                <tr>
+                    <td colspan="4"><br /></td>
+                </tr>
+                <tr>
+                    <th style="text-align: center;"  colspan="4">---- Sort Information ----</th>
+</tr>
+                <tr>
+                    <td style="float: right; font-weight: bold;">[Media Type:] </td>
+                    <td style="font-size: 12px;">&nbsp;@Model.MediaTypeName</td>
+                    <td style="float: right; font-weight: bold;">[Media ID:] </td>
+                    <td style="font-size: 12px;">&nbsp;@Model.pk_MediaID</td>
+                </tr>
+                <tr>
+                    <td style="float: right; font-weight: bold;">[Processed:] </td>
+                    <td style="font-size: 12px;">&nbsp;@Model.hasBeenProcessed</td>
+                    <td style="float: right; font-weight: bold;">[Finalized:] </td>
+                    <td style="font-size: 12px;">&nbsp;@Model.hasBeenFinalized</td>
+                </tr>
+                <tr>
+                    <td style="float: right; font-weight: bold;">[Sanitized:]</td>
+                    <td style="font-size: 12px;">&nbsp;@Model.hasBeenSanitized</td>
+                    <td style="float: right; font-weight: bold;">[Distributed:]</td>
+                    <td style="font-size: 12px;">&nbsp;@Model.hasBeenDistributed</td>
+                </tr>
+                <tr>
+                    <td colspan="4"><br /></td>
+                </tr>
+                <tr>
+                    <th style="text-align: center;"  colspan="4">---- Finalized Information ----</th>
+                </tr>
+                <tr>
+                    <td style="float: right; font-weight: bold;">[Show Name:] </td>
+                    <td style="font-size: 12px;">&nbsp;@Model.finalizedShowName</td>
+                    <td style="float: right; font-weight: bold;">[Season #:] </td>
+                    <td style="font-size: 12px;">&nbsp;@Model.finalizedShowSeason</td>
+                </tr>
+                <tr>
+                    <td style="float: right; font-weight: bold;">[Show Drive:] </td>
+                    <td style="font-size: 12px;">&nbsp;@if (!string.IsNullOrEmpty(Model.MoveDestination))
+                        {
+                            Write(Model.MoveDestination.Split(':')[0]);
+                        }
+                    </td>
+                    <td style="float: right; font-weight: bold;">[Episode #:] </td>
+                    <td style="font-size: 12px;">&nbsp; @Model.finalizedShowEpisode</td>
+
+                </tr>
+                <tr>
+                    <td style="float: right; font-weight: bold;">[Final Path:]</td>
+                    <td style="font-size: 12px;">&nbsp;@Model.MoveDestination</td>
+                    <td colspan="2" style="float: right; font-weight: bold;">[Move Time:] </td>
+                    <td colspan="2" style="font-size: 12px;">&nbsp;@Model.MoveTime</td>
+                </tr>
+            </table>
+            <br />
+            </div>
+
+        </div>
+    </div>

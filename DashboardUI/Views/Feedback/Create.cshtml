@@ -1,0 +1,42 @@
+﻿@model DashboardUI.Models.RequestedMediaItemModel
+
+@{
+    ViewBag.Title = "Request Media ";
+}
+
+<h2>New Media Request</h2>
+
+@using (Html.BeginForm("Create", "Feedback", FormMethod.Post)) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Request Information</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <table>
+                    <tr>
+                        <td>@Html.LabelFor(model => model.RequestQuery)</td>
+                        <td>@Html.LabelFor(model => model.RequestShow)</td>
+                        <td>@Html.LabelFor(model => model.RequestEpisode)</td>
+                        <td>@Html.LabelFor(model => model.RequestMovie)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.EditorFor(model => model.RequestQuery)</td>
+                        <td>@Html.EditorFor(model => model.RequestShow)</td>
+                        <td>@Html.EditorFor(model => model.RequestEpisode)</td>
+                        <td>@Html.EditorFor(model => model.RequestMovie)</td>
+                        <td><input type="hidden" id="RequestCompleted" value="0" /></td>
+                    </tr>
+                </table>
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Request List", "Index")
+</div>

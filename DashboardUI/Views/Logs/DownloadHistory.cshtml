@@ -1,0 +1,57 @@
+﻿@model IEnumerable<DashboardUI.Areas.LogsDashboard.Models.downloadHistory>
+
+@{
+    ViewBag.Title = "DownloadHistory";
+}
+
+<h2>File Download History</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.filePath)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fileName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fileMediaType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fileCreated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fileCompleted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.pendingSortProcessing)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.filePath)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fileName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fileMediaType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fileCreated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fileCompleted)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.pendingSortProcessing)
+        </td>
+    </tr>
+}
+
+</table>

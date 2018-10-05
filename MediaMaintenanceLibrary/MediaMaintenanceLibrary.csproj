@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F44501EB-8829-40DD-B986-0F2E1D27A07E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MediaMaintenanceLibrary</RootNamespace>
+    <AssemblyName>MediaMaintenanceLibrary</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>D:\xampp\htdocs\media\docs\code_documentation\MediaMaintenanceLibrary.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\WindowsPowerShell\3.0\System.Management.Automation.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataAccess.cs" />
+    <Compile Include="enums\MediaTypes.cs" />
+    <Compile Include="MediaConversion.cs" />
+    <Compile Include="MediaProcessingLibrary.cs" />
+    <Compile Include="models\AddressModel.cs" />
+    <Compile Include="models\EpisodeImageModel.cs" />
+    <Compile Include="models\EpisodeResult.cs" />
+    <Compile Include="models\EpisodeSearchResult.cs" />
+    <Compile Include="models\EventLogModel.cs" />
+    <Compile Include="models\PersonModel.cs" />
+    <Compile Include="models\SeasonImageModel.cs" />
+    <Compile Include="models\SeasonResult.cs" />
+    <Compile Include="models\SeasonSearchResult.cs" />
+    <Compile Include="models\SeriesImageModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="models\SeriesResult.cs" />
+    <Compile Include="models\SeriesSearchResult.cs" />
+    <Compile Include="Apis\TvdbApiLibrary.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Scripts\powershell\deluge_added.ps1" />
+    <None Include="Scripts\powershell\deluge_completed.ps1" />
+    <None Include="Scripts\powershell\deluge_removed.ps1" />
+    <None Include="Scripts\powershell\DistributeSortTable.ps1" />
+    <None Include="Scripts\powershell\FinalizeSortTable.ps1" />
+    <None Include="Scripts\powershell\PopulateDownloadHistory.ps1" />
+    <None Include="Scripts\powershell\PopulateMediaLibraryTable.ps1" />
+    <None Include="Scripts\powershell\PopulateSortTable.ps1" />
+    <None Include="Scripts\powershell\SanitizeSortTable.ps1" />
+    <None Include="Scripts\powershell\SanitizeSortTitle.ps1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\exe\aria2c.exe" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="interfaces\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

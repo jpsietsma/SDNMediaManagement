@@ -1,0 +1,50 @@
+﻿@(Html.Kendo().Grid<DashboardUI.Models.SortMediaItemModel>()
+              .Name("grid")
+              .Columns(columns =>
+              {
+                  columns.Bound(c => c.pk_MediaID).Filterable(false);
+                  columns.Bound(c => c.fileName);
+                  columns.Bound(c => c.fileNameSanitized);
+                  columns.Bound(c => c.fileAdded).Format("{0:MM/dd/yyyy hh:mm:ss }");
+                  columns.Bound(c => c.hasBeenSanitized).Filterable(false);
+                  columns.Bound(c => c.hasBeenProcessed).Filterable(false);
+                  columns.Bound(c => c.fk_fileMediaTypeID).Filterable(false);
+                  columns.Command(command => { command.Edit(); command.Destroy(); }).Width(180);
+              })
+              .ToolBar(toolbar =>
+              {
+                  toolbar.Custom().Text("1. Repopulate").Action("ExecutePS", "Maintenance", new { id = "populate" });
+                  toolbar.Custom().Text("2. Sanitize").Action("ExecutePS", "Maintenance", new { id = "sanitize" });
+                  toolbar.Custom().Text("3. Finalize").Action(/*"ExecutePS", "Maintenance", new { id = "finalize" }*/"GetContents", "Sort");
+                  toolbar.Custom().Text("4. Distribute").Action(/*"ExecutePS", "Maintenance", new { id = "distribute" }*/"GetContents", "Sort");
+              })
+              .Editable(editable => editable.Mode(GridEditMode.PopUp))
+              .Pageable()
+              .Selectable(selectable =>
+              {
+                  selectable.Mode(GridSelectionMode.Multiple);
+                  selectable.Type(GridSelectionType.Row);
+              })
+              .Sortable(sortable =>
+              {
+                  sortable.SortMode(GridSortMode.SingleColumn);
+              })
+              .Filterable()
+              .DataSource(dataSource => dataSource
+                  .Ajax()
+                  .Model(model =>
+                  {
+                      model.Id(p => p.pk_MediaID);
+                      model.Field(p => p.pk_MediaID).Editable(false);
+                      model.Field(p => p.fk_fileMediaTypeID).Editable(false);
+                      model.Field(p => p.fileAdded).Editable(false);
+                      model.Field(p => p.fileName).Editable(false);
+                      model.Field(p => p.hasBeenProcessed).Editable(false);
+                  })
+                  .Read(read => read.Action("sortItems_Read", "Sort"))
+                  .Update(update => update.Action(/*"sortItems_Update", "Sort" */"Index", "Sort"))
+                  .Destroy(destroy => destroy.Action(/*"sortItems_Destroy", "Grid"*/"Index", "Sort"))
+                  .PageSize(25)
+                  .Sort(sort => sort.Add("fileName").Ascending())
+              )
+)

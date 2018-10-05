@@ -1,0 +1,66 @@
+﻿@model IEnumerable<DashboardUI.Models.TelevisionEpisodeModel>
+
+<div class="modal-header" style="width: 820px;">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title" style="text-align: center; width: 800px;"><b>Streaming Playlist:</b> @Model.First().ShowName - @Model.First().SeasonName </h4>
+</div>
+
+<div class="modal-body" style="width: 800px;">
+    <div class="form-horizontal" style="width: 800px;">
+        <div class="demo-section k-content wide" style="width: 800px;">
+            @(Html.Kendo().MediaPlayer()
+                .Navigatable(true)
+                .Media(m => m
+                    .Title("woo")
+                    .Source("woo")
+                )
+                .Name("mediaPlayer")
+                .HtmlAttributes(new { style = "height:780px; width: 780px;" })
+            )
+        </div>
+
+        <div class="demo-section k-content wide">
+            <div id="listView" style="float: right;"></div>
+
+                <script type="text/x-kendo-tmpl" id="template">
+                    <div class="product-view k-widget" style="font-size: 12px;">
+                            <table id="playlistDiv">
+                                <tr>
+                                    <td style="text-align: center; font-weight: bold;">
+                                        #:EpisodeDisplayTitle#
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        #:EpisodePath#
+                                    </td>
+                                </tr>
+                            </table>                                                        
+                        <div class="edit-buttons">
+                            <a class="k-button k-delete-button" href="\\#"><span class="k-icon k-i-delete"></span></a>
+                        </div>
+                    </div>
+                </script>
+
+            @(Html.Kendo().ListView<DashboardUI.Models.TelevisionEpisodeModel>(Model)
+                            .Name("listView")
+                            .TagName("div")
+                            .BindTo(Model)
+                            .ClientTemplateId("template")
+                            .Selectable()
+                            .DataSource(dataSource => dataSource
+                                .Custom()
+                                .Schema(schema => schema
+                                    .Model(model => model.Id("pk_EpisodeID"))
+                                )
+                                .PageSize(10)
+                                .Batch(true)
+                            )
+
+            )
+        </div>
+    </div>
+
+</div>

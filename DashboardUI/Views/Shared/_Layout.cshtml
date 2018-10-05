@@ -3,39 +3,88 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <title>@ViewBag.Title | Sietsma Development Network</title>
+    @Scripts.Render("~/bundles/jquery")
+    	<link href="https://kendo.cdn.telerik.com/2018.3.911/styles/kendo.common.min.css" rel="stylesheet" type="text/css" />
+	<link href="https://kendo.cdn.telerik.com/2018.3.911/styles/kendo.mobile.all.min.css" rel="stylesheet" type="text/css" />
+	<link href="https://kendo.cdn.telerik.com/2018.3.911/styles/kendo.black.min.css" rel="stylesheet" type="text/css" />
+	<script src="https://kendo.cdn.telerik.com/2018.3.911/js/jquery.min.js"></script>
+	<script src="https://kendo.cdn.telerik.com/2018.3.911/js/jszip.min.js"></script>
+	<script src="https://kendo.cdn.telerik.com/2018.3.911/js/kendo.all.min.js"></script>
+	<script src="https://kendo.cdn.telerik.com/2018.3.911/js/kendo.aspnetmvc.min.js"></script>
+@Styles.Render("~/Content/css")
+
+	<script src="@Url.Content("~/Scripts/kendo.modernizr.custom.js")"></script>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="container body-content">
+
+    <style type="text/css">
+
+        /* entire container, keeps perspective */
+        .flip-container {
+        perspective: 1000px;
+        }
+        /* flip the pane when hovered */
+        .flip-container:hover .flipper, .flip-container.hover .flipper {
+        transform: rotateY(180deg);
+        }
+
+        .flip-container, .front, .back {
+        width: 180px;
+        height: 250px;
+        }
+
+        /* flip speed goes here */
+        .flipper {
+        transition: 0.6s;
+        transform-style: preserve-3d;
+        position: relative;
+        }
+
+        /* hide back of pane during swap */
+        .front, .back {
+            backface-visibility: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border: 1px solid black;
+        }
+
+        /* front pane, placed above back */
+        .front {
+        z-index: 2;
+        /* for firefox 31 */
+        transform: rotateY(0deg);
+        }
+
+        /* back, initially hidden pane */
+        .back {
+        transform: rotateY(180deg);
+        }
+    </style>
+
+
+    @{
+        Html.RenderPartial("_HeaderNavBar");
+    }
+    <div class="container-fluid body-content">
+        <br />
+        <br />
         @RenderBody()
+    </div>
+    <div>
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+        @{
+            //Html.RenderPartial("_AIChat");
+        }
+
+        @{
+            Html.RenderPartial("_FooterNavBar");
+        }
+
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
+
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>

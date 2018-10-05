@@ -1,0 +1,87 @@
+﻿@model IEnumerable<DashboardUI.Models.MediaDownloadModel>
+
+@{
+    ViewBag.Title = "SDN Downloads ";
+}
+
+<h2>Download History</h2>
+
+<table class="table table-hover table-striped table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.pk_torrentID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TorrentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DownloadStarted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DownloadFinished)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DownloadDuration)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TorrentStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TorrentPath)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.pk_torrentID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TorrentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DownloadStarted)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DownloadFinished)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DownloadDuration)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TorrentStatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TorrentPath)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "DownloadDetails", "Sort", new { id = item.pk_torrentID }, new { data_target = "#download-details-modal-container", data_toggle = "modal", @class = "btn btn-primary", @style = "color:white" })
+            <!--<button type="button" class="btn btn-primary" data-bind="@item.pk_torrentID" data-toggle="modal" data-target="#downloadDetails">Details</button> -->
+        </td>
+    </tr>
+}
+
+</table>
+
+<div id="download-details-modal-container" class="modal fade hidden-print" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+
+        </div>
+    </div>
+</div>
+
+<script>
+
+    // note that this will replace the content of modal-content ever time the modal is opened - FOR Episode Player Modal
+    $('#download-details-modal-container').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); // Button that triggered the modal
+        var url = button.attr("href");
+        var modal = $(this);
+
+        modal.find('.modal-content').load(url);
+    });
+
+    </script>

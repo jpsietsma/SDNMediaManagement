@@ -1,0 +1,109 @@
+﻿@model DashboardUI.Models.TelevisionEpisodeModel
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title" style="text-align: center;"><b>Episode Details:</b> @Model.EpisodeDisplayTitle </h4>
+</div>
+<div class="modal-body">
+    <div class="form-horizontal">
+        <div class="demo-section k-content wide" style="max-width: 800px;">
+            
+            <div>
+
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.SeasonName)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.SeasonName)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.EpisodePath)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.EpisodePath)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.EpisodeAlbumArtPath)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.EpisodeAlbumArtPath)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.EpisodePlayerPath)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.EpisodePlayerPath)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ShowName)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.ShowName)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.EpisodeNum)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.EpisodeNum)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.SeasonHomePath)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.SeasonHomePath)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ShowHomePath)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.ShowHomePath)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.fk_SeasonID)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.fk_SeasonID)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.EpisodeDisplayTitle)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.EpisodeDisplayTitle)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.fk_ShowID)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.fk_ShowID)
+                    </dd>
+
+                </dl>
+            </div>
+
+        </div>
+    </div>
+</div>

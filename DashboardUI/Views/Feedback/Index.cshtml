@@ -1,0 +1,87 @@
+﻿@model IEnumerable<DashboardUI.Models.RequestedMediaItemModel>
+
+@{
+    ViewBag.Title = "Media Requests";
+}
+
+<h2>User Media Requests</h2>
+
+<p>
+    @Html.ActionLink("Create Request", "RequestMedia", "Sort", new { @class = "btn btn-primary", @style = "color:white" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RequestQuery)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RequestType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RequestSubtype)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExistingSeries)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RequestShow)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RequestSeason)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RequestEpisode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RequestMovie)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RequestMovieYear)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RequestMovieGenre)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.RequestQuery)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RequestType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RequestSubtype)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExistingSeries)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RequestShow)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RequestSeason)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RequestEpisode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RequestMovie)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RequestMovieYear)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RequestMovieGenre)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.pk_RequestID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.pk_RequestID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.pk_RequestID })
+        </td>
+    </tr>
+}
+
+</table>

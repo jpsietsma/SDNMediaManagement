@@ -1,0 +1,69 @@
+﻿@model IEnumerable<DashboardUI.Models.TelevisionShowModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DriveLetter)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MediaType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FileName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FullPath)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShowName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SeasonCount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EpisodeCount)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DriveLetter)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MediaType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FileName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FullPath)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShowName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SeasonCount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EpisodeCount)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

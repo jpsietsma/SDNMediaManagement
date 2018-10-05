@@ -1,0 +1,79 @@
+﻿@model IEnumerable<DashboardUI.Models.TaskModel>
+
+@{
+    ViewBag.Title = "Tasks";
+}
+
+<h2>Programming Tasks To-Do List</h2>
+
+<p>
+    @Html.ActionLink("Add New Task", "Create_Task", "Feedback")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TaskDetails)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TaskTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TaskStartTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TaskEndTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fk_TaskPriority)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fk_TaskType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fk_ParentTaskID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fk_TaskStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fk_TaskOwner)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaskDetails)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaskTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaskStartTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaskEndTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fk_TaskPriority)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fk_TaskType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fk_ParentTaskID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fk_TaskStatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fk_TaskOwner)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id = item.pk_TaskID })
+        </td>
+    </tr>
+}
+
+</table>

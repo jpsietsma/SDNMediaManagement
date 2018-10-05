@@ -1,0 +1,107 @@
+﻿@model DashboardUI.Models.TelevisionEpisodeModel
+
+@{
+    ViewBag.Title = "Editing: " + Model.EpisodeDisplayTitle + " ";
+}
+
+<center><h2>@Html.ActionLink(Model.ShowName, "ShowInfo") / @Html.ActionLink(Model.SeasonName, "SeasonInfo", new { id = Model.fk_ShowID }) / @Html.ActionLink("Episodes", "EpisodeInfo", new { id = Model.fk_SeasonID}) / @Model.EpisodeDisplayTitle</h2></center>
+
+<div>
+    <h4>
+        @Model.EpisodeDisplayTitle
+    </h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SeasonName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SeasonName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EpisodePath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EpisodePath)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EpisodeAlbumArtPath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EpisodeAlbumArtPath)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EpisodePlayerPath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EpisodePlayerPath)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShowName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShowName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EpisodeNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EpisodeNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SeasonHomePath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SeasonHomePath)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShowHomePath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShowHomePath)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fk_SeasonID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fk_SeasonID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EpisodeDisplayTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EpisodeDisplayTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fk_ShowID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fk_ShowID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to " + Model.SeasonName + " episodes", "EpisodeInfo", new { id = Model.fk_SeasonID})
+</p>

@@ -1,0 +1,92 @@
+﻿@model IEnumerable<DashboardUI.Models.TelevisionEpisodeModel>
+
+@{
+    ViewBag.Title = Model.First().ShowName + " - " + Model.First().SeasonName + " Episodes";
+}
+<center><h2>@Html.ActionLink(Model.First().ShowName, "ShowInfo") / @Html.ActionLink(Model.First().SeasonName, "SeasonInfo", new { id = Model.First().fk_ShowID }) / Episodes</h2></center>
+
+<table style="margin: 0 auto 0;">
+
+    @{int i = 1; }
+
+    @foreach (var item in Model)
+    {
+        if (i == 1)
+        {
+            @:<tr>
+            }
+            <td style="padding-right: 10px; padding-bottom: 10px;">
+                <div style=" width: 200px; float: left;" class="flip-container" ontouchstart="this.classList.toggle('hover');">
+                    <div class="flipper" style="margin: 0 auto 0; padding: 10px;">
+                        <div style="text-align: center; margin-right: 10px; width: 200px; float: left;" class="front">
+                            <!-- front content -->
+                            <img src="@Url.Content(item.EpisodeAlbumArtPath)" height="250" width="200" />
+                        </div>
+                        <div style=" width: 200px; float: left; background-color: black; color: white;" class="back">
+                            <!-- back content -->
+                            <b style="color:darkorange">Season:</b> @item.SeasonName<br /><b style="color:darkorange">Episode:</b> @item.EpisodeNum<br /><br /><b style="color:darkorange">Summary:</b> This is where we can populate the episode description<br /><br />
+                            <center>
+                                @Html.ActionLink("Watch Episode", "WatchEpisode", new { id = item.pk_EpisodeID }, new { data_target = "#episode-player-modal-container", data_toggle = "modal" })
+                            </center><br />
+                            <center>
+                                @Html.ActionLink("Edit Episode Details", "EditEpisodeDetails", new { id = item.pk_EpisodeID }, new { data_target = "#edit-episode-modal-container", data_toggle = "modal" })
+                            </center>
+                        </div>
+                    </div>
+                </div>
+            </td>
+
+            if (i == 5)
+            {
+            @:</tr>
+            i = 0;
+        }
+
+        i++;
+
+    }
+
+</table>
+
+<!-- Code for Play Episode Modal Popup -->
+<div id="episode-player-modal-container" class="modal fade hidden-print" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+
+        </div>
+    </div>
+</div>
+
+<!-- Code for Edit Episode details Modal Popup -->
+<div id="edit-episode-modal-container" class="modal fade hidden-print" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+
+        </div>
+    </div>
+</div>
+
+<!-- Script to show/hide modals and clear data between closing -->
+<script>
+
+    // note that this will replace the content of modal-content ever time the modal is opened - FOR Episode Player Modal
+    $('#episode-player-modal-container').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); // Button that triggered the modal
+        var url = button.attr("href");
+        var modal = $(this);
+
+        modal.find('.modal-content').load(url);
+    });
+
+    // note that this will replace the content of modal-content ever time the modal is opened - FOR Episode Edit Modal
+    $('#edit-episode-modal-container').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); // Button that triggered the modal
+        var url = button.attr("href");
+        var modal = $(this);
+        
+        modal.find('.modal-content').load(url);
+    });
+
+</script>

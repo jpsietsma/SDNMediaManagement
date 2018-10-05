@@ -1,0 +1,111 @@
+﻿
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("SDN Media Management", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+
+                @if (Request.IsAuthenticated)
+                {
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Reports
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("Overview", "Overview", "Reports")</li>
+                            <li>@Html.ActionLink("Television", "TelevisionMaster", "Reports")</li>
+                            <li>@Html.ActionLink("Movies", "MovieMaster", "Reports")</li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Media
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("Television Shows", "ShowInfo", "Media")</li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Automation
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("Sort Queue", "GetContents", "Sort")</li>
+                            <li>@Html.ActionLink("Settings", "AutomationSettings", "Sort")</li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Administration
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("Dashboard", "Dashboard", "Admin")</li>
+                            <li>@Html.ActionLink("User Accounts", "Users", "Accounts")</li>
+                            <li>@Html.ActionLink("Permissions", "Permissions", "Admin")</li>
+                            <li>@Html.ActionLink("Storage Config", "MediaDrives", "Admin")</li>
+                            <li>@Html.ActionLink("Download History", "GetDownloads", "Sort")</li>
+                            <li>@Html.ActionLink("To-do List", "Tasks", "Feedback")</li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Media Maintenance
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("Add Show", "AddShow", "Media")</li>
+                            <li>@Html.ActionLink("Add Season", "AddSeason", "Media")</li>
+                            <li>@Html.ActionLink("Add Sort Item", "AddSortItem", "Media")</li>
+                            <li>@Html.ActionLink("Scheduling", "AutomationTasks", "Media")</li>
+                            <li>@Html.ActionLink("Scripts", "ScriptDashboard", "Media")</li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Logs
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("Error Logs", "ErrorLogs", "Logs")</li>
+                            <li>@Html.ActionLink("User Activity", "UserLogs", "Logs")</li>
+                            <li>@Html.ActionLink("Info Logs", "InfoLogs", "Logs")</li>
+                            <li>@Html.ActionLink("Storage Logs", "StorageLogs", "Logs")</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                           Feedback
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("Request Media", "RequestMedia", "Feedback")</li>
+                            <li>@Html.ActionLink("View Requests", "Requests", "Feedback")</li>
+                        </ul>
+                    </li>
+
+                }
+
+                <li>
+                    @Html.Partial("_LoginPartial")
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

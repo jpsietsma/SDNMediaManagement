@@ -1,0 +1,66 @@
+﻿<Window x:Class="MediaSearch.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MediaSearch"
+        mc:Ignorable="d" FontSize="18" FontFamily="Segoe UI Light"
+        Title="Media Search | SDN Media" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="20" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" FontSize="28" 
+                   Text="SietsmaDevNet Media" />
+
+        <TextBlock Grid.Column="1" Grid.Row="2" FontWeight="SemiBold" 
+                   Text="First Name" FontFamily="Segoe UI" Margin="5"/>
+        <TextBox Grid.Column="2" Grid.Row="2" x:Name="firstNameText" Width="150" Margin="5"/>
+
+        <ComboBox Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" x:Name="myComboBox">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding FullName}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <Button Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" 
+                x:Name="submitButton" Content="Run Me" Margin="10" Click="submitButton_Click" />
+
+        <Image Grid.Row="1" Grid.Column="4" Grid.RowSpan="6" Source="C:\Test\1.jpeg" />
+        <!--<MediaElement Grid.Row="1" Grid.Column="4" Grid.RowSpan="6" Source="" />-->
+
+        <!--<ScrollViewer Grid.Row="1" Grid.Column="4" Grid.RowSpan="6">
+            <StackPanel Orientation="Vertical">
+                --><!--<Image Grid.Row="1" Grid.Column="4" Grid.RowSpan="6" Source="" />-->
+                <!--<Image Grid.Row="1" Grid.Column="4" Grid.RowSpan="6" Source="" />-->
+                <!--<Image Grid.Row="1" Grid.Column="4" Grid.RowSpan="6" Source="" />-->
+                <!--<Image Grid.Row="1" Grid.Column="4" Grid.RowSpan="6" Source="" />--><!--
+            </StackPanel>
+        </ScrollViewer>-->
+        <!--<WrapPanel Grid.Row="1" Grid.Column="4" Grid.RowSpan="6" Orientation="Horizontal">
+            --><!--<Image Grid.Row="1" Grid.Column="4" Grid.RowSpan="6" Source="" />-->
+            <!--<Image Grid.Row="1" Grid.Column="4" Grid.RowSpan="6" Source="" />-->
+            <!--<Image Grid.Row="1" Grid.Column="4" Grid.RowSpan="6" Source="" />-->
+            <!--<Image Grid.Row="1" Grid.Column="4" Grid.RowSpan="6" Source="" />--><!--
+        </WrapPanel>-->
+
+    </Grid>
+</Window>

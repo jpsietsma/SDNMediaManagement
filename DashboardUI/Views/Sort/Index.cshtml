@@ -1,0 +1,29 @@
+﻿
+@(Html.Kendo().Grid<DashboardUI.SortMediaItem>()
+      .Name("grid")
+      .Columns(columns =>
+      {
+    columns.Command(command => { command.Edit(); command.Destroy(); }).Width(180);
+})
+      .ToolBar(toolbar => {
+    toolbar.Excel();
+})
+      .Editable(editable => editable.Mode(GridEditMode.PopUp))
+      .Pageable()
+      .Selectable(selectable => {
+    selectable.Mode(GridSelectionMode.Multiple);
+    selectable.Type(GridSelectionType.Row);
+})
+      .Sortable(sortable => {
+    sortable.SortMode(GridSortMode.SingleColumn);
+})
+      .Filterable()
+      .Scrollable()
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .Model(model => model.Id(p => p.Database))
+          .Read(read => read.Action("sortItems_Read", "Sort"))
+          .Update(update => update.Action("sortItems_Update", "Sort"))
+          .Destroy(destroy => destroy.Action("sortItems_Destroy", "Sort"))
+      )
+)

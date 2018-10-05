@@ -1,0 +1,74 @@
+﻿@model IEnumerable<DashboardUI.Models.TelevisionSeasonModel>
+
+@{
+    ViewBag.Title = Model.First().ShowName + " - Seasons ";
+}
+<br />
+<h2>@Html.ActionLink(Model.First().ShowName, "ShowInfo") / Seasons</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SeasonName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SeasonHomePath)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SeasonNumEpisodes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fk_ShowID)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SeasonName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SeasonHomePath)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SeasonNumEpisodes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fk_ShowID)
+            </td>
+            <td>
+                @Html.ActionLink("Episodes", "EpisodeInfo", new { id = item.pk_SeasonID }) |
+                @Html.ActionLink("Edit Season", "EditSeasonInfo", new { id = item.pk_SeasonID }) |
+                @Html.ActionLink("Watch Season", "WatchSeason", new { id = item.pk_SeasonID }, new { data_target = "#season-player-modal-container", data_toggle = "modal" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<!-- Code for Play Season Modal Popup -->
+<center>
+    <div id="season-player-modal-container" class="modal fade hidden-print" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content" style="width: 850px; margin: 0 auto 0;">
+
+
+            </div>
+        </div>
+    </div>
+</center>
+<!-- Script to show/hide modals and clear data between closing -->
+<script>
+
+    // note that this will replace the content of modal-content ever time the modal is opened - FOR Season Player Modal
+    $('#season-player-modal-container').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); // Button that triggered the modal
+        var url = button.attr("href");
+        var modal = $(this);
+
+        modal.find('.modal-content').load(url);
+    });
+
+</script>

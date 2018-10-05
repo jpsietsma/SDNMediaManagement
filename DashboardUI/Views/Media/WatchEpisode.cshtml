@@ -1,0 +1,59 @@
+﻿@model DashboardUI.Models.TelevisionEpisodeModel
+
+@{
+    ViewBag.Title = Model.EpisodeDisplayTitle;
+}
+
+<h2> </h2>
+
+<div class="demo-section k-content wide" style="max-width: 800px;">
+    @(Html.Kendo().MediaPlayer()
+                                    .Navigatable(true)
+                                    .Media(m => m
+                                        .Title(Model.EpisodeDisplayTitle)
+                                        .Source(Model.EpisodePlayerPath)
+                                        )
+
+                                    .Name("mediaPlayer")
+                                    .HtmlAttributes(new { style = "height:500px" })
+    )
+</div>
+
+<div>
+    <h4>@Html.DisplayFor(model => model.EpisodeDisplayTitle)</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.EpisodePath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EpisodePath)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EpisodeNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EpisodeNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EpisodePlayerPath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EpisodePlayerPath)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fk_ShowID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fk_ShowID)
+        </dd>
+
+    </dl>
+</div>

@@ -1,31 +1,84 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "SDN Media Home";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+@if (Request.IsAuthenticated)
+{
+    <div class="jumbotron">
+        <h3>User Dashboard - @User.Identity.Name</h3>
+        <div class="demo-section k-content wide">
+            @(Html.Kendo().Chart()
+                                .Name("chart")
+                                .Title("Media Watched This Year")
+                                .Legend(legend => legend
+                                    .Position(ChartLegendPosition.Bottom)
+                                )
+                                .ChartArea(chartArea => chartArea
+                                    .Background("transparent")
+                                )
+                                .SeriesDefaults(seriesDefaults =>
+                                    seriesDefaults.Line().Style(ChartLineStyle.Smooth)
+                                )
+                                .Series(series =>
+                                {
+                                    series.Line(new int[] {45, 36, 24, 22, 22, 65, 36, 67, 78, 14 }).Name("Average Television")
+                                          .Color("White").Tooltip(tooltip => tooltip.Visible(true).Format("{0} Average Episodes Watched"));
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+                                    series.Line(new int[] { 66, 74, 34, 29, 65, 63, 45, 46, 54, 36 }).Name("Your Television")
+                                          .Color("Red").Tooltip(tooltip => tooltip.Visible(true).Format("You've Watched {0} Episodes"));
+
+                                    series.Line(new int[] { 6, 3, 5, 7, 12, 15, 9, 5, 13, 27 }).Name("Average Movies")
+                                          .Tooltip(tooltip => tooltip.Visible(true).Format("{0} Average Movies Watched"));
+
+                                    series.Line(new int[] { 13, 8, 8, 6, 22, 34, 6, 3, 11, 27 }).Name("Your Movies")
+                                          .Tooltip(tooltip => tooltip.Visible(true).Format("You've Watched {0} Movies"));
+
+                                })
+                                .CategoryAxis(axis => axis
+                                    .Categories("January", "February", "March", "April", "May", "June", "July", "August", "September", "October")
+                                    .MajorGridLines(lines => lines.Visible(false))
+                                    .MinorGridLines(lines => lines.Visible(false))
+                                )
+                                .ValueAxis(axis => axis
+                                    .Numeric().Labels(labels => labels.Format("{0}"))
+                                    .Line(line => line.Visible(false))
+                                    .AxisCrossingValue(-10)
+                                )
+                                .Tooltip(tooltip => tooltip
+                                    .Visible(true)
+                                    .Format("You've Watched {0}")
+                                )
+            )
+        </div>
+        </div>
+
+        }
+        else
+        {
+        <div class="jumbotron">
+            <h1>Sietsma Development Media Network</h1>
+            <p class="lead">Reliable, Quick, and free!  Watch the shows you want, without the hassle!</p>
+            <p><a href="#" class="btn btn-primary btn-lg">Free Sign Up! &raquo;</a></p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <h2><b>Step 1:</b> Register Your Account</h2>
+                <p>
+                    Registering is quick and painless, and best of all it's asolutely <b>FREE</b>!  Requiring our users to register helps us keep the system clean and stops it from slowing users down
+                </p>
+                <p><a class="btn btn-default" href="@Url.Action("Register","Account")">Begin Now! &raquo;</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2><b>Step 2:</b> Wait account verification</h2>
+                <p>All new account creations are checked by an actual administrator in order to avoid duplicate accounts, repeat TOS violators, as well as to verify that you aren't a robot.</p>
+                <p><a class="btn btn-default" href="#">Learn more &raquo;</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2><b>Step 3:</b> Watch your shows!</h2>
+                <p>Once you have registered for your free account and have been granted administrative approval, you're ready to head on over to the media dashboard and begin watching our library!  If you have any questions you can refer to the help topic in the account section, thank you!</p>
+                <p><a class="btn btn-default" href="#">Dashboard &raquo;</a></p>
+            </div>
+        </div>
+
+        }
