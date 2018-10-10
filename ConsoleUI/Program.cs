@@ -1,34 +1,50 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.IO;
-using System.Linq;
-using System.Management.Automation.Runspaces;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
-using DashboardUI.Models;
-using MediaMaintenanceLibrary;
-using ConfigurationLibrary;
+using MediaMaintenanceLibrary.models;
+using MediaMaintenanceLibrary.enums;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using MediaMaintenanceLibrary;
 
 namespace ConsoleUI
 {
     class Program
     {
 
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            Configuration config = new Configuration();
+            Beginning:
+            Console.Clear();
 
-            SortMediaItemModel sortItem = new SortMediaItemModel();
-            TelevisionEpisodeItem episode = sortItem.ToEpisode();
+            //ask for DL duration in minutes
+            Console.WriteLine("Enter Duration in Minutes: ");
+            string minutes = Console.ReadLine();
+
+            //Ask for filesize in double xx.xx
+            Console.WriteLine("Enter FileSize in MB (xx.xx): ");
+            string fileSize = Console.ReadLine();
+
+            //parse size and mins into double and int
+            double.TryParse(fileSize, out double size);
+            int.TryParse(minutes, out int mins);
+
+            //Calculate download duration by minutes
+            string finalDuration = Calculations.CalculateDownloadDuration(mins);
+            Console.WriteLine("Download Took " + finalDuration + " to finish.");
+            Console.WriteLine();
+            
+            //calculate Average Mb/s download speed with minutes and size
+            Console.WriteLine(Calculations.CalculateMbpsAvg(mins, size));
+
+            Console.ReadLine();
+            goto Beginning;
 
 
-            //string sqlUser = 
+
+
+            //SortMediaItemModel sortItem = new SortMediaItemModel { pk_MediaID = 1, fileName = "Test.Show.S01E01.mkv", filePath = @"S:\Test.Show.S01E01.mkv"};
+            //TelevisionEpisodeModel episode = sortItem.ToEpisode();
+
+            //Console.WriteLine(episode.EpisodePath);
 
             //string loginToken = TvdbApiLibrary.GetTvdbLoginToken();
 

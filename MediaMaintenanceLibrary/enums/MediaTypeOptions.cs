@@ -6,13 +6,6 @@ using System.Threading.Tasks;
 
 namespace MediaMaintenanceLibrary.enums
 {
-
-    /// <summary>
-    /// Class representing the media types available
-    /// </summary>
-    public static class MediaTypes
-    {
-
         /// <summary>
         /// The available types of media options the automation can process
         /// </summary>
@@ -21,7 +14,7 @@ namespace MediaMaintenanceLibrary.enums
             /// <summary>
             /// Type of: Unprocessed file that has been downoaded
             /// </summary>
-            SORT_ITEM,
+            SORT_ITEM = 1,
 
             /// <summary>
             /// Type of: Television Episode belonging to a series and a season, finalized
@@ -46,8 +39,7 @@ namespace MediaMaintenanceLibrary.enums
             /// <summary>
             /// Type of: Other - includes everything else (Documents, pictures, subtitles, etc.)
             /// </summary>
-            OTHER
+            OTHER = 99
         }
 
-    }
 }

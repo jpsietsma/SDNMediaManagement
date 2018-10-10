@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MediaMaintenanceLibrary.models;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -31,6 +32,11 @@ namespace MediaMaintenanceLibrary
             //code goes here to process and set connection string based on name
         }
 
+        /// <summary>
+        /// Gets the contents of a log file
+        /// </summary>
+        /// <param name="logPath">Path to the log file</param>
+        /// <returns>string array containing lines of the log file</returns>
         public static string[] ReadLogFile(string logPath)
         {
             string[] finalContents = null;
@@ -40,6 +46,11 @@ namespace MediaMaintenanceLibrary
             return finalContents;
         }
 
+        /// <summary>
+        /// Reads the event log for the SDNMedia application
+        /// </summary>
+        /// <param name="type">type of events to grab</param>
+        /// <returns>list of event log models</returns>
         public static List<EventLogModel> ReadEventLog(string type = "default")
         {
             List<EventLogModel> finalEvents = new List<EventLogModel>();

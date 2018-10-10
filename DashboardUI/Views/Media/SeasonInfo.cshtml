@@ -1,10 +1,23 @@
 ﻿@model IEnumerable<DashboardUI.Models.TelevisionSeasonModel>
 
 @{
-    ViewBag.Title = Model.First().ShowName + " - Seasons ";
+    if (Model.Count() > 0)
+    {
+
+        ViewBag.Title = Model.First().ShowName + " - Seasons ";
+
+    }
+    else
+    {
+
+        ViewBag.Title = "No Results ";
+    }
+
 }
 <br />
-<h2>@Html.ActionLink(Model.First().ShowName, "ShowInfo") / Seasons</h2>
+<h2>
+    @*@Html.ActionLink(Model.First().ShowName, "ShowInfo") / Seasons*@
+</h2>
 
 <table class="table">
     <tr>
@@ -23,29 +36,41 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.SeasonName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SeasonHomePath)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SeasonNumEpisodes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fk_ShowID)
-            </td>
-            <td>
-                @Html.ActionLink("Episodes", "EpisodeInfo", new { id = item.pk_SeasonID }) |
-                @Html.ActionLink("Edit Season", "EditSeasonInfo", new { id = item.pk_SeasonID }) |
-                @Html.ActionLink("Watch Season", "WatchSeason", new { id = item.pk_SeasonID }, new { data_target = "#season-player-modal-container", data_toggle = "modal" })
-            </td>
-        </tr>
-    }
+    @{ if (Model.Count() > 0)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SeasonName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SeasonHomePath)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SeasonNumEpisodes)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fk_ShowID)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Episodes", "EpisodeInfo", new { id = item.pk_SeasonID }) |
+                        @Html.ActionLink("Edit Season", "EditSeasonInfo", new { id = item.pk_SeasonID }) |
+                        @Html.ActionLink("Watch Season", "WatchSeason", new { id = item.pk_SeasonID }, new { data_target = "#season-player-modal-container", data_toggle = "modal" })
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
 
+    <tr>
+        <td colspan="4" style="margin: 0 auto 0; font-style: italic; text-align: center;">
+            There are no seasons associated with this show.  You can <a href="@Url.Action("AddSeason")">Add a season</a> to the show then view the details here after.
+        </td>
+    </tr>
+            }
+        }
 </table>
 
 <!-- Code for Play Season Modal Popup -->

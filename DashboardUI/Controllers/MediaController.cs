@@ -84,13 +84,24 @@ namespace DashboardUI.Controllers
 
         #endregion
 
-        #region Show Actions / Views...
+#region Series Actions / Views...
 
+        /// <summary>
+        /// Display form for adding a new show to the database
+        /// </summary>
+        /// <returns>
+        /// Add Show view form
+        /// </returns>
         public ActionResult AddShow()
         {
             return View();
         }
 
+        /// <summary>
+        /// Action to add show to database
+        /// </summary>
+        /// <param name="newShow">TelevisionShowModel representing show to be added</param>
+        /// <returns>redirect to list of shows when successful</returns>
         public ActionResult AddShow(TelevisionShowModel newShow)
         {
             TelevisionShowItem shows = new TelevisionShowItem();
@@ -102,6 +113,10 @@ namespace DashboardUI.Controllers
 
         }
 
+        /// <summary>
+        /// Displays view with form for adding new sort item to the database
+        /// </summary>
+        /// <returns>form for adding a new sort item</returns>
         public ActionResult AddSortItem()
         {
             SortMediaItem items = new SortMediaItem();
@@ -109,6 +124,29 @@ namespace DashboardUI.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Action to add sort item to the database
+        /// </summary>
+        /// <param name="newItem">SortMediaItemModel representing the new item to add to the database</param>
+        /// <returns>
+        /// redirect to view displaying kendoui grid with all sort items
+        /// </returns>
+        public ActionResult AddSortItem(SortMediaItemModel newItem)
+        {
+            SortMediaItem items = new SortMediaItem();
+            items.sortItems.Add(newItem);
+            items.SaveChanges();
+
+            return RedirectToAction("GetContent");
+        }
+
+        /// <summary>
+        /// Get the Show Listing or optionally pass a show to get season details
+        /// </summary>
+        /// <param name="id">pk_ShowID of the show to get info on</param>
+        /// <returns>
+        /// List view of all shows or show details if id provided
+        /// </returns>
         public ActionResult ShowInfo(int? id)
         {
             TelevisionShowItem db_shows = new TelevisionShowItem();
@@ -116,7 +154,7 @@ namespace DashboardUI.Controllers
             if (string.IsNullOrEmpty(id.ToString()))
             {
 
-                return View(db_shows.sdnTelevisionShows);
+                return View(db_shows.sdnTelevisionShows.OrderBy(show => show.ShowName));
 
             } else
             {

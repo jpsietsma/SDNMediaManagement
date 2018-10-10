@@ -59,14 +59,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ConfigurationLibrary\ConfigurationLibrary.csproj">
-      <Project>{7f9f12e7-dd24-4264-8b06-e3ace0be1343}</Project>
-      <Name>ConfigurationLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DashboardUI\DashboardUI.csproj">
-      <Project>{04097839-77c7-4dba-99dc-7db2d9cd1cec}</Project>
-      <Name>DashboardUI</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MediaMaintenanceLibrary\MediaMaintenanceLibrary.csproj">
       <Project>{f44501eb-8829-40dd-b986-0f2e1d27a07e}</Project>
       <Name>MediaMaintenanceLibrary</Name>
