@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using SDNMediaModels.Api;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -75,11 +76,11 @@ namespace MediaMaintenanceLibrary
 
         #region SDN TVDB API Series-related....
         // Executes POST command to get a list of series that match our query
-        public static List<SeriesSearchResult> SearchSeries(string queryShowName, string token, string returnField = "id")
+        public static List<IEztvSeriesSearchResult> SearchSeries(string queryShowName, string token, string returnField = "id")
         {
 
             string seriesFinal;
-            List<SeriesSearchResult> finalResults = new List<SeriesSearchResult>();
+            List<IEztvSeriesSearchResult> finalResults = new List<IEztvSeriesSearchResult>();
 
                 var httpWebRequest = (HttpWebRequest)WebRequest.Create("https://api.thetvdb.com/search/series?name=" + queryShowName);
 
@@ -124,17 +125,17 @@ namespace MediaMaintenanceLibrary
 
             foreach (var item in resultObjects)
             {
-                finalResults.Add(item.ToObject<SeriesSearchResult>());
+                finalResults.Add(item.ToObject<IEztvSeriesSearchResult>());
             }
 
             return finalResults;
 
         }
 
-        public static List<SeriesResult> SeriesInfo (string id, string token)
+        public static List<IEztvSeriesResultModel> SeriesInfo (string id, string token)
         {
             string final;
-            List<SeriesResult> finalDetails = new List<SeriesResult>();
+            List<IEztvSeriesResultModel> finalDetails = new List<IEztvSeriesResultModel>();
             var httpWebRequest = (HttpWebRequest)WebRequest.Create("https://api.thetvdb.com/search/series/" + id);
 
             httpWebRequest.Method = "GET";
@@ -178,7 +179,7 @@ namespace MediaMaintenanceLibrary
 
             foreach (var item in resultObjects)
             {
-                finalDetails.Add(item.ToObject<SeriesResult>());
+                finalDetails.Add(item.ToObject<IEztvSeriesResultModel>());
             }
 
             return finalDetails;

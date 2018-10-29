@@ -1,11 +1,8 @@
-﻿<div class="box">
-    <h4>Information</h4>
-    <p>
-        The Upload can be used as a drop-in replacement
-        for file input elements. This "synchronous" mode does not require
-        special handling on the server.
-    </p>
-</div>
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
 <form method="post" action='@Url.Action("Basic_Usage_Submit")'>
     <div class="demo-section k-content">
         @(Html.Kendo().Upload()

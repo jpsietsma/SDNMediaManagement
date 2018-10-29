@@ -1,9 +1,11 @@
 ﻿using System;
-using MediaMaintenanceLibrary.models;
-using MediaMaintenanceLibrary.enums;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using MediaMaintenanceLibrary;
+using SDNMediaModels;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
 
 namespace ConsoleUI
 {
@@ -12,31 +14,101 @@ namespace ConsoleUI
 
         public static void Main(string[] args)
         {
-            Beginning:
-            Console.Clear();
 
-            //ask for DL duration in minutes
-            Console.WriteLine("Enter Duration in Minutes: ");
-            string minutes = Console.ReadLine();
 
-            //Ask for filesize in double xx.xx
-            Console.WriteLine("Enter FileSize in MB (xx.xx): ");
-            string fileSize = Console.ReadLine();
 
-            //parse size and mins into double and int
-            double.TryParse(fileSize, out double size);
-            int.TryParse(minutes, out int mins);
+        }
 
-            //Calculate download duration by minutes
-            string finalDuration = Calculations.CalculateDownloadDuration(mins);
-            Console.WriteLine("Download Took " + finalDuration + " to finish.");
-            Console.WriteLine();
+            //Console.WriteLine(MediaConversion.GetJsonArrayImageSrc(Directory.GetFiles(@"D:\xampp\htdocs\gamescreens\minecraft", "*", SearchOption.TopDirectoryOnly), @"minecraft"));
+            //Console.ReadLine();    
+
+
+            //List<string> files = new List<string>();
+            //List<string> folders = new List<string>();
+
+            //foreach (string folderPath in Directory.GetDirectories(@"D:\xampp\htdocs\gamescreens"))
+            //{
+            //    if (!folderPath.Contains("css") && !folderPath.Contains("dist") && !folderPath.Contains("third.party"))
+            //    {
+            //        folders.Add(folderPath);
+
+            //        foreach (string file in (Directory.GetFiles(folderPath)))
+            //        {
+            //            files.Add(file);
+            //        }
+
+            //        Console.WriteLine(MediaConversion.GetJsonArrayImageSrc(files, folderPath)); 
+            //    }
+                
+            //}
+
+            //Console.ReadLine();
+
+            //List<string> shows = new List<string>();
+            //List<string> showUrls = new List<string>();
+
+            //shows.Add(@"E:\TV Shows\Cops\Season 1\Cops.S01E01.mkv");
+            //shows.Add(@"E:\TV Shows\Cops\Season 1\Cops.S01E07.mkv");
+            //shows.Add(@"G:\TV Shows\Cops\Season 1\Archer.S01E02.mkv");
+            //shows.Add(@"G:\TV Shows\Cops\Season 1\Archer.S01E03.mkv");
+            //shows.Add(@"G:\TV Shows\Cops\Season 2\Breaking.Bad.S02E02.mkv");
+            //shows.Add(@"G:\TV Shows\Cops\Season 1\Breaking.Bad.S01E07.mkv");
+
+            //Console.WriteLine("Show Episodes:");
+            //Console.WriteLine("-------------");
+
+            //foreach (string item in shows)
+            //{
+            //    Console.WriteLine(item);
+            //}
             
-            //calculate Average Mb/s download speed with minutes and size
-            Console.WriteLine(Calculations.CalculateMbpsAvg(mins, size));
+            //Console.WriteLine();
+            //Console.WriteLine();
+            //Console.WriteLine("Media Player Paths:");
+            //Console.WriteLine("---------------------");
 
-            Console.ReadLine();
-            goto Beginning;
+            //showUrls = MediaProcessingLibrary.BuildMediaStreamingUrl(shows);
+
+            //foreach (string item in showUrls)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+            //Console.ReadLine();
+
+
+
+
+
+            //Beginning:
+            //Console.Clear();
+
+            ////ask for DL duration in minutes
+            //Console.WriteLine("Enter Duration in Minutes: ");
+            //string minutes = Console.ReadLine();
+
+            ////Ask for filesize in double xx.xx
+            //Console.WriteLine("Enter FileSize in MB (xx.xx): ");
+            //string fileSize = Console.ReadLine();
+
+            ////parse size and mins into double and int
+            //double.TryParse(fileSize, out double size);
+            //int.TryParse(minutes, out int mins);
+
+            ////Calculate download duration by minutes
+            //string finalDuration = Calculations.CalculateDownloadDuration(mins);
+            //Console.WriteLine("Download Took " + finalDuration + " to finish.");
+            //Console.WriteLine();
+
+            ////calculate Average Mb/s download speed with minutes and size
+            //Console.WriteLine(Calculations.CalculateMbpsAvg(mins, size));
+
+            //Console.ReadLine();
+            //goto Beginning;
+
+
+
+
 
 
 
@@ -127,7 +199,6 @@ namespace ConsoleUI
             //            }
             //    }
             //}
-
-        }
+        
     }
 }

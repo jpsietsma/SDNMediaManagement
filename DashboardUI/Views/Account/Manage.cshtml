@@ -1,29 +1,115 @@
-﻿@using DashboardUI.Models;
+﻿@using DashboardUI.Items;
 @using Microsoft.AspNet.Identity;
 @{
-    ViewBag.Title = "Manage Account";
+    ViewBag.Title = "Manage Account ";
 }
+<ul class="nav nav-tabs table-active">
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#login">Login Details</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#profile">Profile Information</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link disabled" href="#">Administration</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#accountlinking">Linked Accounts</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#trackedshows">Tracked Shows</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link disabled" href="#">Requests</a>
+    </li>
+</ul>
+<div id="myTabContent" class="tab-content">
 
-<h2>@ViewBag.Title.</h2>
+    <div class="tab-pane fade active" id="login">
 
-<p class="text-success">@ViewBag.StatusMessage</p>
-<div class="row">
-    <div class="col-md-12">
-        @if (ViewBag.HasLocalPassword)
-        {
-            @Html.Partial("_ChangePasswordPartial")
-        }
-        else
-        {
-            @Html.Partial("_SetPasswordPartial")
-        }
+        <div class="row" style="margin-top: 5px;">
 
-        <section id="externalLogins">
-            @Html.Action("RemoveAccountList")
-            @Html.Partial("_ExternalLoginsListPartial", new { Action = "LinkLogin", ReturnUrl = ViewBag.ReturnUrl })
-        </section>
+            <div class="col-md-offset-1 col-md-2 table-active" style="padding-top: 5px; padding-bottom: 5px; margin-left: 90px;">
+                @if (ViewBag.HasLocalPassword)
+                {
+                    @Html.Partial("_ChangePasswordPartial")
+                }
+                else
+                {
+                    @Html.Partial("_SetPasswordPartial")
+                }
+            </div>
+
+            <div class="col-md-2 table-active" style="padding-top: 5px; padding-bottom: 5px; margin-left: 20px;">
+                @if (ViewBag.HasLocalPassword)
+                {
+                    @Html.Partial("_ChangePasswordPartial")
+                }
+                else
+                {
+                    @Html.Partial("_SetPasswordPartial")
+                }
+            </div>
+
+            <div class="col-md-2 table-active" style="padding-top: 5px; padding-bottom: 5px; margin-left: 20px;">
+                @if (ViewBag.HasLocalPassword)
+                {
+                    @Html.Partial("_ChangePasswordPartial")
+                }
+                else
+                {
+                    @Html.Partial("_SetPasswordPartial")
+                }
+            </div>
+
+            <div class="col-md-2 table-active" style="padding-top: 5px; padding-bottom: 5px; margin-left: 20px;">
+                @if (ViewBag.HasLocalPassword)
+                {
+                    @Html.Partial("_ChangePasswordPartial")
+                }
+                else
+                {
+                    @Html.Partial("_SetPasswordPartial")
+                }
+            </div>
+
+            <div class="col-md-2 table-active" style="padding-top: 5px; padding-bottom: 5px; margin-left: 20px;">
+                @if (ViewBag.HasLocalPassword)
+                {
+                    @Html.Partial("_ChangePasswordPartial")
+                }
+                else
+                {
+                    @Html.Partial("_SetPasswordPartial")
+                }
+            </div>
+
+        </div>
+
     </div>
+
+    <div class="tab-pane fade active table-active" id="profile" name="profile">
+        <p> @* profile tab in account dashboard *@ profile settings...</p>
+    </div>
+
+    <div class="tab-pane fade active table-active" id="accountlinking">
+        <div class="row">
+            <div class="col-md-12">
+                <section id="externalLogins">
+                    @Html.Action("RemoveAccountList")
+                    @Html.Partial("_ExternalLoginsListPartial", new { Action = "LinkLogin", ReturnUrl = ViewBag.ReturnUrl })
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-pane fade active table-active" id="trackedshows">
+        <p>@* tracked shows tab in account dashboard *@ Tracked Shows settings... wooo</p>
+    </div>
+
 </div>
+
 @section Scripts {
+
     @Scripts.Render("~/bundles/jqueryval")
 }

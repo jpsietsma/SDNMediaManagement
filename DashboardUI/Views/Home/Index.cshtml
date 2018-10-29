@@ -2,83 +2,129 @@
     ViewBag.Title = "SDN Media Home";
 }
 
-@if (Request.IsAuthenticated)
+@if (Request.IsAuthenticated && !User.IsInRole("Pending"))
 {
     <div class="jumbotron">
         <h3>User Dashboard - @User.Identity.Name</h3>
         <div class="demo-section k-content wide">
             @(Html.Kendo().Chart()
-                                .Name("chart")
-                                .Title("Media Watched This Year")
-                                .Legend(legend => legend
-                                    .Position(ChartLegendPosition.Bottom)
-                                )
-                                .ChartArea(chartArea => chartArea
-                                    .Background("transparent")
-                                )
-                                .SeriesDefaults(seriesDefaults =>
-                                    seriesDefaults.Line().Style(ChartLineStyle.Smooth)
-                                )
-                                .Series(series =>
-                                {
-                                    series.Line(new int[] {45, 36, 24, 22, 22, 65, 36, 67, 78, 14 }).Name("Average Television")
-                                          .Color("White").Tooltip(tooltip => tooltip.Visible(true).Format("{0} Average Episodes Watched"));
+                                                .Name("chart")
+                                                .Title("Media Watched This Year")
+                                                .Legend(legend => legend
+                                                    .Position(ChartLegendPosition.Bottom)
+                                                )
+                                                .ChartArea(chartArea => chartArea
+                                                    .Background("transparent")
+                                                )
+                                                .SeriesDefaults(seriesDefaults =>
+                                                    seriesDefaults.Line().Style(ChartLineStyle.Smooth)
+                                                )
+                                                .Series(series =>
+                                                {
+                                                    series.Line(new int[] { 45, 36, 24, 22, 22, 65, 36, 67, 78, 14 }).Name("Average Television")
+                                                          .Color("White").Tooltip(tooltip => tooltip.Visible(true).Format("{0} Average Episodes Watched"));
 
-                                    series.Line(new int[] { 66, 74, 34, 29, 65, 63, 45, 46, 54, 36 }).Name("Your Television")
-                                          .Color("Red").Tooltip(tooltip => tooltip.Visible(true).Format("You've Watched {0} Episodes"));
+                                                    series.Line(new int[] { 66, 74, 34, 29, 65, 63, 45, 46, 54, 36 }).Name("Your Television")
+                                                          .Color("Red").Tooltip(tooltip => tooltip.Visible(true).Format("You've Watched {0} Episodes"));
 
-                                    series.Line(new int[] { 6, 3, 5, 7, 12, 15, 9, 5, 13, 27 }).Name("Average Movies")
-                                          .Tooltip(tooltip => tooltip.Visible(true).Format("{0} Average Movies Watched"));
+                                                    series.Line(new int[] { 6, 3, 5, 7, 12, 15, 9, 5, 13, 27 }).Name("Average Movies")
+                                                          .Tooltip(tooltip => tooltip.Visible(true).Format("{0} Average Movies Watched"));
 
-                                    series.Line(new int[] { 13, 8, 8, 6, 22, 34, 6, 3, 11, 27 }).Name("Your Movies")
-                                          .Tooltip(tooltip => tooltip.Visible(true).Format("You've Watched {0} Movies"));
+                                                    series.Line(new int[] { 13, 8, 8, 6, 22, 34, 6, 3, 11, 27 }).Name("Your Movies")
+                                                          .Tooltip(tooltip => tooltip.Visible(true).Format("You've Watched {0} Movies"));
 
-                                })
-                                .CategoryAxis(axis => axis
-                                    .Categories("January", "February", "March", "April", "May", "June", "July", "August", "September", "October")
-                                    .MajorGridLines(lines => lines.Visible(false))
-                                    .MinorGridLines(lines => lines.Visible(false))
-                                )
-                                .ValueAxis(axis => axis
-                                    .Numeric().Labels(labels => labels.Format("{0}"))
-                                    .Line(line => line.Visible(false))
-                                    .AxisCrossingValue(-10)
-                                )
-                                .Tooltip(tooltip => tooltip
-                                    .Visible(true)
-                                    .Format("You've Watched {0}")
-                                )
+                                                })
+                                                .CategoryAxis(axis => axis
+                                                    .Categories("January", "February", "March", "April", "May", "June", "July", "August", "September", "October")
+                                                    .MajorGridLines(lines => lines.Visible(false))
+                                                    .MinorGridLines(lines => lines.Visible(false))
+                                                )
+                                                .ValueAxis(axis => axis
+                                                    .Numeric().Labels(labels => labels.Format("{0}"))
+                                                    .Line(line => line.Visible(false))
+                                                    .AxisCrossingValue(-10)
+                                                )
+                                                .Tooltip(tooltip => tooltip
+                                                    .Visible(true)
+                                                    .Format("You've Watched {0}")
+                                                )
             )
         </div>
-        </div>
+    </div>
 
-        }
-        else
-        {
-        <div class="jumbotron">
-            <h1>Sietsma Development Media Network</h1>
-            <p class="lead">Reliable, Quick, and free!  Watch the shows you want, without the hassle!</p>
-            <p><a href="#" class="btn btn-primary btn-lg">Free Sign Up! &raquo;</a></p>
+}
+else if (User.IsInRole("Pending"))
+{
+        <div class="alert alert-dismissible alert-warning">
+            <h4 class="alert-heading">Account Pending Verification</h4>
+            <p class="mb-0">Your account is pending administrative verification and approval.</p>
         </div>
+} else { 
 
-        <div class="row">
-            <div class="col-md-4">
-                <h2><b>Step 1:</b> Register Your Account</h2>
-                <p>
-                    Registering is quick and painless, and best of all it's asolutely <b>FREE</b>!  Requiring our users to register helps us keep the system clean and stops it from slowing users down
-                </p>
-                <p><a class="btn btn-default" href="@Url.Action("Register","Account")">Begin Now! &raquo;</a></p>
+    <div class="jumbotron">
+        <h1>Sietsma Development Media Network</h1>
+        <p class="lead">Reliable, Quick, and free!  Watch the shows you want, without the hassle!</p>
+        <p><a href="#" class="btn btn-primary btn-lg">Get Started! &raquo;</a></p>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row" style="margin: 0 auto 0;">
+            <div class="card text-white bg-secondary col-md-4 col-md-offset-1" style="margin: 5px auto 5px;">
+                <div class="card-header align-content-center"><h4><span class="text-primary"><i class="fa fa-user"></i></span> Register Account</h4></div>
+                <div class="card-body">
+                    <h5 class="card-title">It's totally free!</h5>
+                    <p class="card-text">Registering is quick and painless, and best of all it's asolutely <b>FREE</b>!  Requiring our users to register helps us keep the system clean and stops it from slowing users down</p>
+                    <p><a class="btn btn-info" href="@Url.Action("Register","Account")">Begin Now! &raquo;</a></p>
+                </div>
             </div>
-            <div class="col-md-4">
-                <h2><b>Step 2:</b> Wait account verification</h2>
-                <p>All new account creations are checked by an actual administrator in order to avoid duplicate accounts, repeat TOS violators, as well as to verify that you aren't a robot.</p>
-                <p><a class="btn btn-default" href="#">Learn more &raquo;</a></p>
+
+            <div class="card text-white bg-secondary col-md-3" style="margin: 5px auto 5px;">
+                <div class="card-header align-content-center"><h4><span class="text-primary"><i class="fas fa-user-check"></i></span> User Verification</h4></div>
+                <div class="card-body">
+                    <h5 class="card-title">Quick and painless!</h5>
+                    <p class="card-text">All new account creations are checked by an actual administrator in order to avoid duplicate accounts, repeat TOS violators, as well as to verify that you aren't a robot.</p>
+                    <p><a class="btn btn-info" href="#">Learn more &raquo;</a></p>
+                </div>
             </div>
-            <div class="col-md-4">
-                <h2><b>Step 3:</b> Watch your shows!</h2>
-                <p>Once you have registered for your free account and have been granted administrative approval, you're ready to head on over to the media dashboard and begin watching our library!  If you have any questions you can refer to the help topic in the account section, thank you!</p>
-                <p><a class="btn btn-default" href="#">Dashboard &raquo;</a></p>
+
+            <div class="card text-white bg-secondary col-md-3" style="margin: 5px auto 5px;">
+                <div class="card-header align-content-center"><h4><span class="text-primary"><i class="fas fa-solar-panel"></i></span> Enjoy your shows!</h4></div>
+                <div class="card-body">
+                    <h5 class="card-title">Reap your rewards!</h5>
+                    <p class="card-text">Once you have registered for your free account and have been granted administrative approval, you're ready to head on over to the media dashboard and begin watching our library!  If you have any questions you can refer to the help topic in the account section, thank you!</p>
+                    <p><a class="btn btn-info" href="#">Dashboard &raquo;</a></p>
+                </div>
             </div>
+
+
+            @*<div class="col-md-4">
+                    <h2><b>Step 1:</b> Register Your Account</h2>
+                    <p>
+                        Registering is quick and painless, and best of all it's asolutely <b>FREE</b>!  Requiring our users to register helps us keep the system clean and stops it from slowing users down
+                    </p>
+                    <p><a class="btn btn-default" href="@Url.Action("Register","Account")">Begin Now! &raquo;</a></p>
+                </div>
+                <div class="col-md-4">
+                    <h2><b>Step 2:</b> Wait account verification</h2>
+                    <p>All new account creations are checked by an actual administrator in order to avoid duplicate accounts, repeat TOS violators, as well as to verify that you aren't a robot.</p>
+                    <p><a class="btn btn-default" href="#">Learn more &raquo;</a></p>
+                </div>
+                <div class="col-md-4">
+                    <h2><b>Step 3:</b> Watch your shows!</h2>
+                    <p>Once you have registered for your free account and have been granted administrative approval, you're ready to head on over to the media dashboard and begin watching our library!  If you have any questions you can refer to the help topic in the account section, thank you!</p>
+                    <p><a class="btn btn-default" href="#">Dashboard &raquo;</a></p>
+                </div>*@
+
+
+
         </div>
-
-        }
+    </div>
+}
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />

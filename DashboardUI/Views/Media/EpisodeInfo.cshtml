@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DashboardUI.Models.TelevisionEpisodeModel>
+﻿@model IEnumerable<SDNMediaModels.Television.TelevisionEpisodeModel>
 
 @{
     ViewBag.Title = Model.First().ShowName + " - " + Model.First().SeasonName + " Episodes";
@@ -18,19 +18,27 @@
             <td style="padding-right: 10px; padding-bottom: 10px;">
                 <div style=" width: 200px; float: left;" class="flip-container" ontouchstart="this.classList.toggle('hover');">
                     <div class="flipper" style="margin: 0 auto 0; padding: 10px;">
+                        
                         <div style="text-align: center; margin-right: 10px; width: 200px; float: left;" class="front">
+                            
                             <!-- front content -->
                             <img src="@Url.Content(item.EpisodeAlbumArtPath)" height="250" width="200" />
+                            <h6 class="text-sm-center font-weight-bold">@item.EpisodeDisplayTitle</h6>
+                            <h6 class="text-sm-center font-italic">Season @item.fk_SeasonID | Episode @item.EpisodeNum</h6>
                         </div>
+
+
                         <div style=" width: 200px; float: left; background-color: black; color: white;" class="back">
+                            
                             <!-- back content -->
                             <b style="color:darkorange">Season:</b> @item.SeasonName<br /><b style="color:darkorange">Episode:</b> @item.EpisodeNum<br /><br /><b style="color:darkorange">Summary:</b> This is where we can populate the episode description<br /><br />
                             <center>
-                                @Html.ActionLink("Watch Episode", "WatchEpisode", new { id = item.pk_EpisodeID }, new { data_target = "#episode-player-modal-container", data_toggle = "modal" })
+                                <i class="fa fa-play-circle"></i> @Html.ActionLink("Watch Episode", "WatchEpisode", new { id = item.pk_EpisodeID }, new { data_target = "#episode-player-modal-container", data_toggle = "modal" })
                             </center><br />
                             <center>
-                                @Html.ActionLink("Edit Episode Details", "EditEpisodeDetails", new { id = item.pk_EpisodeID }, new { data_target = "#edit-episode-modal-container", data_toggle = "modal" })
+                                <i class="fa fa-edit"></i> @Html.ActionLink("Edit Episode", "EditEpisodeDetails", new { id = item.pk_EpisodeID }, new { data_target = "#edit-episode-modal-container", data_toggle = "modal" })
                             </center>
+
                         </div>
                     </div>
                 </div>

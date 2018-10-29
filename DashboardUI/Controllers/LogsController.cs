@@ -1,10 +1,6 @@
-﻿using DashboardUI.Areas.LogsDashboard.Models;
-using DashboardUI.Models;
-using System;
+﻿using SDNMediaModels.Logs;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace DashboardUI.Controllers
@@ -19,14 +15,14 @@ namespace DashboardUI.Controllers
 
         public ActionResult DownloadHistory(string id)
         {
-            List<downloadHistory> downloadLogs = new List<downloadHistory>();
+            List<IDownloadHistory> downloadLogs = new List<IDownloadHistory>();
 
             string[] files = Directory.GetFiles(@"S:\~drops\tvdrop");
 
             foreach (string file in files)
             {
 
-                downloadLogs.Add(new downloadHistory(file));
+                downloadLogs.Add(new DownloadHistory(file));
 
             }
 

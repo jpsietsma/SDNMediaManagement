@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DashboardUI.Models.TelevisionSeasonModel>
+﻿@model IEnumerable<SDNMediaModels.Television.TelevisionSeasonModel>
 
 @{
     if (Model.Count() > 0)
@@ -19,8 +19,8 @@
     @*@Html.ActionLink(Model.First().ShowName, "ShowInfo") / Seasons*@
 </h2>
 
-<table class="table">
-    <tr>
+<table class="table table-hover">
+    <tr class="table-active">
         <th>
             @Html.DisplayNameFor(model => model.SeasonName)
         </th>
@@ -36,11 +36,12 @@
         <th></th>
     </tr>
 
-    @{ if (Model.Count() > 0)
+    @{ 
+        if (Model.Count() > 0)
         {
             foreach (var item in Model)
             {
-                <tr>
+                <tr class="table-light">
                     <td>
                         @Html.DisplayFor(modelItem => item.SeasonName)
                     </td>
@@ -64,13 +65,13 @@
         else
         {
 
-    <tr>
-        <td colspan="4" style="margin: 0 auto 0; font-style: italic; text-align: center;">
-            There are no seasons associated with this show.  You can <a href="@Url.Action("AddSeason")">Add a season</a> to the show then view the details here after.
-        </td>
-    </tr>
-            }
+            <tr class="table-light">
+                <td colspan="5" style="margin: 0 auto 0; font-style: italic; text-align: center;">
+                    There are no seasons associated with this show.  You can <a href="@Url.Action("AddSeason", "Media")">Add a season</a> to the show then view the details here after.
+                </td>
+            </tr>
         }
+     }
 </table>
 
 <!-- Code for Play Season Modal Popup -->

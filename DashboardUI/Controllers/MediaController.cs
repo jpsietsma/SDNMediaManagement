@@ -1,10 +1,9 @@
-﻿using DashboardUI.Models;
+﻿using DashboardUI.Items;
 using Kendo.Mvc.Extensions;
-using Kendo.Mvc.UI;
-using System;
+using SDNMediaModels.Sort;
+using SDNMediaModels.Television;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace DashboardUI.Controllers
@@ -12,6 +11,12 @@ namespace DashboardUI.Controllers
     [Authorize]
     public class MediaController : Controller
     {
+
+#region Navigation Actions/Views...
+
+        //header nav and show search autocomplete related code will go here
+
+        #endregion
 
 #region Episode Action / Views...
 
@@ -62,19 +67,22 @@ namespace DashboardUI.Controllers
         public ActionResult WatchSeason(int id)
         {
             TelevisionEpisodeItem db_episodes = new TelevisionEpisodeItem();
-            List<TelevisionEpisodeModel> episodes = db_episodes.sdnTelevisionEpisodes.Where(e => e.fk_SeasonID == id).Where(e => e.IsEnabled.Equals(1)).ToList<TelevisionEpisodeModel>();
+            List<ITelevisionEpisodeModel> episodes = db_episodes.sdnTelevisionEpisodes.Where(e => e.fk_SeasonID == id).Where(e => e.IsEnabled.Equals(1)).ToList<ITelevisionEpisodeModel>();
 
             return PartialView("_WatchSeason", episodes);
         }
 
         //Show view to create new season
-        public ActionResult AddSeason()
+        public ActionResult AddSeason(int id)
         {
-            return View();
+            TelevisionShowItem shows_db = new TelevisionShowItem();
+            ITelevisionShowModel show = shows_db.sdnTelevisionShows.Where(showDetails => showDetails.pk_ShowID == id).FirstOrDefault();
+
+            return View(show);
         }
 
         //Add new season model created and save changes to database, redirect to seasons listing of parent show
-        public ActionResult SaveSeason(TelevisionSeasonModel newSeason)
+        public ActionResult SaveSeason(ITelevisionSeasonModel newSeason)
         {
             //SietsmaDevMediaModel db = new SietsmaDevMediaModel();
             //seasons.SaveChanges();

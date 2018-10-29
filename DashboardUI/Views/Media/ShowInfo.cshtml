@@ -1,53 +1,53 @@
-﻿@model IEnumerable<DashboardUI.Models.TelevisionShowModel>
+﻿@model IEnumerable<SDNMediaModels.Television.TelevisionShowModel>
 
 @{
     ViewBag.Title = "SDN Media Television Shows";
 }
-<h2 style="margin: 0 auto 0; text-align: center;"> Television Show Library</h2>
+<div style="margin: 0 auto 20px; text-align: center; font-weight: bolder; font-size: 40px;"> Television Show Library</div>
 
-<table class="table">
+<table class="table table-hover table-striped">
     <thead>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ShowName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ShowDriveLetter)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ShowHomePath)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ShowNumSeasons)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ShowNumEpisodes)
-        </th>
-        <th></th>
-    </tr>
+        <tr class="table-active" style="font-weight: bolder; font-size: 18px;">
+            <th>
+                @Html.DisplayNameFor(model => model.ShowName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShowHomePath)
+            </th>
+            <th style="text-align: center;">
+                @Html.DisplayNameFor(model => model.ShowDriveLetter)
+            </th>
+            <th style="text-align: center;">
+                @Html.DisplayNameFor(model => model.ShowNumSeasons)
+            </th>
+            <th style="text-align: center;">
+                @Html.DisplayNameFor(model => model.ShowNumEpisodes)
+            </th>
+            <th></th>
+        </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ShowName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ShowDriveLetter)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ShowHomePath)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ShowNumSeasons)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ShowNumEpisodes)
-        </td>
-        <td>
-            @Html.ActionLink("Check Seasons", "SeasonInfo", new { id=item.pk_ShowID })
-        </td>
-    </tr>
+        <tr class="table-light">
+            <td style="margin-top: 2px; margin-bottom: 2px; border: 1px solid #808080; font-weight: 600;">
+                @Html.DisplayFor(modelItem => item.ShowName)
+            </td>
+            <td style="margin-top: 2px; margin-bottom: 2px; border: 1px solid #808080; font-weight: 600;">
+                @Html.DisplayFor(modelItem => item.ShowHomePath)
+            </td>
+            <td style="margin-top: 2px; margin-bottom: 2px; border: 1px solid #808080; font-weight: 600; text-align: center;">
+                @Html.DisplayFor(modelItem => item.ShowDriveLetter):\
+            </td>
+            <td style="margin-top: 2px; margin-bottom: 2px; border: 1px solid #808080; font-weight: 600; text-align: center;">
+                @Html.DisplayFor(modelItem => item.ShowNumSeasons)
+            </td>
+            <td style="margin-top: 2px; margin-bottom: 2px; border: 1px solid #808080; font-weight: 600; text-align: center;">
+                @Html.DisplayFor(modelItem => item.ShowNumEpisodes)
+            </td>
+            <td style="margin-top: 2px; margin-bottom: 2px; border: 1px solid #808080; font-weight: 600;">
+                @Html.ActionLink("Check Seasons", "SeasonInfo", new { id = item.pk_ShowID })
+            </td>
+        </tr>
 }
 </tbody>
 </table>

@@ -1,45 +1,65 @@
-﻿@model DashboardUI.Models.TelevisionSeasonModel
+﻿@model SDNMediaModels.Television.TelevisionShowModel
 
 @{
-    ViewBag.Title = "Add New Season";
+    DashboardUI.Models.TelevisionSeasonModel seasonModel = new DashboardUI.Models.TelevisionSeasonModel();
+    ViewBag.Title = Model.ShowName + " - Add New Season";
 }
 
-<h2>Create New Show Season</h2>
+<h2>@Model.ShowName - Create New Show Season</h2>
 
 @using (Html.BeginForm("SaveSeason", "Media"))
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Season Details</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.SeasonNumEpisodes, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SeasonNumEpisodes, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SeasonNumEpisodes, "", new { @class = "text-danger" })
-            </div>
+<div class="form-horizontal">
+    <h4>Season Details</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.LabelFor(model => seasonModel.IsEnabled, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => seasonModel.IsEnabled, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => seasonModel.IsEnabled, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => seasonModel.SeasonName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => seasonModel.SeasonName, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
+            @Html.ValidationMessageFor(model => seasonModel.SeasonName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => seasonModel.SeasonHomePath, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => seasonModel.SeasonHomePath, new { htmlAttributes = new { @class = "form-control", @disabled = "" } })
+            @Html.ValidationMessageFor(model => seasonModel.SeasonHomePath, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => seasonModel.fk_ShowID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.pk_ShowID, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.pk_ShowID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-success" />
+            <input type="submit" href="@Url.Action("Cancel", "~/Media/ShowInfo")" value="Cancel" class="btn btn-warning" />
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsEnabled, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.IsEnabled, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.IsEnabled, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-</div>
-
-</div>
+    </div>
 
 </div>
 }
 
 <div>
-    @Html.ActionLink("Back to Season List", "ShowInfo")
+    @Html.ActionLink("<< Back to Season List", "ShowInfo")
 </div>

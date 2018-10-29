@@ -39,10 +39,10 @@ namespace MediaMaintenanceLibrary
         /// <returns>string in the form {Average Download Speed of xx.xx Mb/s}</returns>
         public static string CalculateMbpsAvg(int minutes, double fileSize)
         {
-            string finalAvg = string.Empty;
+            double finalAvg = 0;
             double.TryParse(minutes.ToString(), out double dMinutes);
 
-            finalAvg = Math.Round((fileSize / (dMinutes * 60)), 4).ToString();
+            finalAvg = Math.Round((fileSize / (dMinutes * 60)), 2);
 
             return "Average Download Speed of " + finalAvg + " Mb/s";
         }

@@ -1,14 +1,11 @@
-﻿﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
+using DashboardUI.Items;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
-using DashboardUI.Models;
+using SDNMediaModels.Sort;
 
 namespace DashboardUI.Controllers
 {
@@ -40,7 +37,7 @@ namespace DashboardUI.Controllers
 
         public ActionResult sortItems_Read([DataSourceRequest]DataSourceRequest request)
         {
-            IQueryable<SortMediaItemModel> sortitems = db.sortItems;
+            IQueryable<ISortMediaItemModel> sortitems = db.sortItems;
             DataSourceResult result = sortitems.ToDataSourceResult(request, sortMediaItemModel => new {
                 pk_MediaID = sortMediaItemModel.pk_MediaID,
                 filePath = sortMediaItemModel.filePath,
@@ -57,7 +54,7 @@ namespace DashboardUI.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult sortItems_Update([DataSourceRequest]DataSourceRequest request, SortMediaItemModel sortMediaItemModel)
+        public ActionResult sortItems_Update([DataSourceRequest]DataSourceRequest request, ISortMediaItemModel sortMediaItemModel)
         {
             if (ModelState.IsValid)
             {
@@ -83,7 +80,7 @@ namespace DashboardUI.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult sortItems_Destroy([DataSourceRequest]DataSourceRequest request, SortMediaItemModel sortMediaItemModel)
+        public ActionResult sortItems_Destroy([DataSourceRequest]DataSourceRequest request, ISortMediaItemModel sortMediaItemModel)
         {
             if (ModelState.IsValid)
             {

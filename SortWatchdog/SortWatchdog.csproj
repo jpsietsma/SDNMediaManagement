@@ -8,10 +8,11 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>SortWatchdog</RootNamespace>
     <AssemblyName>SortWatchdog</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -60,10 +61,6 @@
     <ProjectReference Include="..\MediaMaintenanceLibrary\MediaMaintenanceLibrary.csproj">
       <Project>{f44501eb-8829-40dd-b986-0f2e1d27a07e}</Project>
       <Name>MediaMaintenanceLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TwilioDemo\TwilioDemo.csproj">
-      <Project>{e67c8f44-4daf-4bee-97f7-2121eef733dd}</Project>
-      <Name>TwilioDemo</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

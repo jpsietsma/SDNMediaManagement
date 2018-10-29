@@ -1,10 +1,6 @@
-﻿using MediaMaintenanceLibrary.models;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SDNMediaModels.EventLog;
 
 namespace MediaMaintenanceLibrary
 {
@@ -51,9 +47,9 @@ namespace MediaMaintenanceLibrary
         /// </summary>
         /// <param name="type">type of events to grab</param>
         /// <returns>list of event log models</returns>
-        public static List<EventLogModel> ReadEventLog(string type = "default")
+        public static List<IEventLogModel> ReadEventLog(string type = "default")
         {
-            List<EventLogModel> finalEvents = new List<EventLogModel>();
+            List<IEventLogModel> finalEvents = new List<IEventLogModel>();
 
 
 

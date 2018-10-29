@@ -1,4 +1,5 @@
-﻿@(Html.Kendo().Grid<DashboardUI.Models.SortMediaItemModel>()
+﻿<div style="margin: 0 auto 20px; text-align: center; font-weight: bolder; font-size: 40px;"> Download Sort Queue</div>
+@(Html.Kendo().Grid<SDNMediaModels.Sort.SortMediaItemModel>()
               .Name("grid")
               .Columns(columns =>
               {
@@ -13,7 +14,7 @@
               })
               .ToolBar(toolbar =>
               {
-                  toolbar.Custom().Text("1. Repopulate").Action("ExecutePS", "Maintenance", new { id = "populate" });
+                  toolbar.Custom().Text("1. Repopulate").Action("ExecutePS", "Maintenance", new { id = "populate"});
                   toolbar.Custom().Text("2. Sanitize").Action("ExecutePS", "Maintenance", new { id = "sanitize" });
                   toolbar.Custom().Text("3. Finalize").Action(/*"ExecutePS", "Maintenance", new { id = "finalize" }*/"GetContents", "Sort");
                   toolbar.Custom().Text("4. Distribute").Action(/*"ExecutePS", "Maintenance", new { id = "distribute" }*/"GetContents", "Sort");
