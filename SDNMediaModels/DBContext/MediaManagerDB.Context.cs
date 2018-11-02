@@ -33,8 +33,7 @@ namespace SDNMediaModels.DBContext
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<TelevisionEpisode>().ToTable("TelevisionEpisodes");
-            modelBuilder.Entity<ApplicationUser>().ToTable("AspNetUser");
+
         }
     
         public virtual DbSet<ApiToken> ApiTokens { get; set; }
