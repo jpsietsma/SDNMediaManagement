@@ -152,13 +152,13 @@
         </ul>
             if (!User.IsInRole("Pending"))
             {
-                var shows_db = new DashboardUI.Items.TelevisionShowItem();
+                var shows_db = new SDNMediaModels.DBContext.MediaManagerDB();
 
-                var shows = shows_db.sdnTelevisionShows.Where(y => y.IsEnabled == 1).OrderBy(x => x.ShowName).ToList<SDNMediaModels.Television.ITelevisionShowModel>();
+                var shows = shows_db.TelevisionShows.Where(y => y.IsEnabled == 1).OrderBy(x => x.ShowName);
 
                 List<string> shows_auto = new List<string>();
 
-                foreach (SDNMediaModels.Television.ITelevisionShowModel show in shows)
+                foreach (SDNMediaModels.Television.ITelevisionShow show in shows)
                 {
                     shows_auto.Add(show.ShowName);
                 }

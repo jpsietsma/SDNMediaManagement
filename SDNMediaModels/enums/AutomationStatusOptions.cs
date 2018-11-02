@@ -50,7 +50,12 @@ namespace SDNMediaModels.enums
         /// <summary>
         /// Task is in the queue to be addressed
         /// </summary>
-        QUEUED
+        QUEUED,
+
+        /// <summary>
+        /// Task has been cancelled by the user
+        /// </summary>
+        CANCELLED
 
     }
 }

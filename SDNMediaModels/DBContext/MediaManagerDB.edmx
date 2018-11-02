@@ -1,0 +1,2562 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MediaManagerDB.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ApiTokens">
+          <Key>
+            <PropertyRef Name="pk_tokenID" />
+          </Key>
+          <Property Name="pk_tokenID" Type="int" Nullable="false" />
+          <Property Name="Token" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="lastRefresh" Type="datetime2" Precision="3" Nullable="false" />
+          <Property Name="tokenSite" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="fk_UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="fk_PermissionLevelNum" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddressStreet" Type="nvarchar" MaxLength="100" />
+          <Property Name="AddressCity" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddressState" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddressZipcode" Type="nvarchar" MaxLength="5" />
+          <Property Name="AllowAccess" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DownloadQueue">
+          <Key>
+            <PropertyRef Name="pk_torrentID" />
+          </Key>
+          <Property Name="pk_torrentID" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="TorrentName" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="DownloadFinished" Type="datetime2" Precision="3" />
+          <Property Name="DownloadStarted" Type="datetime2" Precision="3" />
+          <Property Name="TorrentStatus" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TorrentPath" Type="nvarchar" MaxLength="150" />
+          <Property Name="DownloadDuration" Type="int" StoreGeneratedPattern="Computed" />
+          <Property Name="fileSize" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FileMoveHistory">
+          <Key>
+            <PropertyRef Name="pk_moveID" />
+          </Key>
+          <Property Name="pk_moveID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MoveSource" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="MoveDestination" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="fk_MediaID" Type="int" Nullable="false" />
+          <Property Name="MoveTime" Type="datetime2" Precision="3" Nullable="false" />
+          <Property Name="fk_ProcessID" Type="int" />
+        </EntityType>
+        <EntityType Name="list_AutomationActions">
+          <Key>
+            <PropertyRef Name="pk_ActionType" />
+          </Key>
+          <Property Name="pk_ActionType" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ActionDescription" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="fk_PriorityID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="list_AutomationPriority">
+          <Key>
+            <PropertyRef Name="pk_PriorityID" />
+          </Key>
+          <Property Name="pk_PriorityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PriorityDescription" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="PriorityLevel" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="list_AutomationStatuses">
+          <Key>
+            <PropertyRef Name="pk_automationStatus" />
+          </Key>
+          <Property Name="pk_automationStatus" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="automationStatusDisplay" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="automationNextAction" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="list_MediaTypes">
+          <Key>
+            <PropertyRef Name="pk_MediaTypeID" />
+          </Key>
+          <Property Name="pk_MediaTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mediaTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="list_MovieGenres">
+          <Key>
+            <PropertyRef Name="pk_GenreID" />
+          </Key>
+          <Property Name="pk_GenreID" Type="int" Nullable="false" />
+          <Property Name="GenreName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="GenreEnabled" Type="int" Nullable="false" />
+          <Property Name="GenreHomePath" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="list_permissionLevels">
+          <Key>
+            <PropertyRef Name="pk_permissionLevelNum" />
+          </Key>
+          <Property Name="pk_permissionLevelNum" Type="int" Nullable="false" />
+          <Property Name="permissionLevelAuth" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="permissionLevelDisplay" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="list_TaskTypes">
+          <Key>
+            <PropertyRef Name="pk_TaskTypeID" />
+          </Key>
+          <Property Name="pk_TaskTypeID" Type="int" Nullable="false" />
+          <Property Name="TaskTypeName" Type="nvarchar" MaxLength="75" Nullable="false" />
+          <Property Name="fk_TaskPriority" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Movies">
+          <Key>
+            <PropertyRef Name="pk_MovieID" />
+          </Key>
+          <Property Name="pk_MovieID" Type="int" Nullable="false" />
+          <Property Name="MovieTitle" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="MovieYear" Type="int" />
+          <Property Name="fk_MovieGenre" Type="int" Nullable="false" />
+          <Property Name="FilePath" Type="nvarchar" MaxLength="200" />
+          <Property Name="ImdbID" Type="nvarchar" MaxLength="25" />
+          <Property Name="TvdbID" Type="nvarchar" MaxLength="25" />
+          <Property Name="SubtitlesExist" Type="int" Nullable="false" />
+          <Property Name="fk_MediaID" Type="int" />
+          <Property Name="fk_MediaType" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PlaybackHistory">
+          <Key>
+            <PropertyRef Name="pk_PlaybackID" />
+          </Key>
+          <Property Name="pk_PlaybackID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlaybackDate" Type="datetime2" Precision="3" Nullable="false" />
+          <Property Name="fk_UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="PlaybackProgressStopped" Type="int" Nullable="false" />
+          <Property Name="fk_EpisodeID" Type="int" Nullable="false" />
+          <Property Name="fk_ShowID" Type="int" Nullable="false" />
+          <Property Name="fk_SeasonID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProcessQueue">
+          <Key>
+            <PropertyRef Name="pk_ProcessID" />
+          </Key>
+          <Property Name="pk_ProcessID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RequestTimestamp" Type="datetime2" Precision="3" Nullable="false" />
+          <Property Name="ProcessAction" Type="int" Nullable="false" />
+          <Property Name="fk_AutomationPriority" Type="int" Nullable="false" />
+          <Property Name="fk_AutomationStatus" Type="int" Nullable="false" />
+          <Property Name="fk_UserID" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="fk_MediaID" Type="int" />
+          <Property Name="NextAction" Type="int" />
+        </EntityType>
+        <EntityType Name="sortItems">
+          <Key>
+            <PropertyRef Name="pk_MediaID" />
+          </Key>
+          <Property Name="pk_MediaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="filePath" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="fileName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="hasBeenSanitized" Type="int" Nullable="false" />
+          <Property Name="fileNameSanitized" Type="varchar" MaxLength="100" />
+          <Property Name="hasBeenProcessed" Type="int" Nullable="false" />
+          <Property Name="fileModified" Type="datetime2" Precision="3" Nullable="false" />
+          <Property Name="fileAdded" Type="datetime2" Precision="3" Nullable="false" />
+          <Property Name="fk_fileMediaTypeID" Type="int" Nullable="false" />
+          <Property Name="fk_automationStatus" Type="int" Nullable="false" />
+          <Property Name="finalizedFilePath" Type="varchar" MaxLength="150" />
+          <Property Name="finalizedFileName" Type="varchar" MaxLength="150" />
+          <Property Name="finalizedShowName" Type="varchar" MaxLength="50" />
+          <Property Name="finalizedShowSeason" Type="varchar" MaxLength="10" />
+          <Property Name="finalizedShowEpisode" Type="nchar" MaxLength="10" />
+          <Property Name="hasBeenFinalized" Type="int" Nullable="false" />
+          <Property Name="hasBeenDistributed" Type="int" Nullable="false" />
+          <Property Name="dlFileExists" Type="int" Nullable="false" />
+          <Property Name="finalizedStatus" Type="int" Nullable="false" />
+          <Property Name="fk_torrentID" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="TaskQueue">
+          <Key>
+            <PropertyRef Name="pk_TaskID" />
+          </Key>
+          <Property Name="pk_TaskID" Type="int" Nullable="false" />
+          <Property Name="TaskTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TaskStartTime" Type="datetime2" Precision="3" Nullable="false" />
+          <Property Name="TaskEndTime" Type="datetime2" Precision="3" />
+          <Property Name="fk_ParentTaskID" Type="int" />
+          <Property Name="fk_TaskStatus" Type="int" Nullable="false" />
+          <Property Name="fk_TaskOwner" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="TaskDetails" Type="text" Nullable="false" />
+          <Property Name="fk_ActionType" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TelevisionEpisodes">
+          <Key>
+            <PropertyRef Name="pk_EpisodeID" />
+          </Key>
+          <Property Name="pk_EpisodeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fk_SeasonID" Type="int" Nullable="false" />
+          <Property Name="fk_ShowID" Type="int" Nullable="false" />
+          <Property Name="EpisodeNum" Type="int" Nullable="false" />
+          <Property Name="EpisodePath" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="EpisodePlayerPath" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="EpisodeDisplayTitle" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="EpisodeAlbumArtPath" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="IsEnabled" Type="int" Nullable="false" />
+          <Property Name="fk_MediaID" Type="int" />
+          <Property Name="fk_MediaType" Type="int" />
+        </EntityType>
+        <EntityType Name="TelevisionSeasons">
+          <Key>
+            <PropertyRef Name="pk_SeasonID" />
+          </Key>
+          <Property Name="pk_SeasonID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fk_ShowID" Type="int" Nullable="false" />
+          <Property Name="SeasonName" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="SeasonHomePath" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="SeasonNumEpisodes" Type="int" Nullable="false" />
+          <Property Name="SeasonAlbumArtPath" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="IsEnabled" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TelevisionShows">
+          <Key>
+            <PropertyRef Name="pk_ShowID" />
+          </Key>
+          <Property Name="pk_ShowID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ShowName" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ShowDriveLetter" Type="nvarchar" MaxLength="1" Nullable="false" />
+          <Property Name="ShowHomePath" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="ShowNumSeasons" Type="int" Nullable="false" />
+          <Property Name="ShowNumEpisodes" Type="int" Nullable="false" />
+          <Property Name="ShowAlbumArtPath" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="IsEnabled" Type="int" Nullable="false" />
+          <Property Name="TvdbID" Type="nvarchar" MaxLength="50" />
+          <Property Name="ImdbID" Type="nvarchar" MaxLength="50" />
+          <Property Name="fk_MediaType" Type="int" />
+        </EntityType>
+        <EntityType Name="UserRequests">
+          <Key>
+            <PropertyRef Name="pk_RequestID" />
+          </Key>
+          <Property Name="pk_RequestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RequestType" Type="int" />
+          <Property Name="RequestSubtype" Type="int" />
+          <Property Name="ExistingSeries" Type="nvarchar" MaxLength="10" />
+          <Property Name="RequestQuery" Type="nvarchar" MaxLength="100" />
+          <Property Name="RequestShow" Type="nvarchar" MaxLength="75" />
+          <Property Name="RequestSeason" Type="nvarchar" MaxLength="50" />
+          <Property Name="RequestEpisode" Type="nvarchar" MaxLength="50" />
+          <Property Name="RequestMovie" Type="nvarchar" MaxLength="50" />
+          <Property Name="RequestMovieYear" Type="nvarchar" MaxLength="5" />
+          <Property Name="RequestMovieGenre" Type="nvarchar" MaxLength="50" />
+          <Property Name="RequestCompleted" Type="int" />
+          <Property Name="fk_ShowID" Type="int" />
+          <Property Name="fk_EpisodeID" Type="int" />
+          <Property Name="fk_SeasonID" Type="int" />
+          <Property Name="fk_UserID" Type="nvarchar" MaxLength="128" />
+          <Property Name="fk_AutomationStatus" Type="int" />
+        </EntityType>
+        <Association Name="FK_AspNetRoles_list_permissionLevels">
+          <End Role="list_permissionLevels" Type="Self.list_permissionLevels" Multiplicity="1" />
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="list_permissionLevels">
+              <PropertyRef Name="pk_permissionLevelNum" />
+            </Principal>
+            <Dependent Role="AspNetRoles">
+              <PropertyRef Name="fk_PermissionLevelNum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_list_TaskTypes_list_TaskTypes">
+          <End Role="list_AutomationPriority" Type="Self.list_AutomationPriority" Multiplicity="1" />
+          <End Role="list_TaskTypes" Type="Self.list_TaskTypes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="list_AutomationPriority">
+              <PropertyRef Name="pk_PriorityID" />
+            </Principal>
+            <Dependent Role="list_TaskTypes">
+              <PropertyRef Name="fk_TaskPriority" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnApiTokens_sdnApiTokens">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="ApiTokens" Type="Self.ApiTokens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ApiTokens">
+              <PropertyRef Name="fk_UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnFileMoveHistory_sdnFileMoveHistory">
+          <End Role="sortItems" Type="Self.sortItems" Multiplicity="1" />
+          <End Role="FileMoveHistory" Type="Self.FileMoveHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sortItems">
+              <PropertyRef Name="pk_MediaID" />
+            </Principal>
+            <Dependent Role="FileMoveHistory">
+              <PropertyRef Name="fk_MediaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnFileMoveHistory_sdnProcessQueue">
+          <End Role="ProcessQueue" Type="Self.ProcessQueue" Multiplicity="0..1" />
+          <End Role="FileMoveHistory" Type="Self.FileMoveHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProcessQueue">
+              <PropertyRef Name="pk_ProcessID" />
+            </Principal>
+            <Dependent Role="FileMoveHistory">
+              <PropertyRef Name="fk_ProcessID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnMovies_list_MediaTypes">
+          <End Role="list_MediaTypes" Type="Self.list_MediaTypes" Multiplicity="1" />
+          <End Role="Movies" Type="Self.Movies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="list_MediaTypes">
+              <PropertyRef Name="pk_MediaTypeID" />
+            </Principal>
+            <Dependent Role="Movies">
+              <PropertyRef Name="fk_MediaType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnMovies_list_MovieGenres">
+          <End Role="list_MovieGenres" Type="Self.list_MovieGenres" Multiplicity="1" />
+          <End Role="Movies" Type="Self.Movies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="list_MovieGenres">
+              <PropertyRef Name="pk_GenreID" />
+            </Principal>
+            <Dependent Role="Movies">
+              <PropertyRef Name="fk_MovieGenre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnMovies_sortItems">
+          <End Role="sortItems" Type="Self.sortItems" Multiplicity="0..1" />
+          <End Role="Movies" Type="Self.Movies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sortItems">
+              <PropertyRef Name="pk_MediaID" />
+            </Principal>
+            <Dependent Role="Movies">
+              <PropertyRef Name="fk_MediaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnPlaybackHistory_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="PlaybackHistory" Type="Self.PlaybackHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlaybackHistory">
+              <PropertyRef Name="fk_UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnPlaybackHistory_sdnTelevisionEpisodes">
+          <End Role="TelevisionEpisodes" Type="Self.TelevisionEpisodes" Multiplicity="1" />
+          <End Role="PlaybackHistory" Type="Self.PlaybackHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TelevisionEpisodes">
+              <PropertyRef Name="pk_EpisodeID" />
+            </Principal>
+            <Dependent Role="PlaybackHistory">
+              <PropertyRef Name="fk_EpisodeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnPlaybackHistory_sdnTelevisionSeasons">
+          <End Role="TelevisionSeasons" Type="Self.TelevisionSeasons" Multiplicity="1" />
+          <End Role="PlaybackHistory" Type="Self.PlaybackHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TelevisionSeasons">
+              <PropertyRef Name="pk_SeasonID" />
+            </Principal>
+            <Dependent Role="PlaybackHistory">
+              <PropertyRef Name="fk_SeasonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnPlaybackHistory_TelevisionShows">
+          <End Role="TelevisionShows" Type="Self.TelevisionShows" Multiplicity="1" />
+          <End Role="PlaybackHistory" Type="Self.PlaybackHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TelevisionShows">
+              <PropertyRef Name="pk_ShowID" />
+            </Principal>
+            <Dependent Role="PlaybackHistory">
+              <PropertyRef Name="fk_ShowID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnProcessQueue_list_AutomationPriority">
+          <End Role="list_AutomationPriority" Type="Self.list_AutomationPriority" Multiplicity="1" />
+          <End Role="ProcessQueue" Type="Self.ProcessQueue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="list_AutomationPriority">
+              <PropertyRef Name="pk_PriorityID" />
+            </Principal>
+            <Dependent Role="ProcessQueue">
+              <PropertyRef Name="fk_AutomationPriority" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnProcessQueue_list_AutomationStatuses">
+          <End Role="list_AutomationStatuses" Type="Self.list_AutomationStatuses" Multiplicity="1" />
+          <End Role="ProcessQueue" Type="Self.ProcessQueue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="list_AutomationStatuses">
+              <PropertyRef Name="pk_automationStatus" />
+            </Principal>
+            <Dependent Role="ProcessQueue">
+              <PropertyRef Name="fk_AutomationStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnRequestedMedia_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="UserRequests" Type="Self.UserRequests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRequests">
+              <PropertyRef Name="fk_UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnRequestedMedia_list_AutomationStatuses">
+          <End Role="list_AutomationStatuses" Type="Self.list_AutomationStatuses" Multiplicity="0..1" />
+          <End Role="UserRequests" Type="Self.UserRequests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="list_AutomationStatuses">
+              <PropertyRef Name="pk_automationStatus" />
+            </Principal>
+            <Dependent Role="UserRequests">
+              <PropertyRef Name="fk_AutomationStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnRequestedMedia_sdnTelevisionEpisodes">
+          <End Role="TelevisionEpisodes" Type="Self.TelevisionEpisodes" Multiplicity="0..1" />
+          <End Role="UserRequests" Type="Self.UserRequests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TelevisionEpisodes">
+              <PropertyRef Name="pk_EpisodeID" />
+            </Principal>
+            <Dependent Role="UserRequests">
+              <PropertyRef Name="fk_EpisodeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnRequestedMedia_sdnTelevisionSeasons">
+          <End Role="TelevisionSeasons" Type="Self.TelevisionSeasons" Multiplicity="0..1" />
+          <End Role="UserRequests" Type="Self.UserRequests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TelevisionSeasons">
+              <PropertyRef Name="pk_SeasonID" />
+            </Principal>
+            <Dependent Role="UserRequests">
+              <PropertyRef Name="fk_SeasonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnRequestedMedia_TelevisionShows">
+          <End Role="TelevisionShows" Type="Self.TelevisionShows" Multiplicity="0..1" />
+          <End Role="UserRequests" Type="Self.UserRequests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TelevisionShows">
+              <PropertyRef Name="pk_ShowID" />
+            </Principal>
+            <Dependent Role="UserRequests">
+              <PropertyRef Name="fk_ShowID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnTaskQueue_list_AutomationActions">
+          <End Role="list_AutomationActions" Type="Self.list_AutomationActions" Multiplicity="1" />
+          <End Role="TaskQueue" Type="Self.TaskQueue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="list_AutomationActions">
+              <PropertyRef Name="pk_ActionType" />
+            </Principal>
+            <Dependent Role="TaskQueue">
+              <PropertyRef Name="fk_ActionType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnTaskQueue_list_AutomationStatuses">
+          <End Role="list_AutomationStatuses" Type="Self.list_AutomationStatuses" Multiplicity="1" />
+          <End Role="TaskQueue" Type="Self.TaskQueue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="list_AutomationStatuses">
+              <PropertyRef Name="pk_automationStatus" />
+            </Principal>
+            <Dependent Role="TaskQueue">
+              <PropertyRef Name="fk_TaskStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnTaskQueue_sdnParentTask">
+          <End Role="TaskQueue" Type="Self.TaskQueue" Multiplicity="0..1" />
+          <End Role="TaskQueue1" Type="Self.TaskQueue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskQueue">
+              <PropertyRef Name="pk_TaskID" />
+            </Principal>
+            <Dependent Role="TaskQueue1">
+              <PropertyRef Name="fk_ParentTaskID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnTaskQueue_sdnTaskOwner">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="TaskQueue" Type="Self.TaskQueue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TaskQueue">
+              <PropertyRef Name="fk_TaskOwner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnTelevisionEpisodes_list_MediaTypes">
+          <End Role="list_MediaTypes" Type="Self.list_MediaTypes" Multiplicity="0..1" />
+          <End Role="TelevisionEpisodes" Type="Self.TelevisionEpisodes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="list_MediaTypes">
+              <PropertyRef Name="pk_MediaTypeID" />
+            </Principal>
+            <Dependent Role="TelevisionEpisodes">
+              <PropertyRef Name="fk_MediaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnTelevisionEpisodes_sdnTelevisionSeasons">
+          <End Role="TelevisionSeasons" Type="Self.TelevisionSeasons" Multiplicity="1" />
+          <End Role="TelevisionEpisodes" Type="Self.TelevisionEpisodes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TelevisionSeasons">
+              <PropertyRef Name="pk_SeasonID" />
+            </Principal>
+            <Dependent Role="TelevisionEpisodes">
+              <PropertyRef Name="fk_SeasonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnTelevisionEpisodes_ShowID_TelevisionShows">
+          <End Role="TelevisionShows" Type="Self.TelevisionShows" Multiplicity="1" />
+          <End Role="TelevisionEpisodes" Type="Self.TelevisionEpisodes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TelevisionShows">
+              <PropertyRef Name="pk_ShowID" />
+            </Principal>
+            <Dependent Role="TelevisionEpisodes">
+              <PropertyRef Name="fk_ShowID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnTelevisionEpisodes_sortItems">
+          <End Role="sortItems" Type="Self.sortItems" Multiplicity="0..1" />
+          <End Role="TelevisionEpisodes" Type="Self.TelevisionEpisodes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sortItems">
+              <PropertyRef Name="pk_MediaID" />
+            </Principal>
+            <Dependent Role="TelevisionEpisodes">
+              <PropertyRef Name="fk_MediaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnTelevisionSeasons_ShowID_TelevisionShows">
+          <End Role="TelevisionShows" Type="Self.TelevisionShows" Multiplicity="1" />
+          <End Role="TelevisionSeasons" Type="Self.TelevisionSeasons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TelevisionShows">
+              <PropertyRef Name="pk_ShowID" />
+            </Principal>
+            <Dependent Role="TelevisionSeasons">
+              <PropertyRef Name="fk_ShowID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sortItems_automationStatus_sortItems">
+          <End Role="list_AutomationStatuses" Type="Self.list_AutomationStatuses" Multiplicity="1" />
+          <End Role="sortItems" Type="Self.sortItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="list_AutomationStatuses">
+              <PropertyRef Name="pk_automationStatus" />
+            </Principal>
+            <Dependent Role="sortItems">
+              <PropertyRef Name="fk_automationStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sortItems_mediaTypeID_sortItems">
+          <End Role="list_MediaTypes" Type="Self.list_MediaTypes" Multiplicity="1" />
+          <End Role="sortItems" Type="Self.sortItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="list_MediaTypes">
+              <PropertyRef Name="pk_MediaTypeID" />
+            </Principal>
+            <Dependent Role="sortItems">
+              <PropertyRef Name="fk_fileMediaTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sortItems_torrentID_sdnDownloadQueue">
+          <End Role="DownloadQueue" Type="Self.DownloadQueue" Multiplicity="0..1" />
+          <End Role="sortItems" Type="Self.sortItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DownloadQueue">
+              <PropertyRef Name="pk_torrentID" />
+            </Principal>
+            <Dependent Role="sortItems">
+              <PropertyRef Name="fk_torrentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="ActivateEpisode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="episodeID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ActivateSeason" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="seasonID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ActivateShow" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="showID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="BuildEpisodeStreamingUrl" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="fileName" Type="nvarchar" Mode="In" />
+          <Parameter Name="showName" Type="nvarchar" Mode="In" />
+          <Parameter Name="showFile" Type="nvarchar" Mode="In" />
+          <Parameter Name="showSeason" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="GetAllShows" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetDailyDownloads" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetDisplayDuration" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="mins" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetMovies" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetOrphanSortItems" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetShowEpisodes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="showID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetShowEpisodesBySeason" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="seasonID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetShowIdByName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ShowName" Type="nvarchar" Mode="In" />
+          <Parameter Name="ShowID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetShowSeasons" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="showID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetSortItems" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="MediaManagerDBStoreContainer">
+          <EntitySet Name="ApiTokens" EntityType="Self.ApiTokens" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DownloadQueue" EntityType="Self.DownloadQueue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FileMoveHistory" EntityType="Self.FileMoveHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="list_AutomationActions" EntityType="Self.list_AutomationActions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="list_AutomationPriority" EntityType="Self.list_AutomationPriority" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="list_AutomationStatuses" EntityType="Self.list_AutomationStatuses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="list_MediaTypes" EntityType="Self.list_MediaTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="list_MovieGenres" EntityType="Self.list_MovieGenres" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="list_permissionLevels" EntityType="Self.list_permissionLevels" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="list_TaskTypes" EntityType="Self.list_TaskTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Movies" EntityType="Self.Movies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlaybackHistory" EntityType="Self.PlaybackHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProcessQueue" EntityType="Self.ProcessQueue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sortItems" EntityType="Self.sortItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaskQueue" EntityType="Self.TaskQueue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TelevisionEpisodes" EntityType="Self.TelevisionEpisodes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TelevisionSeasons" EntityType="Self.TelevisionSeasons" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TelevisionShows" EntityType="Self.TelevisionShows" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRequests" EntityType="Self.UserRequests" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AspNetRoles_list_permissionLevels" Association="Self.FK_AspNetRoles_list_permissionLevels">
+            <End Role="list_permissionLevels" EntitySet="list_permissionLevels" />
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_list_TaskTypes_list_TaskTypes" Association="Self.FK_list_TaskTypes_list_TaskTypes">
+            <End Role="list_AutomationPriority" EntitySet="list_AutomationPriority" />
+            <End Role="list_TaskTypes" EntitySet="list_TaskTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnApiTokens_sdnApiTokens" Association="Self.FK_sdnApiTokens_sdnApiTokens">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="ApiTokens" EntitySet="ApiTokens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnFileMoveHistory_sdnFileMoveHistory" Association="Self.FK_sdnFileMoveHistory_sdnFileMoveHistory">
+            <End Role="sortItems" EntitySet="sortItems" />
+            <End Role="FileMoveHistory" EntitySet="FileMoveHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnFileMoveHistory_sdnProcessQueue" Association="Self.FK_sdnFileMoveHistory_sdnProcessQueue">
+            <End Role="ProcessQueue" EntitySet="ProcessQueue" />
+            <End Role="FileMoveHistory" EntitySet="FileMoveHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnMovies_list_MediaTypes" Association="Self.FK_sdnMovies_list_MediaTypes">
+            <End Role="list_MediaTypes" EntitySet="list_MediaTypes" />
+            <End Role="Movies" EntitySet="Movies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnMovies_list_MovieGenres" Association="Self.FK_sdnMovies_list_MovieGenres">
+            <End Role="list_MovieGenres" EntitySet="list_MovieGenres" />
+            <End Role="Movies" EntitySet="Movies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnMovies_sortItems" Association="Self.FK_sdnMovies_sortItems">
+            <End Role="sortItems" EntitySet="sortItems" />
+            <End Role="Movies" EntitySet="Movies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnPlaybackHistory_AspNetUsers" Association="Self.FK_sdnPlaybackHistory_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="PlaybackHistory" EntitySet="PlaybackHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnPlaybackHistory_sdnTelevisionEpisodes" Association="Self.FK_sdnPlaybackHistory_sdnTelevisionEpisodes">
+            <End Role="TelevisionEpisodes" EntitySet="TelevisionEpisodes" />
+            <End Role="PlaybackHistory" EntitySet="PlaybackHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnPlaybackHistory_sdnTelevisionSeasons" Association="Self.FK_sdnPlaybackHistory_sdnTelevisionSeasons">
+            <End Role="TelevisionSeasons" EntitySet="TelevisionSeasons" />
+            <End Role="PlaybackHistory" EntitySet="PlaybackHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnPlaybackHistory_TelevisionShows" Association="Self.FK_sdnPlaybackHistory_TelevisionShows">
+            <End Role="TelevisionShows" EntitySet="TelevisionShows" />
+            <End Role="PlaybackHistory" EntitySet="PlaybackHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnProcessQueue_list_AutomationPriority" Association="Self.FK_sdnProcessQueue_list_AutomationPriority">
+            <End Role="list_AutomationPriority" EntitySet="list_AutomationPriority" />
+            <End Role="ProcessQueue" EntitySet="ProcessQueue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnProcessQueue_list_AutomationStatuses" Association="Self.FK_sdnProcessQueue_list_AutomationStatuses">
+            <End Role="list_AutomationStatuses" EntitySet="list_AutomationStatuses" />
+            <End Role="ProcessQueue" EntitySet="ProcessQueue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnRequestedMedia_AspNetUsers" Association="Self.FK_sdnRequestedMedia_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="UserRequests" EntitySet="UserRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnRequestedMedia_list_AutomationStatuses" Association="Self.FK_sdnRequestedMedia_list_AutomationStatuses">
+            <End Role="list_AutomationStatuses" EntitySet="list_AutomationStatuses" />
+            <End Role="UserRequests" EntitySet="UserRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnRequestedMedia_sdnTelevisionEpisodes" Association="Self.FK_sdnRequestedMedia_sdnTelevisionEpisodes">
+            <End Role="TelevisionEpisodes" EntitySet="TelevisionEpisodes" />
+            <End Role="UserRequests" EntitySet="UserRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnRequestedMedia_sdnTelevisionSeasons" Association="Self.FK_sdnRequestedMedia_sdnTelevisionSeasons">
+            <End Role="TelevisionSeasons" EntitySet="TelevisionSeasons" />
+            <End Role="UserRequests" EntitySet="UserRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnRequestedMedia_TelevisionShows" Association="Self.FK_sdnRequestedMedia_TelevisionShows">
+            <End Role="TelevisionShows" EntitySet="TelevisionShows" />
+            <End Role="UserRequests" EntitySet="UserRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnTaskQueue_list_AutomationActions" Association="Self.FK_sdnTaskQueue_list_AutomationActions">
+            <End Role="list_AutomationActions" EntitySet="list_AutomationActions" />
+            <End Role="TaskQueue" EntitySet="TaskQueue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnTaskQueue_list_AutomationStatuses" Association="Self.FK_sdnTaskQueue_list_AutomationStatuses">
+            <End Role="list_AutomationStatuses" EntitySet="list_AutomationStatuses" />
+            <End Role="TaskQueue" EntitySet="TaskQueue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnTaskQueue_sdnParentTask" Association="Self.FK_sdnTaskQueue_sdnParentTask">
+            <End Role="TaskQueue" EntitySet="TaskQueue" />
+            <End Role="TaskQueue1" EntitySet="TaskQueue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnTaskQueue_sdnTaskOwner" Association="Self.FK_sdnTaskQueue_sdnTaskOwner">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="TaskQueue" EntitySet="TaskQueue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnTelevisionEpisodes_list_MediaTypes" Association="Self.FK_sdnTelevisionEpisodes_list_MediaTypes">
+            <End Role="list_MediaTypes" EntitySet="list_MediaTypes" />
+            <End Role="TelevisionEpisodes" EntitySet="TelevisionEpisodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnTelevisionEpisodes_sdnTelevisionSeasons" Association="Self.FK_sdnTelevisionEpisodes_sdnTelevisionSeasons">
+            <End Role="TelevisionSeasons" EntitySet="TelevisionSeasons" />
+            <End Role="TelevisionEpisodes" EntitySet="TelevisionEpisodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnTelevisionEpisodes_ShowID_TelevisionShows" Association="Self.FK_sdnTelevisionEpisodes_ShowID_TelevisionShows">
+            <End Role="TelevisionShows" EntitySet="TelevisionShows" />
+            <End Role="TelevisionEpisodes" EntitySet="TelevisionEpisodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnTelevisionEpisodes_sortItems" Association="Self.FK_sdnTelevisionEpisodes_sortItems">
+            <End Role="sortItems" EntitySet="sortItems" />
+            <End Role="TelevisionEpisodes" EntitySet="TelevisionEpisodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnTelevisionSeasons_ShowID_TelevisionShows" Association="Self.FK_sdnTelevisionSeasons_ShowID_TelevisionShows">
+            <End Role="TelevisionShows" EntitySet="TelevisionShows" />
+            <End Role="TelevisionSeasons" EntitySet="TelevisionSeasons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sortItems_automationStatus_sortItems" Association="Self.FK_sortItems_automationStatus_sortItems">
+            <End Role="list_AutomationStatuses" EntitySet="list_AutomationStatuses" />
+            <End Role="sortItems" EntitySet="sortItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sortItems_mediaTypeID_sortItems" Association="Self.FK_sortItems_mediaTypeID_sortItems">
+            <End Role="list_MediaTypes" EntitySet="list_MediaTypes" />
+            <End Role="sortItems" EntitySet="sortItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sortItems_torrentID_sdnDownloadQueue" Association="Self.FK_sortItems_torrentID_sdnDownloadQueue">
+            <End Role="DownloadQueue" EntitySet="DownloadQueue" />
+            <End Role="sortItems" EntitySet="sortItems" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MediaManagerDB" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ApiToken">
+          <Key>
+            <PropertyRef Name="pk_tokenID" />
+          </Key>
+          <Property Name="pk_tokenID" Type="Int32" Nullable="false" />
+          <Property Name="Token" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="lastRefresh" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="tokenSite" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="fk_UserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_sdnApiTokens_sdnApiTokens" FromRole="ApiTokens" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="fk_PermissionLevelNum" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="list_permissionLevels" Relationship="Self.FK_AspNetRoles_list_permissionLevels" FromRole="AspNetRoles" ToRole="list_permissionLevels" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddressStreet" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AddressCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddressState" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddressZipcode" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="AllowAccess" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ApiTokens" Relationship="Self.FK_sdnApiTokens_sdnApiTokens" FromRole="AspNetUsers" ToRole="ApiTokens" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="PlaybackHistories" Relationship="Self.FK_sdnPlaybackHistory_AspNetUsers" FromRole="AspNetUsers" ToRole="PlaybackHistory" />
+          <NavigationProperty Name="UserRequests" Relationship="Self.FK_sdnRequestedMedia_AspNetUsers" FromRole="AspNetUsers" ToRole="UserRequests" />
+          <NavigationProperty Name="TaskQueues" Relationship="Self.FK_sdnTaskQueue_sdnTaskOwner" FromRole="AspNetUsers" ToRole="TaskQueue" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="DownloadQueue">
+          <Key>
+            <PropertyRef Name="pk_torrentID" />
+          </Key>
+          <Property Name="pk_torrentID" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TorrentName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DownloadFinished" Type="DateTime" Precision="3" />
+          <Property Name="DownloadStarted" Type="DateTime" Precision="3" />
+          <Property Name="TorrentStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TorrentPath" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="DownloadDuration" Type="Int32" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="fileSize" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="sortItems" Relationship="Self.FK_sortItems_torrentID_sdnDownloadQueue" FromRole="DownloadQueue" ToRole="sortItems" />
+        </EntityType>
+        <EntityType Name="FileMoveHistory">
+          <Key>
+            <PropertyRef Name="pk_moveID" />
+          </Key>
+          <Property Name="pk_moveID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MoveSource" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MoveDestination" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="fk_MediaID" Type="Int32" Nullable="false" />
+          <Property Name="MoveTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="fk_ProcessID" Type="Int32" />
+          <NavigationProperty Name="sortItem" Relationship="Self.FK_sdnFileMoveHistory_sdnFileMoveHistory" FromRole="FileMoveHistory" ToRole="sortItems" />
+          <NavigationProperty Name="ProcessQueue" Relationship="Self.FK_sdnFileMoveHistory_sdnProcessQueue" FromRole="FileMoveHistory" ToRole="ProcessQueue" />
+        </EntityType>
+        <EntityType Name="list_AutomationActions">
+          <Key>
+            <PropertyRef Name="pk_ActionType" />
+          </Key>
+          <Property Name="pk_ActionType" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ActionDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="fk_PriorityID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TaskQueues" Relationship="Self.FK_sdnTaskQueue_list_AutomationActions" FromRole="list_AutomationActions" ToRole="TaskQueue" />
+        </EntityType>
+        <EntityType Name="list_AutomationPriority">
+          <Key>
+            <PropertyRef Name="pk_PriorityID" />
+          </Key>
+          <Property Name="pk_PriorityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PriorityDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PriorityLevel" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="list_TaskTypes" Relationship="Self.FK_list_TaskTypes_list_TaskTypes" FromRole="list_AutomationPriority" ToRole="list_TaskTypes" />
+          <NavigationProperty Name="ProcessQueues" Relationship="Self.FK_sdnProcessQueue_list_AutomationPriority" FromRole="list_AutomationPriority" ToRole="ProcessQueue" />
+        </EntityType>
+        <EntityType Name="list_AutomationStatuses">
+          <Key>
+            <PropertyRef Name="pk_automationStatus" />
+          </Key>
+          <Property Name="pk_automationStatus" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="automationStatusDisplay" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="automationNextAction" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ProcessQueues" Relationship="Self.FK_sdnProcessQueue_list_AutomationStatuses" FromRole="list_AutomationStatuses" ToRole="ProcessQueue" />
+          <NavigationProperty Name="UserRequests" Relationship="Self.FK_sdnRequestedMedia_list_AutomationStatuses" FromRole="list_AutomationStatuses" ToRole="UserRequests" />
+          <NavigationProperty Name="TaskQueues" Relationship="Self.FK_sdnTaskQueue_list_AutomationStatuses" FromRole="list_AutomationStatuses" ToRole="TaskQueue" />
+          <NavigationProperty Name="sortItems" Relationship="Self.FK_sortItems_automationStatus_sortItems" FromRole="list_AutomationStatuses" ToRole="sortItems" />
+        </EntityType>
+        <EntityType Name="list_MediaTypes">
+          <Key>
+            <PropertyRef Name="pk_MediaTypeID" />
+          </Key>
+          <Property Name="pk_MediaTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mediaTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Movies" Relationship="Self.FK_sdnMovies_list_MediaTypes" FromRole="list_MediaTypes" ToRole="Movies" />
+          <NavigationProperty Name="TelevisionEpisodes" Relationship="Self.FK_sdnTelevisionEpisodes_list_MediaTypes" FromRole="list_MediaTypes" ToRole="TelevisionEpisodes" />
+          <NavigationProperty Name="sortItems" Relationship="Self.FK_sortItems_mediaTypeID_sortItems" FromRole="list_MediaTypes" ToRole="sortItems" />
+        </EntityType>
+        <EntityType Name="list_MovieGenres">
+          <Key>
+            <PropertyRef Name="pk_GenreID" />
+          </Key>
+          <Property Name="pk_GenreID" Type="Int32" Nullable="false" />
+          <Property Name="GenreName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GenreEnabled" Type="Int32" Nullable="false" />
+          <Property Name="GenreHomePath" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Movies" Relationship="Self.FK_sdnMovies_list_MovieGenres" FromRole="list_MovieGenres" ToRole="Movies" />
+        </EntityType>
+        <EntityType Name="list_permissionLevels">
+          <Key>
+            <PropertyRef Name="pk_permissionLevelNum" />
+          </Key>
+          <Property Name="pk_permissionLevelNum" Type="Int32" Nullable="false" />
+          <Property Name="permissionLevelAuth" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="permissionLevelDisplay" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.FK_AspNetRoles_list_permissionLevels" FromRole="list_permissionLevels" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="list_TaskTypes">
+          <Key>
+            <PropertyRef Name="pk_TaskTypeID" />
+          </Key>
+          <Property Name="pk_TaskTypeID" Type="Int32" Nullable="false" />
+          <Property Name="TaskTypeName" Type="String" MaxLength="75" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="fk_TaskPriority" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="list_AutomationPriority" Relationship="Self.FK_list_TaskTypes_list_TaskTypes" FromRole="list_TaskTypes" ToRole="list_AutomationPriority" />
+        </EntityType>
+        <EntityType Name="Movy">
+          <Key>
+            <PropertyRef Name="pk_MovieID" />
+          </Key>
+          <Property Name="pk_MovieID" Type="Int32" Nullable="false" />
+          <Property Name="MovieTitle" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MovieYear" Type="Int32" />
+          <Property Name="fk_MovieGenre" Type="Int32" Nullable="false" />
+          <Property Name="FilePath" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ImdbID" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="TvdbID" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="SubtitlesExist" Type="Int32" Nullable="false" />
+          <Property Name="fk_MediaID" Type="Int32" />
+          <Property Name="fk_MediaType" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="list_MediaTypes" Relationship="Self.FK_sdnMovies_list_MediaTypes" FromRole="Movies" ToRole="list_MediaTypes" />
+          <NavigationProperty Name="list_MovieGenres" Relationship="Self.FK_sdnMovies_list_MovieGenres" FromRole="Movies" ToRole="list_MovieGenres" />
+          <NavigationProperty Name="sortItem" Relationship="Self.FK_sdnMovies_sortItems" FromRole="Movies" ToRole="sortItems" />
+        </EntityType>
+        <EntityType Name="PlaybackHistory">
+          <Key>
+            <PropertyRef Name="pk_PlaybackID" />
+          </Key>
+          <Property Name="pk_PlaybackID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlaybackDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="fk_UserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PlaybackProgressStopped" Type="Int32" Nullable="false" />
+          <Property Name="fk_EpisodeID" Type="Int32" Nullable="false" />
+          <Property Name="fk_ShowID" Type="Int32" Nullable="false" />
+          <Property Name="fk_SeasonID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_sdnPlaybackHistory_AspNetUsers" FromRole="PlaybackHistory" ToRole="AspNetUsers" />
+          <NavigationProperty Name="ITelevisionEpisode" Relationship="Self.FK_sdnPlaybackHistory_sdnTelevisionEpisodes" FromRole="PlaybackHistory" ToRole="TelevisionEpisodes" />
+          <NavigationProperty Name="ITelevisionSeason" Relationship="Self.FK_sdnPlaybackHistory_sdnTelevisionSeasons" FromRole="PlaybackHistory" ToRole="TelevisionSeasons" />
+          <NavigationProperty Name="ITelevisionShow" Relationship="Self.FK_sdnPlaybackHistory_TelevisionShows" FromRole="PlaybackHistory" ToRole="TelevisionShows" />
+        </EntityType>
+        <EntityType Name="ProcessQueue">
+          <Key>
+            <PropertyRef Name="pk_ProcessID" />
+          </Key>
+          <Property Name="pk_ProcessID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RequestTimestamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ProcessAction" Type="Int32" Nullable="false" />
+          <Property Name="fk_AutomationPriority" Type="Int32" Nullable="false" />
+          <Property Name="fk_AutomationStatus" Type="Int32" Nullable="false" />
+          <Property Name="fk_UserID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="fk_MediaID" Type="Int32" />
+          <Property Name="NextAction" Type="Int32" />
+          <NavigationProperty Name="FileMoveHistories" Relationship="Self.FK_sdnFileMoveHistory_sdnProcessQueue" FromRole="ProcessQueue" ToRole="FileMoveHistory" />
+          <NavigationProperty Name="list_AutomationPriority" Relationship="Self.FK_sdnProcessQueue_list_AutomationPriority" FromRole="ProcessQueue" ToRole="list_AutomationPriority" />
+          <NavigationProperty Name="list_AutomationStatuses" Relationship="Self.FK_sdnProcessQueue_list_AutomationStatuses" FromRole="ProcessQueue" ToRole="list_AutomationStatuses" />
+        </EntityType>
+        <EntityType Name="sortItem">
+          <Key>
+            <PropertyRef Name="pk_MediaID" />
+          </Key>
+          <Property Name="pk_MediaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="filePath" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fileName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="hasBeenSanitized" Type="Int32" Nullable="false" />
+          <Property Name="fileNameSanitized" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="hasBeenProcessed" Type="Int32" Nullable="false" />
+          <Property Name="fileModified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="fileAdded" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="fk_fileMediaTypeID" Type="Int32" Nullable="false" />
+          <Property Name="fk_automationStatus" Type="Int32" Nullable="false" />
+          <Property Name="finalizedFilePath" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="finalizedFileName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="finalizedShowName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="finalizedShowSeason" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="finalizedShowEpisode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="hasBeenFinalized" Type="Int32" Nullable="false" />
+          <Property Name="hasBeenDistributed" Type="Int32" Nullable="false" />
+          <Property Name="dlFileExists" Type="Int32" Nullable="false" />
+          <Property Name="finalizedStatus" Type="Int32" Nullable="false" />
+          <Property Name="fk_torrentID" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DownloadQueue" Relationship="Self.FK_sortItems_torrentID_sdnDownloadQueue" FromRole="sortItems" ToRole="DownloadQueue" />
+          <NavigationProperty Name="FileMoveHistories" Relationship="Self.FK_sdnFileMoveHistory_sdnFileMoveHistory" FromRole="sortItems" ToRole="FileMoveHistory" />
+          <NavigationProperty Name="list_AutomationStatuses" Relationship="Self.FK_sortItems_automationStatus_sortItems" FromRole="sortItems" ToRole="list_AutomationStatuses" />
+          <NavigationProperty Name="list_MediaTypes" Relationship="Self.FK_sortItems_mediaTypeID_sortItems" FromRole="sortItems" ToRole="list_MediaTypes" />
+          <NavigationProperty Name="Movies" Relationship="Self.FK_sdnMovies_sortItems" FromRole="sortItems" ToRole="Movies" />
+          <NavigationProperty Name="TelevisionEpisodes" Relationship="Self.FK_sdnTelevisionEpisodes_sortItems" FromRole="sortItems" ToRole="TelevisionEpisodes" />
+        </EntityType>
+        <EntityType Name="TaskQueue">
+          <Key>
+            <PropertyRef Name="pk_TaskID" />
+          </Key>
+          <Property Name="pk_TaskID" Type="Int32" Nullable="false" />
+          <Property Name="TaskTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TaskStartTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TaskEndTime" Type="DateTime" Precision="3" />
+          <Property Name="fk_ParentTaskID" Type="Int32" />
+          <Property Name="fk_TaskStatus" Type="Int32" Nullable="false" />
+          <Property Name="fk_TaskOwner" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TaskDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fk_ActionType" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_sdnTaskQueue_sdnTaskOwner" FromRole="TaskQueue" ToRole="AspNetUsers" />
+          <NavigationProperty Name="list_AutomationActions" Relationship="Self.FK_sdnTaskQueue_list_AutomationActions" FromRole="TaskQueue" ToRole="list_AutomationActions" />
+          <NavigationProperty Name="list_AutomationStatuses" Relationship="Self.FK_sdnTaskQueue_list_AutomationStatuses" FromRole="TaskQueue" ToRole="list_AutomationStatuses" />
+          <NavigationProperty Name="TaskQueue1" Relationship="Self.FK_sdnTaskQueue_sdnParentTask" FromRole="TaskQueue" ToRole="TaskQueue1" />
+          <NavigationProperty Name="TaskQueue2" Relationship="Self.FK_sdnTaskQueue_sdnParentTask" FromRole="TaskQueue1" ToRole="TaskQueue" />
+        </EntityType>
+        <EntityType Name="ITelevisionEpisode">
+          <Key>
+            <PropertyRef Name="pk_EpisodeID" />
+          </Key>
+          <Property Name="pk_EpisodeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fk_SeasonID" Type="Int32" Nullable="false" />
+          <Property Name="fk_ShowID" Type="Int32" Nullable="false" />
+          <Property Name="EpisodeNum" Type="Int32" Nullable="false" />
+          <Property Name="EpisodePath" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EpisodePlayerPath" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EpisodeDisplayTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EpisodeAlbumArtPath" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsEnabled" Type="Int32" Nullable="false" />
+          <Property Name="fk_MediaID" Type="Int32" />
+          <Property Name="fk_MediaType" Type="Int32" />
+          <NavigationProperty Name="list_MediaTypes" Relationship="Self.FK_sdnTelevisionEpisodes_list_MediaTypes" FromRole="TelevisionEpisodes" ToRole="list_MediaTypes" />
+          <NavigationProperty Name="PlaybackHistories" Relationship="Self.FK_sdnPlaybackHistory_sdnTelevisionEpisodes" FromRole="TelevisionEpisodes" ToRole="PlaybackHistory" />
+          <NavigationProperty Name="sortItem" Relationship="Self.FK_sdnTelevisionEpisodes_sortItems" FromRole="TelevisionEpisodes" ToRole="sortItems" />
+          <NavigationProperty Name="UserRequests" Relationship="Self.FK_sdnRequestedMedia_sdnTelevisionEpisodes" FromRole="TelevisionEpisodes" ToRole="UserRequests" />
+          <NavigationProperty Name="ITelevisionSeason" Relationship="Self.FK_sdnTelevisionEpisodes_sdnTelevisionSeasons" FromRole="TelevisionEpisodes" ToRole="TelevisionSeasons" />
+          <NavigationProperty Name="ITelevisionShow" Relationship="Self.FK_sdnTelevisionEpisodes_ShowID_TelevisionShows" FromRole="TelevisionEpisodes" ToRole="TelevisionShows" />
+        </EntityType>
+        <EntityType Name="ITelevisionSeason">
+          <Key>
+            <PropertyRef Name="pk_SeasonID" />
+          </Key>
+          <Property Name="pk_SeasonID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fk_ShowID" Type="Int32" Nullable="false" />
+          <Property Name="SeasonName" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SeasonHomePath" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SeasonNumEpisodes" Type="Int32" Nullable="false" />
+          <Property Name="SeasonAlbumArtPath" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsEnabled" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PlaybackHistories" Relationship="Self.FK_sdnPlaybackHistory_sdnTelevisionSeasons" FromRole="TelevisionSeasons" ToRole="PlaybackHistory" />
+          <NavigationProperty Name="TelevisionEpisodes" Relationship="Self.FK_sdnTelevisionEpisodes_sdnTelevisionSeasons" FromRole="TelevisionSeasons" ToRole="TelevisionEpisodes" />
+          <NavigationProperty Name="UserRequests" Relationship="Self.FK_sdnRequestedMedia_sdnTelevisionSeasons" FromRole="TelevisionSeasons" ToRole="UserRequests" />
+          <NavigationProperty Name="ITelevisionShow" Relationship="Self.FK_sdnTelevisionSeasons_ShowID_TelevisionShows" FromRole="TelevisionSeasons" ToRole="TelevisionShows" />
+        </EntityType>
+        <EntityType Name="ITelevisionShow">
+          <Key>
+            <PropertyRef Name="pk_ShowID" />
+          </Key>
+          <Property Name="pk_ShowID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ShowName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ShowDriveLetter" Type="String" MaxLength="1" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ShowHomePath" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ShowNumSeasons" Type="Int32" Nullable="false" />
+          <Property Name="ShowNumEpisodes" Type="Int32" Nullable="false" />
+          <Property Name="ShowAlbumArtPath" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsEnabled" Type="Int32" Nullable="false" />
+          <Property Name="TvdbID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ImdbID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fk_MediaType" Type="Int32" />
+          <NavigationProperty Name="PlaybackHistories" Relationship="Self.FK_sdnPlaybackHistory_TelevisionShows" FromRole="TelevisionShows" ToRole="PlaybackHistory" />
+          <NavigationProperty Name="TelevisionEpisodes" Relationship="Self.FK_sdnTelevisionEpisodes_ShowID_TelevisionShows" FromRole="TelevisionShows" ToRole="TelevisionEpisodes" />
+          <NavigationProperty Name="TelevisionSeasons" Relationship="Self.FK_sdnTelevisionSeasons_ShowID_TelevisionShows" FromRole="TelevisionShows" ToRole="TelevisionSeasons" />
+          <NavigationProperty Name="UserRequests" Relationship="Self.FK_sdnRequestedMedia_TelevisionShows" FromRole="TelevisionShows" ToRole="UserRequests" />
+        </EntityType>
+        <EntityType Name="UserRequest">
+          <Key>
+            <PropertyRef Name="pk_RequestID" />
+          </Key>
+          <Property Name="pk_RequestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RequestType" Type="Int32" />
+          <Property Name="RequestSubtype" Type="Int32" />
+          <Property Name="ExistingSeries" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="RequestQuery" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="RequestShow" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
+          <Property Name="RequestSeason" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RequestEpisode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RequestMovie" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RequestMovieYear" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="RequestMovieGenre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RequestCompleted" Type="Int32" />
+          <Property Name="fk_ShowID" Type="Int32" />
+          <Property Name="fk_EpisodeID" Type="Int32" />
+          <Property Name="fk_SeasonID" Type="Int32" />
+          <Property Name="fk_UserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="fk_AutomationStatus" Type="Int32" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_sdnRequestedMedia_AspNetUsers" FromRole="UserRequests" ToRole="AspNetUsers" />
+          <NavigationProperty Name="list_AutomationStatuses" Relationship="Self.FK_sdnRequestedMedia_list_AutomationStatuses" FromRole="UserRequests" ToRole="list_AutomationStatuses" />
+          <NavigationProperty Name="ITelevisionEpisode" Relationship="Self.FK_sdnRequestedMedia_sdnTelevisionEpisodes" FromRole="UserRequests" ToRole="TelevisionEpisodes" />
+          <NavigationProperty Name="ITelevisionSeason" Relationship="Self.FK_sdnRequestedMedia_sdnTelevisionSeasons" FromRole="UserRequests" ToRole="TelevisionSeasons" />
+          <NavigationProperty Name="ITelevisionShow" Relationship="Self.FK_sdnRequestedMedia_TelevisionShows" FromRole="UserRequests" ToRole="TelevisionShows" />
+        </EntityType>
+        <Association Name="FK_sdnApiTokens_sdnApiTokens">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="ApiTokens" Type="Self.ApiToken" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ApiTokens">
+              <PropertyRef Name="fk_UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetRoles_list_permissionLevels">
+          <End Role="list_permissionLevels" Type="Self.list_permissionLevels" Multiplicity="1" />
+          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="list_permissionLevels">
+              <PropertyRef Name="pk_permissionLevelNum" />
+            </Principal>
+            <Dependent Role="AspNetRoles">
+              <PropertyRef Name="fk_PermissionLevelNum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnPlaybackHistory_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="PlaybackHistory" Type="Self.PlaybackHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlaybackHistory">
+              <PropertyRef Name="fk_UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnRequestedMedia_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+          <End Role="UserRequests" Type="Self.UserRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRequests">
+              <PropertyRef Name="fk_UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnTaskQueue_sdnTaskOwner">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="TaskQueue" Type="Self.TaskQueue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TaskQueue">
+              <PropertyRef Name="fk_TaskOwner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sortItems_torrentID_sdnDownloadQueue">
+          <End Role="DownloadQueue" Type="Self.DownloadQueue" Multiplicity="0..1" />
+          <End Role="sortItems" Type="Self.sortItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DownloadQueue">
+              <PropertyRef Name="pk_torrentID" />
+            </Principal>
+            <Dependent Role="sortItems">
+              <PropertyRef Name="fk_torrentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnFileMoveHistory_sdnFileMoveHistory">
+          <End Role="sortItems" Type="Self.sortItem" Multiplicity="1" />
+          <End Role="FileMoveHistory" Type="Self.FileMoveHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sortItems">
+              <PropertyRef Name="pk_MediaID" />
+            </Principal>
+            <Dependent Role="FileMoveHistory">
+              <PropertyRef Name="fk_MediaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnFileMoveHistory_sdnProcessQueue">
+          <End Role="ProcessQueue" Type="Self.ProcessQueue" Multiplicity="0..1" />
+          <End Role="FileMoveHistory" Type="Self.FileMoveHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProcessQueue">
+              <PropertyRef Name="pk_ProcessID" />
+            </Principal>
+            <Dependent Role="FileMoveHistory">
+              <PropertyRef Name="fk_ProcessID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnTaskQueue_list_AutomationActions">
+          <End Role="list_AutomationActions" Type="Self.list_AutomationActions" Multiplicity="1" />
+          <End Role="TaskQueue" Type="Self.TaskQueue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="list_AutomationActions">
+              <PropertyRef Name="pk_ActionType" />
+            </Principal>
+            <Dependent Role="TaskQueue">
+              <PropertyRef Name="fk_ActionType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_list_TaskTypes_list_TaskTypes">
+          <End Role="list_AutomationPriority" Type="Self.list_AutomationPriority" Multiplicity="1" />
+          <End Role="list_TaskTypes" Type="Self.list_TaskTypes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="list_AutomationPriority">
+              <PropertyRef Name="pk_PriorityID" />
+            </Principal>
+            <Dependent Role="list_TaskTypes">
+              <PropertyRef Name="fk_TaskPriority" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnProcessQueue_list_AutomationPriority">
+          <End Role="list_AutomationPriority" Type="Self.list_AutomationPriority" Multiplicity="1" />
+          <End Role="ProcessQueue" Type="Self.ProcessQueue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="list_AutomationPriority">
+              <PropertyRef Name="pk_PriorityID" />
+            </Principal>
+            <Dependent Role="ProcessQueue">
+              <PropertyRef Name="fk_AutomationPriority" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnProcessQueue_list_AutomationStatuses">
+          <End Role="list_AutomationStatuses" Type="Self.list_AutomationStatuses" Multiplicity="1" />
+          <End Role="ProcessQueue" Type="Self.ProcessQueue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="list_AutomationStatuses">
+              <PropertyRef Name="pk_automationStatus" />
+            </Principal>
+            <Dependent Role="ProcessQueue">
+              <PropertyRef Name="fk_AutomationStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnRequestedMedia_list_AutomationStatuses">
+          <End Role="list_AutomationStatuses" Type="Self.list_AutomationStatuses" Multiplicity="0..1" />
+          <End Role="UserRequests" Type="Self.UserRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="list_AutomationStatuses">
+              <PropertyRef Name="pk_automationStatus" />
+            </Principal>
+            <Dependent Role="UserRequests">
+              <PropertyRef Name="fk_AutomationStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnTaskQueue_list_AutomationStatuses">
+          <End Role="list_AutomationStatuses" Type="Self.list_AutomationStatuses" Multiplicity="1" />
+          <End Role="TaskQueue" Type="Self.TaskQueue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="list_AutomationStatuses">
+              <PropertyRef Name="pk_automationStatus" />
+            </Principal>
+            <Dependent Role="TaskQueue">
+              <PropertyRef Name="fk_TaskStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sortItems_automationStatus_sortItems">
+          <End Role="list_AutomationStatuses" Type="Self.list_AutomationStatuses" Multiplicity="1" />
+          <End Role="sortItems" Type="Self.sortItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="list_AutomationStatuses">
+              <PropertyRef Name="pk_automationStatus" />
+            </Principal>
+            <Dependent Role="sortItems">
+              <PropertyRef Name="fk_automationStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnMovies_list_MediaTypes">
+          <End Role="list_MediaTypes" Type="Self.list_MediaTypes" Multiplicity="1" />
+          <End Role="Movies" Type="Self.Movy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="list_MediaTypes">
+              <PropertyRef Name="pk_MediaTypeID" />
+            </Principal>
+            <Dependent Role="Movies">
+              <PropertyRef Name="fk_MediaType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnTelevisionEpisodes_list_MediaTypes">
+          <End Role="list_MediaTypes" Type="Self.list_MediaTypes" Multiplicity="0..1" />
+          <End Role="TelevisionEpisodes" Type="Self.ITelevisionEpisode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="list_MediaTypes">
+              <PropertyRef Name="pk_MediaTypeID" />
+            </Principal>
+            <Dependent Role="TelevisionEpisodes">
+              <PropertyRef Name="fk_MediaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sortItems_mediaTypeID_sortItems">
+          <End Role="list_MediaTypes" Type="Self.list_MediaTypes" Multiplicity="1" />
+          <End Role="sortItems" Type="Self.sortItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="list_MediaTypes">
+              <PropertyRef Name="pk_MediaTypeID" />
+            </Principal>
+            <Dependent Role="sortItems">
+              <PropertyRef Name="fk_fileMediaTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnMovies_list_MovieGenres">
+          <End Role="list_MovieGenres" Type="Self.list_MovieGenres" Multiplicity="1" />
+          <End Role="Movies" Type="Self.Movy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="list_MovieGenres">
+              <PropertyRef Name="pk_GenreID" />
+            </Principal>
+            <Dependent Role="Movies">
+              <PropertyRef Name="fk_MovieGenre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnMovies_sortItems">
+          <End Role="sortItems" Type="Self.sortItem" Multiplicity="0..1" />
+          <End Role="Movies" Type="Self.Movy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sortItems">
+              <PropertyRef Name="pk_MediaID" />
+            </Principal>
+            <Dependent Role="Movies">
+              <PropertyRef Name="fk_MediaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnPlaybackHistory_sdnTelevisionEpisodes">
+          <End Role="TelevisionEpisodes" Type="Self.ITelevisionEpisode" Multiplicity="1" />
+          <End Role="PlaybackHistory" Type="Self.PlaybackHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TelevisionEpisodes">
+              <PropertyRef Name="pk_EpisodeID" />
+            </Principal>
+            <Dependent Role="PlaybackHistory">
+              <PropertyRef Name="fk_EpisodeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnPlaybackHistory_sdnTelevisionSeasons">
+          <End Role="TelevisionSeasons" Type="Self.ITelevisionSeason" Multiplicity="1" />
+          <End Role="PlaybackHistory" Type="Self.PlaybackHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TelevisionSeasons">
+              <PropertyRef Name="pk_SeasonID" />
+            </Principal>
+            <Dependent Role="PlaybackHistory">
+              <PropertyRef Name="fk_SeasonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnPlaybackHistory_TelevisionShows">
+          <End Role="TelevisionShows" Type="Self.ITelevisionShow" Multiplicity="1" />
+          <End Role="PlaybackHistory" Type="Self.PlaybackHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TelevisionShows">
+              <PropertyRef Name="pk_ShowID" />
+            </Principal>
+            <Dependent Role="PlaybackHistory">
+              <PropertyRef Name="fk_ShowID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnTelevisionEpisodes_sortItems">
+          <End Role="sortItems" Type="Self.sortItem" Multiplicity="0..1" />
+          <End Role="TelevisionEpisodes" Type="Self.ITelevisionEpisode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sortItems">
+              <PropertyRef Name="pk_MediaID" />
+            </Principal>
+            <Dependent Role="TelevisionEpisodes">
+              <PropertyRef Name="fk_MediaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnTaskQueue_sdnParentTask">
+          <End Role="TaskQueue" Type="Self.TaskQueue" Multiplicity="0..1" />
+          <End Role="TaskQueue1" Type="Self.TaskQueue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskQueue">
+              <PropertyRef Name="pk_TaskID" />
+            </Principal>
+            <Dependent Role="TaskQueue1">
+              <PropertyRef Name="fk_ParentTaskID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnRequestedMedia_sdnTelevisionEpisodes">
+          <End Role="TelevisionEpisodes" Type="Self.ITelevisionEpisode" Multiplicity="0..1" />
+          <End Role="UserRequests" Type="Self.UserRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TelevisionEpisodes">
+              <PropertyRef Name="pk_EpisodeID" />
+            </Principal>
+            <Dependent Role="UserRequests">
+              <PropertyRef Name="fk_EpisodeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnTelevisionEpisodes_sdnTelevisionSeasons">
+          <End Role="TelevisionSeasons" Type="Self.ITelevisionSeason" Multiplicity="1" />
+          <End Role="TelevisionEpisodes" Type="Self.ITelevisionEpisode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TelevisionSeasons">
+              <PropertyRef Name="pk_SeasonID" />
+            </Principal>
+            <Dependent Role="TelevisionEpisodes">
+              <PropertyRef Name="fk_SeasonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnTelevisionEpisodes_ShowID_TelevisionShows">
+          <End Role="TelevisionShows" Type="Self.ITelevisionShow" Multiplicity="1" />
+          <End Role="TelevisionEpisodes" Type="Self.ITelevisionEpisode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TelevisionShows">
+              <PropertyRef Name="pk_ShowID" />
+            </Principal>
+            <Dependent Role="TelevisionEpisodes">
+              <PropertyRef Name="fk_ShowID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnRequestedMedia_sdnTelevisionSeasons">
+          <End Role="TelevisionSeasons" Type="Self.ITelevisionSeason" Multiplicity="0..1" />
+          <End Role="UserRequests" Type="Self.UserRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TelevisionSeasons">
+              <PropertyRef Name="pk_SeasonID" />
+            </Principal>
+            <Dependent Role="UserRequests">
+              <PropertyRef Name="fk_SeasonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnTelevisionSeasons_ShowID_TelevisionShows">
+          <End Role="TelevisionShows" Type="Self.ITelevisionShow" Multiplicity="1" />
+          <End Role="TelevisionSeasons" Type="Self.ITelevisionSeason" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TelevisionShows">
+              <PropertyRef Name="pk_ShowID" />
+            </Principal>
+            <Dependent Role="TelevisionSeasons">
+              <PropertyRef Name="fk_ShowID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sdnRequestedMedia_TelevisionShows">
+          <End Role="TelevisionShows" Type="Self.ITelevisionShow" Multiplicity="0..1" />
+          <End Role="UserRequests" Type="Self.UserRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TelevisionShows">
+              <PropertyRef Name="pk_ShowID" />
+            </Principal>
+            <Dependent Role="UserRequests">
+              <PropertyRef Name="fk_ShowID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ApiTokens" EntityType="Self.ApiToken" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+          <EntitySet Name="DownloadQueues" EntityType="Self.DownloadQueue" />
+          <EntitySet Name="FileMoveHistories" EntityType="Self.FileMoveHistory" />
+          <EntitySet Name="list_AutomationActions" EntityType="Self.list_AutomationActions" />
+          <EntitySet Name="list_AutomationPriority" EntityType="Self.list_AutomationPriority" />
+          <EntitySet Name="list_AutomationStatuses" EntityType="Self.list_AutomationStatuses" />
+          <EntitySet Name="list_MediaTypes" EntityType="Self.list_MediaTypes" />
+          <EntitySet Name="list_MovieGenres" EntityType="Self.list_MovieGenres" />
+          <EntitySet Name="list_permissionLevels" EntityType="Self.list_permissionLevels" />
+          <EntitySet Name="list_TaskTypes" EntityType="Self.list_TaskTypes" />
+          <EntitySet Name="Movies" EntityType="Self.Movy" />
+          <EntitySet Name="PlaybackHistories" EntityType="Self.PlaybackHistory" />
+          <EntitySet Name="ProcessQueues" EntityType="Self.ProcessQueue" />
+          <EntitySet Name="sortItems" EntityType="Self.sortItem" />
+          <EntitySet Name="TaskQueues" EntityType="Self.TaskQueue" />
+          <EntitySet Name="TelevisionEpisodes" EntityType="Self.ITelevisionEpisode" />
+          <EntitySet Name="TelevisionSeasons" EntityType="Self.ITelevisionSeason" />
+          <EntitySet Name="TelevisionShows" EntityType="Self.ITelevisionShow" />
+          <EntitySet Name="UserRequests" EntityType="Self.UserRequest" />
+          <AssociationSet Name="FK_sdnApiTokens_sdnApiTokens" Association="Self.FK_sdnApiTokens_sdnApiTokens">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="ApiTokens" EntitySet="ApiTokens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetRoles_list_permissionLevels" Association="Self.FK_AspNetRoles_list_permissionLevels">
+            <End Role="list_permissionLevels" EntitySet="list_permissionLevels" />
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnPlaybackHistory_AspNetUsers" Association="Self.FK_sdnPlaybackHistory_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="PlaybackHistory" EntitySet="PlaybackHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnRequestedMedia_AspNetUsers" Association="Self.FK_sdnRequestedMedia_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="UserRequests" EntitySet="UserRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnTaskQueue_sdnTaskOwner" Association="Self.FK_sdnTaskQueue_sdnTaskOwner">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="TaskQueue" EntitySet="TaskQueues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sortItems_torrentID_sdnDownloadQueue" Association="Self.FK_sortItems_torrentID_sdnDownloadQueue">
+            <End Role="DownloadQueue" EntitySet="DownloadQueues" />
+            <End Role="sortItems" EntitySet="sortItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnFileMoveHistory_sdnFileMoveHistory" Association="Self.FK_sdnFileMoveHistory_sdnFileMoveHistory">
+            <End Role="sortItems" EntitySet="sortItems" />
+            <End Role="FileMoveHistory" EntitySet="FileMoveHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnFileMoveHistory_sdnProcessQueue" Association="Self.FK_sdnFileMoveHistory_sdnProcessQueue">
+            <End Role="ProcessQueue" EntitySet="ProcessQueues" />
+            <End Role="FileMoveHistory" EntitySet="FileMoveHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnTaskQueue_list_AutomationActions" Association="Self.FK_sdnTaskQueue_list_AutomationActions">
+            <End Role="list_AutomationActions" EntitySet="list_AutomationActions" />
+            <End Role="TaskQueue" EntitySet="TaskQueues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_list_TaskTypes_list_TaskTypes" Association="Self.FK_list_TaskTypes_list_TaskTypes">
+            <End Role="list_AutomationPriority" EntitySet="list_AutomationPriority" />
+            <End Role="list_TaskTypes" EntitySet="list_TaskTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnProcessQueue_list_AutomationPriority" Association="Self.FK_sdnProcessQueue_list_AutomationPriority">
+            <End Role="list_AutomationPriority" EntitySet="list_AutomationPriority" />
+            <End Role="ProcessQueue" EntitySet="ProcessQueues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnProcessQueue_list_AutomationStatuses" Association="Self.FK_sdnProcessQueue_list_AutomationStatuses">
+            <End Role="list_AutomationStatuses" EntitySet="list_AutomationStatuses" />
+            <End Role="ProcessQueue" EntitySet="ProcessQueues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnRequestedMedia_list_AutomationStatuses" Association="Self.FK_sdnRequestedMedia_list_AutomationStatuses">
+            <End Role="list_AutomationStatuses" EntitySet="list_AutomationStatuses" />
+            <End Role="UserRequests" EntitySet="UserRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnTaskQueue_list_AutomationStatuses" Association="Self.FK_sdnTaskQueue_list_AutomationStatuses">
+            <End Role="list_AutomationStatuses" EntitySet="list_AutomationStatuses" />
+            <End Role="TaskQueue" EntitySet="TaskQueues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sortItems_automationStatus_sortItems" Association="Self.FK_sortItems_automationStatus_sortItems">
+            <End Role="list_AutomationStatuses" EntitySet="list_AutomationStatuses" />
+            <End Role="sortItems" EntitySet="sortItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnMovies_list_MediaTypes" Association="Self.FK_sdnMovies_list_MediaTypes">
+            <End Role="list_MediaTypes" EntitySet="list_MediaTypes" />
+            <End Role="Movies" EntitySet="Movies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnTelevisionEpisodes_list_MediaTypes" Association="Self.FK_sdnTelevisionEpisodes_list_MediaTypes">
+            <End Role="list_MediaTypes" EntitySet="list_MediaTypes" />
+            <End Role="TelevisionEpisodes" EntitySet="TelevisionEpisodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sortItems_mediaTypeID_sortItems" Association="Self.FK_sortItems_mediaTypeID_sortItems">
+            <End Role="list_MediaTypes" EntitySet="list_MediaTypes" />
+            <End Role="sortItems" EntitySet="sortItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnMovies_list_MovieGenres" Association="Self.FK_sdnMovies_list_MovieGenres">
+            <End Role="list_MovieGenres" EntitySet="list_MovieGenres" />
+            <End Role="Movies" EntitySet="Movies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnMovies_sortItems" Association="Self.FK_sdnMovies_sortItems">
+            <End Role="sortItems" EntitySet="sortItems" />
+            <End Role="Movies" EntitySet="Movies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnPlaybackHistory_sdnTelevisionEpisodes" Association="Self.FK_sdnPlaybackHistory_sdnTelevisionEpisodes">
+            <End Role="TelevisionEpisodes" EntitySet="TelevisionEpisodes" />
+            <End Role="PlaybackHistory" EntitySet="PlaybackHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnPlaybackHistory_sdnTelevisionSeasons" Association="Self.FK_sdnPlaybackHistory_sdnTelevisionSeasons">
+            <End Role="TelevisionSeasons" EntitySet="TelevisionSeasons" />
+            <End Role="PlaybackHistory" EntitySet="PlaybackHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnPlaybackHistory_TelevisionShows" Association="Self.FK_sdnPlaybackHistory_TelevisionShows">
+            <End Role="TelevisionShows" EntitySet="TelevisionShows" />
+            <End Role="PlaybackHistory" EntitySet="PlaybackHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnTelevisionEpisodes_sortItems" Association="Self.FK_sdnTelevisionEpisodes_sortItems">
+            <End Role="sortItems" EntitySet="sortItems" />
+            <End Role="TelevisionEpisodes" EntitySet="TelevisionEpisodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnTaskQueue_sdnParentTask" Association="Self.FK_sdnTaskQueue_sdnParentTask">
+            <End Role="TaskQueue" EntitySet="TaskQueues" />
+            <End Role="TaskQueue1" EntitySet="TaskQueues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnRequestedMedia_sdnTelevisionEpisodes" Association="Self.FK_sdnRequestedMedia_sdnTelevisionEpisodes">
+            <End Role="TelevisionEpisodes" EntitySet="TelevisionEpisodes" />
+            <End Role="UserRequests" EntitySet="UserRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnTelevisionEpisodes_sdnTelevisionSeasons" Association="Self.FK_sdnTelevisionEpisodes_sdnTelevisionSeasons">
+            <End Role="TelevisionSeasons" EntitySet="TelevisionSeasons" />
+            <End Role="TelevisionEpisodes" EntitySet="TelevisionEpisodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnTelevisionEpisodes_ShowID_TelevisionShows" Association="Self.FK_sdnTelevisionEpisodes_ShowID_TelevisionShows">
+            <End Role="TelevisionShows" EntitySet="TelevisionShows" />
+            <End Role="TelevisionEpisodes" EntitySet="TelevisionEpisodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnRequestedMedia_sdnTelevisionSeasons" Association="Self.FK_sdnRequestedMedia_sdnTelevisionSeasons">
+            <End Role="TelevisionSeasons" EntitySet="TelevisionSeasons" />
+            <End Role="UserRequests" EntitySet="UserRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnTelevisionSeasons_ShowID_TelevisionShows" Association="Self.FK_sdnTelevisionSeasons_ShowID_TelevisionShows">
+            <End Role="TelevisionShows" EntitySet="TelevisionShows" />
+            <End Role="TelevisionSeasons" EntitySet="TelevisionSeasons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sdnRequestedMedia_TelevisionShows" Association="Self.FK_sdnRequestedMedia_TelevisionShows">
+            <End Role="TelevisionShows" EntitySet="TelevisionShows" />
+            <End Role="UserRequests" EntitySet="UserRequests" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <FunctionImport Name="ActivateEpisode">
+            <Parameter Name="episodeID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ActivateSeason">
+            <Parameter Name="seasonID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ActivateShow">
+            <Parameter Name="showID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="BuildEpisodeStreamingUrl" ReturnType="Collection(String)">
+            <Parameter Name="fileName" Mode="In" Type="String" />
+            <Parameter Name="showName" Mode="In" Type="String" />
+            <Parameter Name="showFile" Mode="In" Type="String" />
+            <Parameter Name="showSeason" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetAllShows" ReturnType="Collection(MediaManagerDB.GetAllShows_Result)" />
+          <FunctionImport Name="GetDailyDownloads" ReturnType="Collection(MediaManagerDB.GetDailyDownloads_Result)" />
+          <FunctionImport Name="GetDisplayDuration" ReturnType="Collection(String)">
+            <Parameter Name="mins" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetMovies" ReturnType="Collection(MediaManagerDB.GetMovies_Result)" />
+          <FunctionImport Name="GetOrphanSortItems" ReturnType="Collection(MediaManagerDB.GetOrphanSortItems_Result)" />
+          <FunctionImport Name="GetShowEpisodes" ReturnType="Collection(MediaManagerDB.GetShowEpisodes_Result)">
+            <Parameter Name="showID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetShowEpisodesBySeason" ReturnType="Collection(MediaManagerDB.GetShowEpisodesBySeason_Result)">
+            <Parameter Name="seasonID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetShowIdByName" ReturnType="Collection(Int32)">
+            <Parameter Name="ShowName" Mode="In" Type="String" />
+            <Parameter Name="ShowID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetShowSeasons" ReturnType="Collection(MediaManagerDB.GetShowSeasons_Result)">
+            <Parameter Name="showID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetSortItems" ReturnType="Collection(MediaManagerDB.GetSortItems_Result)" />
+          <FunctionImport Name="GetUsers" ReturnType="Collection(MediaManagerDB.GetUsers_Result)" />
+        </EntityContainer>
+        <ComplexType Name="GetAllShows_Result">
+          <Property Type="Int32" Name="pk_ShowID" Nullable="false" />
+          <Property Type="String" Name="ShowName" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="ShowDriveLetter" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="ShowHomePath" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="ShowNumSeasons" Nullable="false" />
+          <Property Type="Int32" Name="ShowNumEpisodes" Nullable="false" />
+          <Property Type="String" Name="ShowAlbumArtPath" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="IsEnabled" Nullable="false" />
+          <Property Type="String" Name="TvdbID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ImdbID" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="fk_MediaType" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetDailyDownloads_Result">
+          <Property Type="String" Name="pk_torrentID" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="TorrentName" Nullable="false" MaxLength="150" />
+          <Property Type="DateTime" Name="DownloadFinished" Nullable="true" />
+          <Property Type="DateTime" Name="DownloadStarted" Nullable="true" />
+          <Property Type="String" Name="TorrentStatus" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="TorrentPath" Nullable="true" MaxLength="150" />
+          <Property Type="Int32" Name="DownloadDuration" Nullable="true" />
+          <Property Type="Int32" Name="fileSize" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetMovies_Result">
+          <Property Type="Int32" Name="pk_MovieID" Nullable="false" />
+          <Property Type="String" Name="MovieTitle" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="MovieYear" Nullable="true" />
+          <Property Type="Int32" Name="fk_MovieGenre" Nullable="false" />
+          <Property Type="String" Name="FilePath" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="ImdbID" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="TvdbID" Nullable="true" MaxLength="25" />
+          <Property Type="Int32" Name="SubtitlesExist" Nullable="false" />
+          <Property Type="Int32" Name="fk_MediaID" Nullable="true" />
+          <Property Type="Int32" Name="fk_MediaType" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetOrphanSortItems_Result">
+          <Property Type="Int32" Name="pk_MediaID" Nullable="false" />
+          <Property Type="String" Name="filePath" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="fileName" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="hasBeenSanitized" Nullable="false" />
+          <Property Type="String" Name="fileNameSanitized" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="hasBeenProcessed" Nullable="false" />
+          <Property Type="DateTime" Name="fileModified" Nullable="false" />
+          <Property Type="DateTime" Name="fileAdded" Nullable="false" />
+          <Property Type="Int32" Name="fk_fileMediaTypeID" Nullable="false" />
+          <Property Type="Int32" Name="fk_automationStatus" Nullable="false" />
+          <Property Type="String" Name="finalizedFilePath" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="finalizedFileName" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="finalizedShowName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="finalizedShowSeason" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="finalizedShowEpisode" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="hasBeenFinalized" Nullable="false" />
+          <Property Type="Int32" Name="hasBeenDistributed" Nullable="false" />
+          <Property Type="Int32" Name="dlFileExists" Nullable="false" />
+          <Property Type="Int32" Name="finalizedStatus" Nullable="false" />
+          <Property Type="String" Name="fk_torrentID" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="TorrentName" Nullable="true" MaxLength="150" />
+          <Property Type="DateTime" Name="DownloadFinished" Nullable="true" />
+          <Property Type="DateTime" Name="DownloadStarted" Nullable="true" />
+          <Property Type="String" Name="TorrentStatus" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TorrentPath" Nullable="true" MaxLength="150" />
+          <Property Type="Int32" Name="DownloadDuration" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetShowEpisodes_Result">
+          <Property Type="Int32" Name="pk_EpisodeID" Nullable="false" />
+          <Property Type="Int32" Name="fk_SeasonID" Nullable="false" />
+          <Property Type="Int32" Name="fk_ShowID" Nullable="false" />
+          <Property Type="Int32" Name="EpisodeNum" Nullable="false" />
+          <Property Type="String" Name="EpisodePath" Nullable="false" MaxLength="300" />
+          <Property Type="String" Name="EpisodePlayerPath" Nullable="false" MaxLength="300" />
+          <Property Type="String" Name="EpisodeDisplayTitle" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="EpisodeAlbumArtPath" Nullable="false" MaxLength="150" />
+          <Property Type="Int32" Name="IsEnabled" Nullable="false" />
+          <Property Type="Int32" Name="fk_MediaID" Nullable="true" />
+          <Property Type="Int32" Name="fk_MediaType" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetShowEpisodesBySeason_Result">
+          <Property Type="Int32" Name="pk_EpisodeID" Nullable="false" />
+          <Property Type="Int32" Name="fk_SeasonID" Nullable="false" />
+          <Property Type="Int32" Name="fk_ShowID" Nullable="false" />
+          <Property Type="Int32" Name="EpisodeNum" Nullable="false" />
+          <Property Type="String" Name="EpisodePath" Nullable="false" MaxLength="300" />
+          <Property Type="String" Name="EpisodePlayerPath" Nullable="false" MaxLength="300" />
+          <Property Type="String" Name="EpisodeDisplayTitle" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="EpisodeAlbumArtPath" Nullable="false" MaxLength="150" />
+          <Property Type="Int32" Name="IsEnabled" Nullable="false" />
+          <Property Type="Int32" Name="fk_MediaID" Nullable="true" />
+          <Property Type="Int32" Name="fk_MediaType" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetShowSeasons_Result">
+          <Property Type="Int32" Name="pk_SeasonID" Nullable="false" />
+          <Property Type="Int32" Name="fk_ShowID" Nullable="false" />
+          <Property Type="String" Name="SeasonName" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="SeasonHomePath" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="SeasonNumEpisodes" Nullable="false" />
+          <Property Type="String" Name="SeasonAlbumArtPath" Nullable="false" MaxLength="150" />
+          <Property Type="Int32" Name="IsEnabled" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetSortItems_Result">
+          <Property Type="Int32" Name="pk_MediaID" Nullable="false" />
+          <Property Type="String" Name="filePath" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="fileName" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="hasBeenSanitized" Nullable="false" />
+          <Property Type="String" Name="fileNameSanitized" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="hasBeenProcessed" Nullable="false" />
+          <Property Type="DateTime" Name="fileModified" Nullable="false" />
+          <Property Type="DateTime" Name="fileAdded" Nullable="false" />
+          <Property Type="Int32" Name="fk_fileMediaTypeID" Nullable="false" />
+          <Property Type="Int32" Name="fk_automationStatus" Nullable="false" />
+          <Property Type="String" Name="finalizedFilePath" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="finalizedFileName" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="finalizedShowName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="finalizedShowSeason" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="finalizedShowEpisode" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="hasBeenFinalized" Nullable="false" />
+          <Property Type="Int32" Name="hasBeenDistributed" Nullable="false" />
+          <Property Type="Int32" Name="dlFileExists" Nullable="false" />
+          <Property Type="Int32" Name="finalizedStatus" Nullable="false" />
+          <Property Type="String" Name="fk_torrentID" Nullable="true" MaxLength="150" />
+        </ComplexType>
+        <ComplexType Name="GetUsers_Result">
+          <Property Type="String" Name="Id" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="256" />
+          <Property Type="Boolean" Name="EmailConfirmed" Nullable="false" />
+          <Property Type="String" Name="PasswordHash" Nullable="true" />
+          <Property Type="String" Name="SecurityStamp" Nullable="true" />
+          <Property Type="String" Name="PhoneNumber" Nullable="true" />
+          <Property Type="Boolean" Name="PhoneNumberConfirmed" Nullable="false" />
+          <Property Type="Boolean" Name="TwoFactorEnabled" Nullable="false" />
+          <Property Type="DateTime" Name="LockoutEndDateUtc" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="LockoutEnabled" Nullable="false" />
+          <Property Type="Int32" Name="AccessFailedCount" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="AddressStreet" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="AddressCity" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="AddressState" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="AddressZipcode" Nullable="true" MaxLength="5" />
+          <Property Type="Int32" Name="AllowAccess" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MediaManagerDBStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="ApiTokens">
+            <EntityTypeMapping TypeName="MediaManagerDB.ApiToken">
+              <MappingFragment StoreEntitySet="ApiTokens">
+                <ScalarProperty Name="pk_tokenID" ColumnName="pk_tokenID" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="lastRefresh" ColumnName="lastRefresh" />
+                <ScalarProperty Name="tokenSite" ColumnName="tokenSite" />
+                <ScalarProperty Name="fk_UserID" ColumnName="fk_UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="MediaManagerDB.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="fk_PermissionLevelNum" ColumnName="fk_PermissionLevelNum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="MediaManagerDB.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="MediaManagerDB.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="MediaManagerDB.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="AddressStreet" ColumnName="AddressStreet" />
+                <ScalarProperty Name="AddressCity" ColumnName="AddressCity" />
+                <ScalarProperty Name="AddressState" ColumnName="AddressState" />
+                <ScalarProperty Name="AddressZipcode" ColumnName="AddressZipcode" />
+                <ScalarProperty Name="AllowAccess" ColumnName="AllowAccess" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DownloadQueues">
+            <EntityTypeMapping TypeName="MediaManagerDB.DownloadQueue">
+              <MappingFragment StoreEntitySet="DownloadQueue">
+                <ScalarProperty Name="pk_torrentID" ColumnName="pk_torrentID" />
+                <ScalarProperty Name="TorrentName" ColumnName="TorrentName" />
+                <ScalarProperty Name="DownloadFinished" ColumnName="DownloadFinished" />
+                <ScalarProperty Name="DownloadStarted" ColumnName="DownloadStarted" />
+                <ScalarProperty Name="TorrentStatus" ColumnName="TorrentStatus" />
+                <ScalarProperty Name="TorrentPath" ColumnName="TorrentPath" />
+                <ScalarProperty Name="DownloadDuration" ColumnName="DownloadDuration" />
+                <ScalarProperty Name="fileSize" ColumnName="fileSize" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FileMoveHistories">
+            <EntityTypeMapping TypeName="MediaManagerDB.FileMoveHistory">
+              <MappingFragment StoreEntitySet="FileMoveHistory">
+                <ScalarProperty Name="pk_moveID" ColumnName="pk_moveID" />
+                <ScalarProperty Name="MoveSource" ColumnName="MoveSource" />
+                <ScalarProperty Name="MoveDestination" ColumnName="MoveDestination" />
+                <ScalarProperty Name="fk_MediaID" ColumnName="fk_MediaID" />
+                <ScalarProperty Name="MoveTime" ColumnName="MoveTime" />
+                <ScalarProperty Name="fk_ProcessID" ColumnName="fk_ProcessID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="list_AutomationActions">
+            <EntityTypeMapping TypeName="MediaManagerDB.list_AutomationActions">
+              <MappingFragment StoreEntitySet="list_AutomationActions">
+                <ScalarProperty Name="pk_ActionType" ColumnName="pk_ActionType" />
+                <ScalarProperty Name="ActionDescription" ColumnName="ActionDescription" />
+                <ScalarProperty Name="fk_PriorityID" ColumnName="fk_PriorityID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="list_AutomationPriority">
+            <EntityTypeMapping TypeName="MediaManagerDB.list_AutomationPriority">
+              <MappingFragment StoreEntitySet="list_AutomationPriority">
+                <ScalarProperty Name="pk_PriorityID" ColumnName="pk_PriorityID" />
+                <ScalarProperty Name="PriorityDescription" ColumnName="PriorityDescription" />
+                <ScalarProperty Name="PriorityLevel" ColumnName="PriorityLevel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="list_AutomationStatuses">
+            <EntityTypeMapping TypeName="MediaManagerDB.list_AutomationStatuses">
+              <MappingFragment StoreEntitySet="list_AutomationStatuses">
+                <ScalarProperty Name="pk_automationStatus" ColumnName="pk_automationStatus" />
+                <ScalarProperty Name="automationStatusDisplay" ColumnName="automationStatusDisplay" />
+                <ScalarProperty Name="automationNextAction" ColumnName="automationNextAction" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="list_MediaTypes">
+            <EntityTypeMapping TypeName="MediaManagerDB.list_MediaTypes">
+              <MappingFragment StoreEntitySet="list_MediaTypes">
+                <ScalarProperty Name="pk_MediaTypeID" ColumnName="pk_MediaTypeID" />
+                <ScalarProperty Name="mediaTypeName" ColumnName="mediaTypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="list_MovieGenres">
+            <EntityTypeMapping TypeName="MediaManagerDB.list_MovieGenres">
+              <MappingFragment StoreEntitySet="list_MovieGenres">
+                <ScalarProperty Name="pk_GenreID" ColumnName="pk_GenreID" />
+                <ScalarProperty Name="GenreName" ColumnName="GenreName" />
+                <ScalarProperty Name="GenreEnabled" ColumnName="GenreEnabled" />
+                <ScalarProperty Name="GenreHomePath" ColumnName="GenreHomePath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="list_permissionLevels">
+            <EntityTypeMapping TypeName="MediaManagerDB.list_permissionLevels">
+              <MappingFragment StoreEntitySet="list_permissionLevels">
+                <ScalarProperty Name="pk_permissionLevelNum" ColumnName="pk_permissionLevelNum" />
+                <ScalarProperty Name="permissionLevelAuth" ColumnName="permissionLevelAuth" />
+                <ScalarProperty Name="permissionLevelDisplay" ColumnName="permissionLevelDisplay" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="list_TaskTypes">
+            <EntityTypeMapping TypeName="MediaManagerDB.list_TaskTypes">
+              <MappingFragment StoreEntitySet="list_TaskTypes">
+                <ScalarProperty Name="pk_TaskTypeID" ColumnName="pk_TaskTypeID" />
+                <ScalarProperty Name="TaskTypeName" ColumnName="TaskTypeName" />
+                <ScalarProperty Name="fk_TaskPriority" ColumnName="fk_TaskPriority" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Movies">
+            <EntityTypeMapping TypeName="MediaManagerDB.Movy">
+              <MappingFragment StoreEntitySet="Movies">
+                <ScalarProperty Name="pk_MovieID" ColumnName="pk_MovieID" />
+                <ScalarProperty Name="MovieTitle" ColumnName="MovieTitle" />
+                <ScalarProperty Name="MovieYear" ColumnName="MovieYear" />
+                <ScalarProperty Name="fk_MovieGenre" ColumnName="fk_MovieGenre" />
+                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+                <ScalarProperty Name="ImdbID" ColumnName="ImdbID" />
+                <ScalarProperty Name="TvdbID" ColumnName="TvdbID" />
+                <ScalarProperty Name="SubtitlesExist" ColumnName="SubtitlesExist" />
+                <ScalarProperty Name="fk_MediaID" ColumnName="fk_MediaID" />
+                <ScalarProperty Name="fk_MediaType" ColumnName="fk_MediaType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlaybackHistories">
+            <EntityTypeMapping TypeName="MediaManagerDB.PlaybackHistory">
+              <MappingFragment StoreEntitySet="PlaybackHistory">
+                <ScalarProperty Name="pk_PlaybackID" ColumnName="pk_PlaybackID" />
+                <ScalarProperty Name="PlaybackDate" ColumnName="PlaybackDate" />
+                <ScalarProperty Name="fk_UserID" ColumnName="fk_UserID" />
+                <ScalarProperty Name="PlaybackProgressStopped" ColumnName="PlaybackProgressStopped" />
+                <ScalarProperty Name="fk_EpisodeID" ColumnName="fk_EpisodeID" />
+                <ScalarProperty Name="fk_ShowID" ColumnName="fk_ShowID" />
+                <ScalarProperty Name="fk_SeasonID" ColumnName="fk_SeasonID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProcessQueues">
+            <EntityTypeMapping TypeName="MediaManagerDB.ProcessQueue">
+              <MappingFragment StoreEntitySet="ProcessQueue">
+                <ScalarProperty Name="pk_ProcessID" ColumnName="pk_ProcessID" />
+                <ScalarProperty Name="RequestTimestamp" ColumnName="RequestTimestamp" />
+                <ScalarProperty Name="ProcessAction" ColumnName="ProcessAction" />
+                <ScalarProperty Name="fk_AutomationPriority" ColumnName="fk_AutomationPriority" />
+                <ScalarProperty Name="fk_AutomationStatus" ColumnName="fk_AutomationStatus" />
+                <ScalarProperty Name="fk_UserID" ColumnName="fk_UserID" />
+                <ScalarProperty Name="fk_MediaID" ColumnName="fk_MediaID" />
+                <ScalarProperty Name="NextAction" ColumnName="NextAction" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sortItems">
+            <EntityTypeMapping TypeName="MediaManagerDB.sortItem">
+              <MappingFragment StoreEntitySet="sortItems">
+                <ScalarProperty Name="pk_MediaID" ColumnName="pk_MediaID" />
+                <ScalarProperty Name="filePath" ColumnName="filePath" />
+                <ScalarProperty Name="fileName" ColumnName="fileName" />
+                <ScalarProperty Name="hasBeenSanitized" ColumnName="hasBeenSanitized" />
+                <ScalarProperty Name="fileNameSanitized" ColumnName="fileNameSanitized" />
+                <ScalarProperty Name="hasBeenProcessed" ColumnName="hasBeenProcessed" />
+                <ScalarProperty Name="fileModified" ColumnName="fileModified" />
+                <ScalarProperty Name="fileAdded" ColumnName="fileAdded" />
+                <ScalarProperty Name="fk_fileMediaTypeID" ColumnName="fk_fileMediaTypeID" />
+                <ScalarProperty Name="fk_automationStatus" ColumnName="fk_automationStatus" />
+                <ScalarProperty Name="finalizedFilePath" ColumnName="finalizedFilePath" />
+                <ScalarProperty Name="finalizedFileName" ColumnName="finalizedFileName" />
+                <ScalarProperty Name="finalizedShowName" ColumnName="finalizedShowName" />
+                <ScalarProperty Name="finalizedShowSeason" ColumnName="finalizedShowSeason" />
+                <ScalarProperty Name="finalizedShowEpisode" ColumnName="finalizedShowEpisode" />
+                <ScalarProperty Name="hasBeenFinalized" ColumnName="hasBeenFinalized" />
+                <ScalarProperty Name="hasBeenDistributed" ColumnName="hasBeenDistributed" />
+                <ScalarProperty Name="dlFileExists" ColumnName="dlFileExists" />
+                <ScalarProperty Name="finalizedStatus" ColumnName="finalizedStatus" />
+                <ScalarProperty Name="fk_torrentID" ColumnName="fk_torrentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaskQueues">
+            <EntityTypeMapping TypeName="MediaManagerDB.TaskQueue">
+              <MappingFragment StoreEntitySet="TaskQueue">
+                <ScalarProperty Name="pk_TaskID" ColumnName="pk_TaskID" />
+                <ScalarProperty Name="TaskTitle" ColumnName="TaskTitle" />
+                <ScalarProperty Name="TaskStartTime" ColumnName="TaskStartTime" />
+                <ScalarProperty Name="TaskEndTime" ColumnName="TaskEndTime" />
+                <ScalarProperty Name="fk_ParentTaskID" ColumnName="fk_ParentTaskID" />
+                <ScalarProperty Name="fk_TaskStatus" ColumnName="fk_TaskStatus" />
+                <ScalarProperty Name="fk_TaskOwner" ColumnName="fk_TaskOwner" />
+                <ScalarProperty Name="TaskDetails" ColumnName="TaskDetails" />
+                <ScalarProperty Name="fk_ActionType" ColumnName="fk_ActionType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TelevisionEpisodes">
+            <EntityTypeMapping TypeName="MediaManagerDB.ITelevisionEpisode">
+              <MappingFragment StoreEntitySet="TelevisionEpisodes">
+                <ScalarProperty Name="pk_EpisodeID" ColumnName="pk_EpisodeID" />
+                <ScalarProperty Name="fk_SeasonID" ColumnName="fk_SeasonID" />
+                <ScalarProperty Name="fk_ShowID" ColumnName="fk_ShowID" />
+                <ScalarProperty Name="EpisodeNum" ColumnName="EpisodeNum" />
+                <ScalarProperty Name="EpisodePath" ColumnName="EpisodePath" />
+                <ScalarProperty Name="EpisodePlayerPath" ColumnName="EpisodePlayerPath" />
+                <ScalarProperty Name="EpisodeDisplayTitle" ColumnName="EpisodeDisplayTitle" />
+                <ScalarProperty Name="EpisodeAlbumArtPath" ColumnName="EpisodeAlbumArtPath" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+                <ScalarProperty Name="fk_MediaID" ColumnName="fk_MediaID" />
+                <ScalarProperty Name="fk_MediaType" ColumnName="fk_MediaType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TelevisionSeasons">
+            <EntityTypeMapping TypeName="MediaManagerDB.ITelevisionSeason">
+              <MappingFragment StoreEntitySet="TelevisionSeasons">
+                <ScalarProperty Name="pk_SeasonID" ColumnName="pk_SeasonID" />
+                <ScalarProperty Name="fk_ShowID" ColumnName="fk_ShowID" />
+                <ScalarProperty Name="SeasonName" ColumnName="SeasonName" />
+                <ScalarProperty Name="SeasonHomePath" ColumnName="SeasonHomePath" />
+                <ScalarProperty Name="SeasonNumEpisodes" ColumnName="SeasonNumEpisodes" />
+                <ScalarProperty Name="SeasonAlbumArtPath" ColumnName="SeasonAlbumArtPath" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TelevisionShows">
+            <EntityTypeMapping TypeName="MediaManagerDB.ITelevisionShow">
+              <MappingFragment StoreEntitySet="TelevisionShows">
+                <ScalarProperty Name="pk_ShowID" ColumnName="pk_ShowID" />
+                <ScalarProperty Name="ShowName" ColumnName="ShowName" />
+                <ScalarProperty Name="ShowDriveLetter" ColumnName="ShowDriveLetter" />
+                <ScalarProperty Name="ShowHomePath" ColumnName="ShowHomePath" />
+                <ScalarProperty Name="ShowNumSeasons" ColumnName="ShowNumSeasons" />
+                <ScalarProperty Name="ShowNumEpisodes" ColumnName="ShowNumEpisodes" />
+                <ScalarProperty Name="ShowAlbumArtPath" ColumnName="ShowAlbumArtPath" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+                <ScalarProperty Name="TvdbID" ColumnName="TvdbID" />
+                <ScalarProperty Name="ImdbID" ColumnName="ImdbID" />
+                <ScalarProperty Name="fk_MediaType" ColumnName="fk_MediaType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRequests">
+            <EntityTypeMapping TypeName="MediaManagerDB.UserRequest">
+              <MappingFragment StoreEntitySet="UserRequests">
+                <ScalarProperty Name="pk_RequestID" ColumnName="pk_RequestID" />
+                <ScalarProperty Name="RequestType" ColumnName="RequestType" />
+                <ScalarProperty Name="RequestSubtype" ColumnName="RequestSubtype" />
+                <ScalarProperty Name="ExistingSeries" ColumnName="ExistingSeries" />
+                <ScalarProperty Name="RequestQuery" ColumnName="RequestQuery" />
+                <ScalarProperty Name="RequestShow" ColumnName="RequestShow" />
+                <ScalarProperty Name="RequestSeason" ColumnName="RequestSeason" />
+                <ScalarProperty Name="RequestEpisode" ColumnName="RequestEpisode" />
+                <ScalarProperty Name="RequestMovie" ColumnName="RequestMovie" />
+                <ScalarProperty Name="RequestMovieYear" ColumnName="RequestMovieYear" />
+                <ScalarProperty Name="RequestMovieGenre" ColumnName="RequestMovieGenre" />
+                <ScalarProperty Name="RequestCompleted" ColumnName="RequestCompleted" />
+                <ScalarProperty Name="fk_ShowID" ColumnName="fk_ShowID" />
+                <ScalarProperty Name="fk_EpisodeID" ColumnName="fk_EpisodeID" />
+                <ScalarProperty Name="fk_SeasonID" ColumnName="fk_SeasonID" />
+                <ScalarProperty Name="fk_UserID" ColumnName="fk_UserID" />
+                <ScalarProperty Name="fk_AutomationStatus" ColumnName="fk_AutomationStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="MediaManagerDB.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="ActivateEpisode" FunctionName="MediaManagerDB.Store.ActivateEpisode" />
+          <FunctionImportMapping FunctionImportName="ActivateSeason" FunctionName="MediaManagerDB.Store.ActivateSeason" />
+          <FunctionImportMapping FunctionImportName="ActivateShow" FunctionName="MediaManagerDB.Store.ActivateShow" />
+          <FunctionImportMapping FunctionImportName="BuildEpisodeStreamingUrl" FunctionName="MediaManagerDB.Store.BuildEpisodeStreamingUrl" />
+          <FunctionImportMapping FunctionImportName="GetAllShows" FunctionName="MediaManagerDB.Store.GetAllShows">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MediaManagerDB.GetAllShows_Result">
+                <ScalarProperty Name="pk_ShowID" ColumnName="pk_ShowID" />
+                <ScalarProperty Name="ShowName" ColumnName="ShowName" />
+                <ScalarProperty Name="ShowDriveLetter" ColumnName="ShowDriveLetter" />
+                <ScalarProperty Name="ShowHomePath" ColumnName="ShowHomePath" />
+                <ScalarProperty Name="ShowNumSeasons" ColumnName="ShowNumSeasons" />
+                <ScalarProperty Name="ShowNumEpisodes" ColumnName="ShowNumEpisodes" />
+                <ScalarProperty Name="ShowAlbumArtPath" ColumnName="ShowAlbumArtPath" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+                <ScalarProperty Name="TvdbID" ColumnName="TvdbID" />
+                <ScalarProperty Name="ImdbID" ColumnName="ImdbID" />
+                <ScalarProperty Name="fk_MediaType" ColumnName="fk_MediaType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetDailyDownloads" FunctionName="MediaManagerDB.Store.GetDailyDownloads">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MediaManagerDB.GetDailyDownloads_Result">
+                <ScalarProperty Name="pk_torrentID" ColumnName="pk_torrentID" />
+                <ScalarProperty Name="TorrentName" ColumnName="TorrentName" />
+                <ScalarProperty Name="DownloadFinished" ColumnName="DownloadFinished" />
+                <ScalarProperty Name="DownloadStarted" ColumnName="DownloadStarted" />
+                <ScalarProperty Name="TorrentStatus" ColumnName="TorrentStatus" />
+                <ScalarProperty Name="TorrentPath" ColumnName="TorrentPath" />
+                <ScalarProperty Name="DownloadDuration" ColumnName="DownloadDuration" />
+                <ScalarProperty Name="fileSize" ColumnName="fileSize" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetDisplayDuration" FunctionName="MediaManagerDB.Store.GetDisplayDuration" />
+          <FunctionImportMapping FunctionImportName="GetMovies" FunctionName="MediaManagerDB.Store.GetMovies">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MediaManagerDB.GetMovies_Result">
+                <ScalarProperty Name="pk_MovieID" ColumnName="pk_MovieID" />
+                <ScalarProperty Name="MovieTitle" ColumnName="MovieTitle" />
+                <ScalarProperty Name="MovieYear" ColumnName="MovieYear" />
+                <ScalarProperty Name="fk_MovieGenre" ColumnName="fk_MovieGenre" />
+                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+                <ScalarProperty Name="ImdbID" ColumnName="ImdbID" />
+                <ScalarProperty Name="TvdbID" ColumnName="TvdbID" />
+                <ScalarProperty Name="SubtitlesExist" ColumnName="SubtitlesExist" />
+                <ScalarProperty Name="fk_MediaID" ColumnName="fk_MediaID" />
+                <ScalarProperty Name="fk_MediaType" ColumnName="fk_MediaType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetOrphanSortItems" FunctionName="MediaManagerDB.Store.GetOrphanSortItems">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MediaManagerDB.GetOrphanSortItems_Result">
+                <ScalarProperty Name="pk_MediaID" ColumnName="pk_MediaID" />
+                <ScalarProperty Name="filePath" ColumnName="filePath" />
+                <ScalarProperty Name="fileName" ColumnName="fileName" />
+                <ScalarProperty Name="hasBeenSanitized" ColumnName="hasBeenSanitized" />
+                <ScalarProperty Name="fileNameSanitized" ColumnName="fileNameSanitized" />
+                <ScalarProperty Name="hasBeenProcessed" ColumnName="hasBeenProcessed" />
+                <ScalarProperty Name="fileModified" ColumnName="fileModified" />
+                <ScalarProperty Name="fileAdded" ColumnName="fileAdded" />
+                <ScalarProperty Name="fk_fileMediaTypeID" ColumnName="fk_fileMediaTypeID" />
+                <ScalarProperty Name="fk_automationStatus" ColumnName="fk_automationStatus" />
+                <ScalarProperty Name="finalizedFilePath" ColumnName="finalizedFilePath" />
+                <ScalarProperty Name="finalizedFileName" ColumnName="finalizedFileName" />
+                <ScalarProperty Name="finalizedShowName" ColumnName="finalizedShowName" />
+                <ScalarProperty Name="finalizedShowSeason" ColumnName="finalizedShowSeason" />
+                <ScalarProperty Name="finalizedShowEpisode" ColumnName="finalizedShowEpisode" />
+                <ScalarProperty Name="hasBeenFinalized" ColumnName="hasBeenFinalized" />
+                <ScalarProperty Name="hasBeenDistributed" ColumnName="hasBeenDistributed" />
+                <ScalarProperty Name="dlFileExists" ColumnName="dlFileExists" />
+                <ScalarProperty Name="finalizedStatus" ColumnName="finalizedStatus" />
+                <ScalarProperty Name="fk_torrentID" ColumnName="fk_torrentID" />
+                <ScalarProperty Name="TorrentName" ColumnName="TorrentName" />
+                <ScalarProperty Name="DownloadFinished" ColumnName="DownloadFinished" />
+                <ScalarProperty Name="DownloadStarted" ColumnName="DownloadStarted" />
+                <ScalarProperty Name="TorrentStatus" ColumnName="TorrentStatus" />
+                <ScalarProperty Name="TorrentPath" ColumnName="TorrentPath" />
+                <ScalarProperty Name="DownloadDuration" ColumnName="DownloadDuration" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetShowEpisodes" FunctionName="MediaManagerDB.Store.GetShowEpisodes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MediaManagerDB.GetShowEpisodes_Result">
+                <ScalarProperty Name="pk_EpisodeID" ColumnName="pk_EpisodeID" />
+                <ScalarProperty Name="fk_SeasonID" ColumnName="fk_SeasonID" />
+                <ScalarProperty Name="fk_ShowID" ColumnName="fk_ShowID" />
+                <ScalarProperty Name="EpisodeNum" ColumnName="EpisodeNum" />
+                <ScalarProperty Name="EpisodePath" ColumnName="EpisodePath" />
+                <ScalarProperty Name="EpisodePlayerPath" ColumnName="EpisodePlayerPath" />
+                <ScalarProperty Name="EpisodeDisplayTitle" ColumnName="EpisodeDisplayTitle" />
+                <ScalarProperty Name="EpisodeAlbumArtPath" ColumnName="EpisodeAlbumArtPath" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+                <ScalarProperty Name="fk_MediaID" ColumnName="fk_MediaID" />
+                <ScalarProperty Name="fk_MediaType" ColumnName="fk_MediaType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetShowEpisodesBySeason" FunctionName="MediaManagerDB.Store.GetShowEpisodesBySeason">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MediaManagerDB.GetShowEpisodesBySeason_Result">
+                <ScalarProperty Name="pk_EpisodeID" ColumnName="pk_EpisodeID" />
+                <ScalarProperty Name="fk_SeasonID" ColumnName="fk_SeasonID" />
+                <ScalarProperty Name="fk_ShowID" ColumnName="fk_ShowID" />
+                <ScalarProperty Name="EpisodeNum" ColumnName="EpisodeNum" />
+                <ScalarProperty Name="EpisodePath" ColumnName="EpisodePath" />
+                <ScalarProperty Name="EpisodePlayerPath" ColumnName="EpisodePlayerPath" />
+                <ScalarProperty Name="EpisodeDisplayTitle" ColumnName="EpisodeDisplayTitle" />
+                <ScalarProperty Name="EpisodeAlbumArtPath" ColumnName="EpisodeAlbumArtPath" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+                <ScalarProperty Name="fk_MediaID" ColumnName="fk_MediaID" />
+                <ScalarProperty Name="fk_MediaType" ColumnName="fk_MediaType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetShowIdByName" FunctionName="MediaManagerDB.Store.GetShowIdByName" />
+          <FunctionImportMapping FunctionImportName="GetShowSeasons" FunctionName="MediaManagerDB.Store.GetShowSeasons">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MediaManagerDB.GetShowSeasons_Result">
+                <ScalarProperty Name="pk_SeasonID" ColumnName="pk_SeasonID" />
+                <ScalarProperty Name="fk_ShowID" ColumnName="fk_ShowID" />
+                <ScalarProperty Name="SeasonName" ColumnName="SeasonName" />
+                <ScalarProperty Name="SeasonHomePath" ColumnName="SeasonHomePath" />
+                <ScalarProperty Name="SeasonNumEpisodes" ColumnName="SeasonNumEpisodes" />
+                <ScalarProperty Name="SeasonAlbumArtPath" ColumnName="SeasonAlbumArtPath" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetSortItems" FunctionName="MediaManagerDB.Store.GetSortItems">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MediaManagerDB.GetSortItems_Result">
+                <ScalarProperty Name="pk_MediaID" ColumnName="pk_MediaID" />
+                <ScalarProperty Name="filePath" ColumnName="filePath" />
+                <ScalarProperty Name="fileName" ColumnName="fileName" />
+                <ScalarProperty Name="hasBeenSanitized" ColumnName="hasBeenSanitized" />
+                <ScalarProperty Name="fileNameSanitized" ColumnName="fileNameSanitized" />
+                <ScalarProperty Name="hasBeenProcessed" ColumnName="hasBeenProcessed" />
+                <ScalarProperty Name="fileModified" ColumnName="fileModified" />
+                <ScalarProperty Name="fileAdded" ColumnName="fileAdded" />
+                <ScalarProperty Name="fk_fileMediaTypeID" ColumnName="fk_fileMediaTypeID" />
+                <ScalarProperty Name="fk_automationStatus" ColumnName="fk_automationStatus" />
+                <ScalarProperty Name="finalizedFilePath" ColumnName="finalizedFilePath" />
+                <ScalarProperty Name="finalizedFileName" ColumnName="finalizedFileName" />
+                <ScalarProperty Name="finalizedShowName" ColumnName="finalizedShowName" />
+                <ScalarProperty Name="finalizedShowSeason" ColumnName="finalizedShowSeason" />
+                <ScalarProperty Name="finalizedShowEpisode" ColumnName="finalizedShowEpisode" />
+                <ScalarProperty Name="hasBeenFinalized" ColumnName="hasBeenFinalized" />
+                <ScalarProperty Name="hasBeenDistributed" ColumnName="hasBeenDistributed" />
+                <ScalarProperty Name="dlFileExists" ColumnName="dlFileExists" />
+                <ScalarProperty Name="finalizedStatus" ColumnName="finalizedStatus" />
+                <ScalarProperty Name="fk_torrentID" ColumnName="fk_torrentID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetUsers" FunctionName="MediaManagerDB.Store.GetUsers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MediaManagerDB.GetUsers_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="AddressStreet" ColumnName="AddressStreet" />
+                <ScalarProperty Name="AddressCity" ColumnName="AddressCity" />
+                <ScalarProperty Name="AddressState" ColumnName="AddressState" />
+                <ScalarProperty Name="AddressZipcode" ColumnName="AddressZipcode" />
+                <ScalarProperty Name="AllowAccess" ColumnName="AllowAccess" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

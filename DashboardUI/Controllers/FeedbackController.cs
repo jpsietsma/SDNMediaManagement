@@ -1,91 +1,78 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using DashboardUI.Items;
+
+using SDNMediaModels.DBContext;
 using SDNMediaModels.Feedback;
 
 namespace DashboardUI.Controllers
 {
     public class FeedbackController : Controller
     {
-        private RequestedMediaItem db = new RequestedMediaItem();
-        private TaskModelItem db_tasks = new TaskModelItem();
+        private MediaManagerDB db = new MediaManagerDB();
 
         [Authorize]
         public ActionResult Index()
         {
-            RequestedMediaItem db = new RequestedMediaItem();
-
-            return View(db.requests.Where(r => r.RequestCompleted == 0).ToList());
+            return View(db.UserRequests.Where(r => r.RequestCompleted == 0).ToList());
         }
-
-        // GET: Feedback/Create
 
         public ActionResult RequestMedia()
         {
             return View("Create");
         }
 
-        // POST: Feedback/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "pk_RequestID,RequestQuery,RequestType,RequestSubtype,ExistingSeries,RequestShow,RequestSeason,RequestEpisode,RequestMovie,RequestMovieYear,RequestMovieGenre,RequestCompleted")] RequestedMediaItemModel requestedMediaItemModel)
+        public ActionResult Create([Bind(Include = "pk_RequestID,RequestQuery,RequestType,RequestSubtype,ExistingSeries,RequestShow,RequestSeason,RequestEpisode,RequestMovie,RequestMovieYear,RequestMovieGenre,RequestCompleted")] UserRequest request)
         {
             if (ModelState.IsValid)
             {
-                db.requests.Add(requestedMediaItemModel);
+                db.UserRequests.Add(request);
                 db.SaveChanges();
                 return RedirectToAction("RequestMedia");
             }
 
-            return View(requestedMediaItemModel);
+            return View(request);
         }
 
-        // GET: Feedback/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            RequestedMediaItemModel requestedMediaItemModel = db.requests.Find(id);
+
+            UserRequest requestedMediaItemModel = db.UserRequests.Where(s => s.pk_RequestID == id).FirstOrDefault();
+
             if (requestedMediaItemModel == null)
             {
                 return HttpNotFound();
             }
+
             return View(requestedMediaItemModel);
         }
 
-        // POST: Feedback/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "pk_RequestID,RequestQuery,RequestType,RequestSubtype,ExistingSeries,RequestShow,RequestSeason,RequestEpisode,RequestMovie,RequestMovieYear,RequestMovieGenre")] RequestedMediaItemModel requestedMediaItemModel)
+        public ActionResult Edit([Bind(Include = "pk_RequestID,RequestQuery,RequestType,RequestSubtype,ExistingSeries,RequestShow,RequestSeason,RequestEpisode,RequestMovie,RequestMovieYear,RequestMovieGenre")] UserRequest request)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(requestedMediaItemModel).State = EntityState.Modified;
+                db.Entry(request).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(requestedMediaItemModel);
+            return View(request);
         }
 
         [Authorize(Roles = "Admin")]
         public ActionResult Tasks()
         {
-            TaskModelItem tasks = new TaskModelItem();
-
-            return View(tasks.taskItems);
+            return View(db.TaskQueues);
         }
-
-
 
         protected override void Dispose(bool disposing)
         {

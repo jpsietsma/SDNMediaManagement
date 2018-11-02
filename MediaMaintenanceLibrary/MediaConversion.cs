@@ -1,13 +1,10 @@
 ﻿using Newtonsoft.Json;
-using SDNMediaModels.Image;
 using SDNMediaModels.Movie;
 using SDNMediaModels.Sort;
 using SDNMediaModels.Television;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace MediaMaintenanceLibrary
 {
@@ -17,93 +14,16 @@ namespace MediaMaintenanceLibrary
     public static class MediaConversion
     {
 
-#region Screenshot Gallery Methods...
-
-        /// <summary>
-        /// Build Json Array for image gallery sources
-        /// </summary>
-        /// <param name="files">List of string of file paths</param>
-        /// <param name="directory">Directory to filter files</param>
-        /// <returns> string representing json array of src and title entries</returns>
-        public static string GetJsonArrayImageSrc(IEnumerable<string> files, string directory)
-        {
-            StringBuilder finalJson = new StringBuilder();
-            finalJson.Append(" items: [");
-
-            int i = 0;
-            
-            foreach (string file in files)
-            {
-                i++;
-
-                if (file.Contains(directory))
-                {
-                    string entry = string.Empty;
-
-                    if (i < files.Count())
-                    {
-                        entry = $"{{ \"src\": \"{ file.Split('\\')[5] }\", \"title\": \"{ file.Split('\\')[5].Split('.')[0] }\" }}, ";
-                    }
-                    else
-                    {
-                        entry = $"{{ \"src\": \"{ file.Split('\\')[5] }\", \"title\": \"{ file.Split('\\')[5].Split('.')[0] }\" }}";
-                    }
-
-                    finalJson.Append(entry);
-                }
-                
-            }
-
-            finalJson.Append("],");
-
-            return finalJson.ToString();
-        }
-
-        /// <summary>
-        /// Build Json Array for image gallery sources
-        /// </summary>
-        /// <param name="images">List of GalleryImageModel objects</param>
-        /// <param name="directory">Directory to filter objects</param>
-        /// <returns> string representing json array of GalleryImageModel entries</returns>
-        public static string GetJsonArrayImageSrc(IEnumerable<IGalleryImageModel> images, string directory)
-        {
-
-            StringBuilder finalJson = new StringBuilder();
-
-            foreach (IGalleryImageModel imageModel in images)
-            {
-                if (imageModel._src.Contains(directory))
-                {
-                    finalJson.Append(imageModel.GetJsonArrayImageSrc());
-                }                
-            }
-
-            return finalJson.ToString();                                 
-        }
-
-        /// <summary>
-        /// Build Json Array for image gallery source
-        /// </summary>
-        /// <param name="image">GalleryImageModel object</param>
-        /// <returns> string representing json array of GalleryImageModel</returns>
-        public static string GetJsonArrayImageSrc(this IGalleryImageModel image)
-        {
-            return JsonConvert.SerializeObject(image);
-        }
-
-#endregion
-
-
-#region Model Conversion Extension Methods...
+#region Sort Model Extension Methods...
 
         /// <summary>
         /// Convert finalized Sort Item to Television Episode
         /// </summary>
         /// <param name="sortModel">Model to convert to Television Episode</param>
-        /// <returns>TelevisionEpisodeModel converted from SortMediaItem</returns>
-        public static TelevisionEpisodeModel ToEpisode(this SortMediaItemModel sortModel)
+        /// <returns>ITelevisionEpisode converted from SortMediaItem</returns>
+        public static TelevisionEpisode ToEpisode(this sortItem sortModel)
         {
-            TelevisionEpisodeModel newEpisode = new TelevisionEpisodeModel { pk_EpisodeID = sortModel.pk_MediaID, EpisodePath = sortModel.filePath };
+            TelevisionEpisode newEpisode = new TelevisionEpisode { pk_EpisodeID = sortModel.pk_MediaID, EpisodePath = sortModel.filePath };
 
             return newEpisode;
         }
@@ -112,27 +32,119 @@ namespace MediaMaintenanceLibrary
         /// Convert finalized Sort Item to Movie
         /// </summary>
         /// <param name="sortModel">Model to convert to Movie</param>
-        /// <returns>MovieModel converted from SortMediaItem</returns>
-        public static MovieModel ToMovie(this SortMediaItemModel sortModel)
+        /// <returns>Movy converted from SortMediaItem</returns>
+        public static Movie ToMovie(this sortItem sortModel)
         {
-            MovieModel newMovie = new MovieModel { pk_MovieID = sortModel.pk_MediaID, fileName = sortModel.fileName, filePath = sortModel.filePath };
+            Movie newMovie = new Movie { pk_MovieID = sortModel.pk_MediaID, FileName = sortModel.fileName, FilePath = sortModel.filePath };
 
             return newMovie;
+        }       
+
+#endregion
+
+#region Media Streaming & Playlist Methods...
+
+        /// <summary>
+        /// Build source url for media player to stream content
+        /// </summary>
+        /// <param name="filePath">Path of file to stream</param>
+        /// <returns>string representing url of content</returns>
+        public static string BuildStreamingUrl(string filePath)
+        {
+
+            string baseUrl = @"http://www.jimmysietsma.com/media/tv";
+            char showDrive = filePath[0];
+            string showName = filePath.Split('\\')[2];
+            string showSeason = filePath.Split('\\')[3];
+            string showEpisode = filePath.Split('\\')[4];
+
+            return $"{ baseUrl }/{ showDrive }/TV Shows/{ showName }/{ showSeason }/{ showEpisode }";
         }
 
         /// <summary>
-        /// Convert finalized Sort Item to Screenshot
+        /// Return or build source url for streaming content
         /// </summary>
-        /// <param name="sortModel">Model to convert to ScreenShot</param>
-        /// <returns>GalleryImageModel converted from SortMediaItem</returns>
-        public static GalleryImageModel ToScreenshot(this SortMediaItemModel sortModel)
+        /// <param name="movie">ITelevisionEpisode to build streaming url</param>
+        /// <returns>string url to pass to web media streaming</returns>
+        public static string BuildStreamingUrl(Movie movie)
         {
-            GalleryImageModel newImage = new GalleryImageModel(sortModel.fileName, sortModel.fileName);
 
-            return newImage;
+                string baseUrl = @"http://www.jimmysietsma.com/media/movie";
+                char movieDrive = movie.FilePath[0];
+                string movieGenre = movie.FilePath.Split('\\')[2];
+                string movieTitle = movie.FileName;
+
+                return $"{ baseUrl }/{ movieDrive }/Movies/{ movieGenre }/{ movieTitle }";
+                        
         }
 
-#endregion
+        /// <summary>
+        /// Return or build source url for streaming content
+        /// </summary>
+        /// <param name="episode">ITelevisionEpisode to build streaming url</param>
+        /// <returns>string url to pass to web media streaming</returns>
+        public static string BuildStreamingUrl(ITelevisionEpisode episode)
+        {
+
+            if (string.IsNullOrEmpty(episode.EpisodePlayerPath))
+            {
+                string baseUrl = @"http://www.jimmysietsma.com/media/tv";
+                char showDrive = episode.EpisodePath[0];
+                string showName = episode.EpisodePath.Split('\\')[2];
+                string showSeason = episode.EpisodePath.Split('\\')[3];
+                string showEpisode = episode.EpisodePath.Split('\\')[4];
+
+                return $"{ baseUrl }/{ showDrive }/TV Shows/{ showName }/{ showSeason }/{ showEpisode }";
+            }
+            else
+            {
+                return episode.EpisodePlayerPath;
+            }
+
+        }
+
+        /// <summary>
+        /// Build list of urls for media player to stream
+        /// </summary>
+        /// <param name="episodeModels">List of string paths containing episodes</param>
+        /// <returns>List of strings containing urls for streaming</returns>
+        public static List<string> BuildStreamingPlaylist (List<ITelevisionEpisode> episodeModels)
+        {
+            List<string> finalUrls = new List<string>();
+
+            foreach (ITelevisionEpisode episode in episodeModels)
+            {
+
+                finalUrls.Add(BuildStreamingUrl(episode));
+
+            }
+
+
+            return finalUrls;
+        }
+
+        /// <summary>
+        /// Build list of urls for media player to stream
+        /// </summary>
+        /// <param name="Movys">List of Movie items</param>
+        /// <returns>List of strings containing urls for streaming</returns>
+        public static List<string> BuildStreamingPlaylist(List<Movie> Movys)
+        {
+            List<string> finalUrls = new List<string>();
+
+            foreach (Movie movie in Movys)
+            {
+
+                finalUrls.Add(BuildStreamingUrl(movie));
+
+            }
+
+
+            return finalUrls;
+        }
+
+
+        #endregion
 
     }
 }

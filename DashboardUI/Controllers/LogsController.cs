@@ -12,22 +12,6 @@ namespace DashboardUI.Controllers
         {
             return View();
         }
-
-        public ActionResult DownloadHistory(string id)
-        {
-            List<IDownloadHistory> downloadLogs = new List<IDownloadHistory>();
-
-            string[] files = Directory.GetFiles(@"S:\~drops\tvdrop");
-
-            foreach (string file in files)
-            {
-
-                downloadLogs.Add(new DownloadHistory(file));
-
-            }
-
-            return View(downloadLogs);
-        }
         
     }
 }

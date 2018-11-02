@@ -27,7 +27,7 @@ namespace DashboardUI.Controllers
 
                         try
                         {
-                            MediaMaintenanceLibrary.MediaProcessingLibrary.PopulateSortTable();
+                            MediaMaintenanceLibrary.MediaProcessing.PopulateSortTable();
                         }
 
                         catch (Exception ex) { Console.WriteLine(ex.Message); }
@@ -41,7 +41,7 @@ namespace DashboardUI.Controllers
 
                         try
                         {
-                            MediaMaintenanceLibrary.MediaProcessingLibrary.SanitizeSortTable();
+                            MediaMaintenanceLibrary.MediaProcessing.SanitizeSortTable();
                         }
 
                         catch (Exception ex) { Console.WriteLine(ex.Message); }
@@ -59,7 +59,7 @@ namespace DashboardUI.Controllers
 
             try
             {
-                MediaMaintenanceLibrary.MediaProcessingLibrary.PopulateSortTable();
+                MediaMaintenanceLibrary.MediaProcessing.PopulateSortTable();
             }
 
             catch (Exception ex) { Console.WriteLine(ex.Message); }
@@ -72,7 +72,7 @@ namespace DashboardUI.Controllers
 
             try
             {
-                MediaMaintenanceLibrary.MediaProcessingLibrary.FinalizeSortTable();
+                MediaMaintenanceLibrary.MediaProcessing.FinalizeSortTable();
             }
 
             catch (Exception ex) { Console.WriteLine(ex.Message); }
@@ -85,7 +85,7 @@ namespace DashboardUI.Controllers
 
             try
             {
-                MediaMaintenanceLibrary.MediaProcessingLibrary.DistributeSortTable();
+                MediaMaintenanceLibrary.MediaProcessing.DistributeSortTable();
             }
 
             catch (Exception ex) { Console.WriteLine(ex.Message); }

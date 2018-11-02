@@ -37,12 +37,20 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.2\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,7 +59,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account\AspNetRole.cs" />
+    <Compile Include="Account\AspNetUser.cs" />
+    <Compile Include="Account\AspNetUserClaim.cs" />
+    <Compile Include="Account\AspNetUserLogin.cs" />
     <Compile Include="Account\ExternalLoginConfirmationViewModel.cs" />
+    <Compile Include="Account\IAspNetRole.cs" />
+    <Compile Include="Account\IAspNetUser.cs" />
+    <Compile Include="Account\IAspNetUserClaim.cs" />
+    <Compile Include="Account\IAspNetUserLogin.cs" />
+    <Compile Include="Account\IdentityModel.cs" />
     <Compile Include="Account\IExternalLoginConfirmationViewModel.cs" />
     <Compile Include="Account\ILoginViewModel.cs" />
     <Compile Include="Account\IManageUserViewModel.cs" />
@@ -59,50 +76,101 @@
     <Compile Include="Account\LoginViewModel.cs" />
     <Compile Include="Account\ManageUserViewModel.cs" />
     <Compile Include="Account\RegisterViewModel.cs" />
-    <Compile Include="Api\EztvResultModel.cs" />
-    <Compile Include="Api\EztvSeriesResultModel.cs" />
-    <Compile Include="Api\EztvSeriesSearchResult.cs" />
-    <Compile Include="Api\IEztvResultModel.cs" />
-    <Compile Include="Api\IEztvSeriesResultModel.cs" />
-    <Compile Include="Api\IEztvSeriesSearchResult.cs" />
-    <Compile Include="Download\IMediaDownloadModel.cs" />
-    <Compile Include="Download\MediaDownloadModel.cs" />
+    <Compile Include="Api\ApiToken.cs" />
+    <Compile Include="Api\EZTV\EztvResultModel.cs" />
+    <Compile Include="Api\EZTV\EztvSeriesResultModel.cs" />
+    <Compile Include="Api\EZTV\EztvSeriesSearchResult.cs" />
+    <Compile Include="Api\EZTV\IEztvResultModel.cs" />
+    <Compile Include="Api\EZTV\IEztvSeriesResultModel.cs" />
+    <Compile Include="Api\EZTV\IEztvSeriesSearchResult.cs" />
+    <Compile Include="Automation\IProcessQueue.cs" />
+    <Compile Include="Automation\ITaskQueue.cs" />
+    <Compile Include="Automation\ProcessQueue.cs" />
+    <Compile Include="Automation\TaskQueue.cs" />
+    <Compile Include="DBContext\MediaManagerDB.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MediaManagerDB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBContext\MediaManagerDB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MediaManagerDB.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Download\DownloadQueue.cs" />
+    <Compile Include="Download\IDownloadQueue.cs" />
     <Compile Include="enums\AutomationStatusOptions.cs" />
     <Compile Include="enums\AutomationTaskPriorityOptions.cs" />
     <Compile Include="enums\DownloadStatusOptions.cs" />
+    <Compile Include="enums\FileCopyStatus.cs" />
     <Compile Include="enums\MediaTypeOptions.cs" />
     <Compile Include="enums\MovieGenreOptions.cs" />
-    <Compile Include="EventLog\EventLogModel.cs" />
-    <Compile Include="EventLog\IEventLogModel.cs" />
-    <Compile Include="EZTV\EztvResultModel.cs" />
-    <Compile Include="EZTV\IEztvResultModel.cs" />
-    <Compile Include="Feedback\IRequestedMediaItemModel.cs" />
-    <Compile Include="Feedback\ITaskModel.cs" />
-    <Compile Include="Feedback\RequestedMediaItemModel.cs" />
-    <Compile Include="Feedback\TaskModel.cs" />
-    <Compile Include="Image\GalleryImageModel.cs" />
-    <Compile Include="Image\IGalleryImageModel.cs" />
-    <Compile Include="Logs\downloadHistory.cs" />
-    <Compile Include="Logs\ErrorHistory.cs" />
-    <Compile Include="Logs\IDownloadHistory.cs" />
-    <Compile Include="Logs\IErrorHistory.cs" />
-    <Compile Include="Movie\IMovieModel.cs" />
-    <Compile Include="Movie\MovieModel.cs" />
+    <Compile Include="enums\ShowAiringStatus.cs" />
+    <Compile Include="Feedback\IUserRequest.cs" />
+    <Compile Include="Feedback\UserRequest.cs" />
+    <Compile Include="List\list_AutomationActions.cs" />
+    <Compile Include="List\list_AutomationPriority.cs" />
+    <Compile Include="List\list_AutomationStatuses.cs" />
+    <Compile Include="List\list_MediaTypes.cs" />
+    <Compile Include="List\list_MovieGenres.cs" />
+    <Compile Include="List\list_permissionLevels.cs" />
+    <Compile Include="List\list_TaskTypes.cs" />
+    <Compile Include="Logs\FileMoveHistory.cs" />
+    <Compile Include="Logs\IFileMoveHistory.cs" />
+    <Compile Include="Logs\IPlaybackHistory.cs" />
+    <Compile Include="Logs\PlaybackHistory.cs" />
+    <Compile Include="Movie\IMovie.cs" />
+    <Compile Include="Movie\Movie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sort\ISortMediaItemModel.cs" />
-    <Compile Include="Sort\SortMediaItemModel.cs" />
-    <Compile Include="Television\EpisodeInfoVw.cs" />
-    <Compile Include="Television\IEpisodeInfoVw.cs" />
-    <Compile Include="Television\ITelevisionEpisodeModel.cs" />
-    <Compile Include="Television\ITelevisionSeasonModel.cs" />
-    <Compile Include="Television\ITelevisionShowModel.cs" />
-    <Compile Include="Television\TelevisionEpisodeModel.cs" />
-    <Compile Include="Television\TelevisionSeasonModel.cs" />
-    <Compile Include="Television\TelevisionShowModel.cs" />
+    <Compile Include="Sort\IsortItem.cs" />
+    <Compile Include="Sort\sortItem.cs" />
+    <Compile Include="StoredProcedure\GetAllShows_Result.cs" />
+    <Compile Include="StoredProcedure\GetDailyDownloads_Result.cs" />
+    <Compile Include="StoredProcedure\GetMovies_Result.cs" />
+    <Compile Include="StoredProcedure\GetOrphanSortItems_Result.cs" />
+    <Compile Include="StoredProcedure\GetShowEpisodesBySeason_Result.cs" />
+    <Compile Include="StoredProcedure\GetShowEpisodes_Result.cs" />
+    <Compile Include="StoredProcedure\GetShowSeasons_Result.cs" />
+    <Compile Include="StoredProcedure\GetSortItems_Result.cs" />
+    <Compile Include="StoredProcedure\GetUsers_Result.cs" />
+    <Compile Include="Television\ITelevisionEpisode.cs" />
+    <Compile Include="Television\ITelevisionSeason.cs" />
+    <Compile Include="Television\ITelevisionShow.cs" />
+    <Compile Include="Television\TelevisionEpisode.cs" />
+    <Compile Include="Television\TelevisionSeason.cs" />
+    <Compile Include="Television\TelevisionShow.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EntityDeploy Include="DBContext\MediaManagerDB.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MediaManagerDB.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DBContext\MediaManagerDB.edmx.diagram">
+      <DependentUpon>MediaManagerDB.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DBContext\MediaManagerDB.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MediaManagerDB.edmx</DependentUpon>
+      <LastGenOutput>MediaManagerDB.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DBContext\MediaManagerDB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MediaManagerDB.edmx</DependentUpon>
+      <LastGenOutput>MediaManagerDB.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Api\IMDB\" />
+    <Folder Include="Api\Kickass\" />
+    <Folder Include="Api\TheTVDB\" />
+    <Folder Include="EventLog\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

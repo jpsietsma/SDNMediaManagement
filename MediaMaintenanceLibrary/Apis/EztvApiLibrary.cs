@@ -10,10 +10,20 @@ using Newtonsoft.Json.Linq;
 
 namespace MediaMaintenanceLibrary
 {
+
+    /// <summary>
+    /// Provides access  to query the Eztv API
+    /// </summary>
     public static class EztvApiLibrary
     {
 
-        //executes GET command to Tvdb api to extend our token life
+        /// <summary>
+        /// Execute GET query to Eztv api to return daily downloads 
+        /// </summary>
+        /// <param name="url">API url to GET request</param>
+        /// <param name="page"># Page of download results</param>
+        /// <param name="pageResults"># of downloads per page</param>
+        /// <returns></returns>
         public static string GetDownloads(string url = "https://eztv.ag/api/get-torrents", int page = 1, int pageResults = 100)
         {
             string finalData;
@@ -35,5 +45,6 @@ namespace MediaMaintenanceLibrary
 
             return finalData;
         }
+
     }
 }

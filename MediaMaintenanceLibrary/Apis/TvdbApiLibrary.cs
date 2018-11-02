@@ -11,12 +11,22 @@ using Newtonsoft.Json.Linq;
 
 namespace MediaMaintenanceLibrary
 {
+
+    /// <summary>
+    /// Provides access to query the Tvdb Api
+    /// </summary>
     public static class TvdbApiLibrary
     {
 
-        #region SDN TVDB API Authentication...
-
-        // Executes POST command to url with provided apikey, username, and userkey.  It is important to note that login tokens are initially
+        /// <summary>
+        /// Post to url to get api token for requests
+        /// </summary>
+        /// <param name="url">URL to POST request to</param>
+        /// <param name="ApiKey">Your Eztv API key</param>
+        /// <param name="UserName">Your Eztv Username</param>
+        /// <param name="UserKey">Your Eztv secret user key</param>
+        /// <returns>string of authenticated login token</returns>
+        /// <remarks>Token needs to be refreshed every 24 hours.</remarks>
         public static string GetTvdbLoginToken(string url = "https://api.thetvdb.com/login", string ApiKey = "0H0EDCYE0XE6GEYL", string UserName = "jpsietsma", string UserKey = "4550538EC5427D6C")
         {
 
@@ -49,7 +59,12 @@ namespace MediaMaintenanceLibrary
 
         }
 
-        //executes GET command to Tvdb api to extend our token life
+        /// <summary>
+        /// Extend Life of our api token by 24 hours
+        /// </summary>
+        /// <param name="token">Token to refresh</param>
+        /// <param name="url">Url to refresh token request</param>
+        /// <returns>Refreshed token string</returns>
         public static string RefreshTvdbLoginToken(string token, string url = "https://api.thetvdb.com/refresh_token")
         {
             string finalToken = token;
@@ -71,128 +86,6 @@ namespace MediaMaintenanceLibrary
 
             return finalToken;
         }
-
-        #endregion
-
-        #region SDN TVDB API Series-related....
-        // Executes POST command to get a list of series that match our query
-        public static List<IEztvSeriesSearchResult> SearchSeries(string queryShowName, string token, string returnField = "id")
-        {
-
-            string seriesFinal;
-            List<IEztvSeriesSearchResult> finalResults = new List<IEztvSeriesSearchResult>();
-
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create("https://api.thetvdb.com/search/series?name=" + queryShowName);
-
-                httpWebRequest.Method = "GET";
-                httpWebRequest.ContentType = "application/json";
-                httpWebRequest.Headers.Add("Authorization", "Bearer " + token);
-
-                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-                {
-                    var result = streamReader.ReadToEnd();
-                    seriesFinal = result;
-
-                }
-
-            var resultObjects = AllChildren(JObject.Parse(seriesFinal))
-                            .First(c => c.Type == JTokenType.Array && c.Path.Contains("data"))
-                            .Children<JObject>();
-
-            foreach (JObject result in resultObjects)
-            {
-                foreach (JProperty property in result.Properties())
-                {
-                    // do something with the property belonging to result
-                }
-            }
-
-
-            // recursively yield all children of json
-            IEnumerable<JToken> AllChildren(JToken json)
-            {
-                foreach (var c in json.Children())
-                {
-                    yield return c;
-                    foreach (var cc in AllChildren(c))
-                    {
-                        yield return cc;
-                    }
-                }
-
-            }
-
-            foreach (var item in resultObjects)
-            {
-                finalResults.Add(item.ToObject<IEztvSeriesSearchResult>());
-            }
-
-            return finalResults;
-
-        }
-
-        public static List<IEztvSeriesResultModel> SeriesInfo (string id, string token)
-        {
-            string final;
-            List<IEztvSeriesResultModel> finalDetails = new List<IEztvSeriesResultModel>();
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create("https://api.thetvdb.com/search/series/" + id);
-
-            httpWebRequest.Method = "GET";
-            httpWebRequest.ContentType = "application/json";
-            httpWebRequest.Headers.Add("Authorization", "Bearer " + token);
-
-            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-            {
-                var result = streamReader.ReadToEnd();
-                final = result;
-
-            }
-
-            var resultObjects = AllChildren(JObject.Parse(final))
-                            .First(c => c.Type == JTokenType.Array && c.Path.Contains("data"))
-                            .Children<JObject>();
-
-            foreach (JObject result in resultObjects)
-            {
-                foreach (JProperty property in result.Properties())
-                {
-                    // do something with the property belonging to result
-                }
-            }
-
-
-            // recursively yield all children of json
-            IEnumerable<JToken> AllChildren(JToken json)
-            {
-                foreach (var c in json.Children())
-                {
-                    yield return c;
-                    foreach (var cc in AllChildren(c))
-                    {
-                        yield return cc;
-                    }
-                }
-
-            }
-
-            foreach (var item in resultObjects)
-            {
-                finalDetails.Add(item.ToObject<IEztvSeriesResultModel>());
-            }
-
-            return finalDetails;
-        }
-
-
-        #endregion
-
-        #region SDN TVDB API Episode-related...
-
-        //code functions for episode related requests go here...
-
-        #endregion
 
     }
 }

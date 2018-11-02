@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SDNMediaModels.Television.TelevisionEpisodeModel>
+﻿@model IEnumerable<SDNMediaModels.Television.ITelevisionEpisode>
 
 <div class="modal-header" style="width: 820px;">
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -44,7 +44,7 @@
                     </div>
                 </script>
 
-            @(Html.Kendo().ListView<DashboardUI.Models.TelevisionEpisodeModel>(Model)
+            @(Html.Kendo().ListView<DashboardUI.Models.ITelevisionEpisode>(Model)
                             .Name("listView")
                             .TagName("div")
                             .BindTo(Model)

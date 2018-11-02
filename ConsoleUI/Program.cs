@@ -1,11 +1,12 @@
 ﻿using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using MediaMaintenanceLibrary;
-using SDNMediaModels;
+using SDNMediaModels.DBContext;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Linq;
+using SDNMediaModels.Television;
 
 namespace ConsoleUI
 {
@@ -13,10 +14,11 @@ namespace ConsoleUI
     {
 
         public static void Main(string[] args)
-        {
+        {                   
 
-
-
+            MediaManagerDB sdn_db = new MediaManagerDB();
+            List<ITelevisionShow> shows = new List<ITelevisionShow>();
+                        
         }
 
             //Console.WriteLine(MediaConversion.GetJsonArrayImageSrc(Directory.GetFiles(@"D:\xampp\htdocs\gamescreens\minecraft", "*", SearchOption.TopDirectoryOnly), @"minecraft"));
@@ -113,8 +115,8 @@ namespace ConsoleUI
 
 
 
-            //SortMediaItemModel sortItem = new SortMediaItemModel { pk_MediaID = 1, fileName = "Test.Show.S01E01.mkv", filePath = @"S:\Test.Show.S01E01.mkv"};
-            //TelevisionEpisodeModel episode = sortItem.ToEpisode();
+            //sortItem sortItem = new sortItem { pk_MediaID = 1, fileName = "Test.Show.S01E01.mkv", filePath = @"S:\Test.Show.S01E01.mkv"};
+            //ITelevisionEpisode episode = sortItem.ToEpisode();
 
             //Console.WriteLine(episode.EpisodePath);
 

@@ -2,9 +2,10 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
-using DashboardUI.Items;
+
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
+using SDNMediaModels.DBContext;
 using SDNMediaModels.Sort;
 
 namespace DashboardUI.Controllers
@@ -13,21 +14,21 @@ namespace DashboardUI.Controllers
     [Authorize]
     public class SortController : Controller
     {
-        private SortMediaItem db = new SortMediaItem();
+        private MediaManagerDB db = new MediaManagerDB();
 
         public ActionResult DownloadDetails(string id)
         {
-            MediaDownloadItem dls = new MediaDownloadItem();
+            MediaManagerDB dls = new MediaManagerDB();
 
-            var model = dls.sdnDownloadItems.Where(e => e.pk_torrentID == id).First();
+            var model = dls.DownloadQueues.Where(e => e.pk_torrentID == id).First();
             return PartialView("_DownloadDetails", model);
         }
 
         public ActionResult GetDownloads()
         {
-            MediaDownloadItem dls = new MediaDownloadItem();
+            MediaManagerDB dls = new MediaManagerDB();
             
-            return View(dls.sdnDownloadItems);
+            return View(dls.DownloadQueues);
         }
 
         public ActionResult GetContents()
@@ -37,38 +38,38 @@ namespace DashboardUI.Controllers
 
         public ActionResult sortItems_Read([DataSourceRequest]DataSourceRequest request)
         {
-            IQueryable<ISortMediaItemModel> sortitems = db.sortItems;
-            DataSourceResult result = sortitems.ToDataSourceResult(request, sortMediaItemModel => new {
-                pk_MediaID = sortMediaItemModel.pk_MediaID,
-                filePath = sortMediaItemModel.filePath,
-                fileName = sortMediaItemModel.fileName,
-                fileNameSanitized = sortMediaItemModel.fileNameSanitized,
-                fk_fileMediaTypeID = sortMediaItemModel.fk_fileMediaTypeID,
-                fileAdded = sortMediaItemModel.fileAdded,
-                fileModified = sortMediaItemModel.fileModified,
-                hasBeenProcessed = sortMediaItemModel.hasBeenProcessed,
-                hasBeenSanitized = sortMediaItemModel.hasBeenSanitized
+            IQueryable<sortItem> sortitems = db.sortItems;
+            DataSourceResult result = sortitems.ToDataSourceResult(request, MediaManagerDBModel => new {
+                pk_MediaID = MediaManagerDBModel.pk_MediaID,
+                filePath = MediaManagerDBModel.filePath,
+                fileName = MediaManagerDBModel.fileName,
+                fileNameSanitized = MediaManagerDBModel.fileNameSanitized,
+                fk_fileMediaTypeID = MediaManagerDBModel.fk_fileMediaTypeID,
+                fileAdded = MediaManagerDBModel.fileAdded,
+                fileModified = MediaManagerDBModel.fileModified,
+                hasBeenProcessed = MediaManagerDBModel.hasBeenProcessed,
+                hasBeenSanitized = MediaManagerDBModel.hasBeenSanitized
             });
 
             return Json(result);
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult sortItems_Update([DataSourceRequest]DataSourceRequest request, ISortMediaItemModel sortMediaItemModel)
+        public ActionResult sortItems_Update([DataSourceRequest]DataSourceRequest request, sortItem MediaManagerDBModel)
         {
             if (ModelState.IsValid)
             {
-                var entity = new SortMediaItemModel
+                var entity = new sortItem
                 {
-                    pk_MediaID = sortMediaItemModel.pk_MediaID,
-                    filePath = sortMediaItemModel.filePath,
-                    fileName = sortMediaItemModel.fileName,
-                    fileNameSanitized = sortMediaItemModel.fileNameSanitized,
-                    fk_fileMediaTypeID = sortMediaItemModel.fk_fileMediaTypeID,
-                    fileAdded = sortMediaItemModel.fileAdded,
-                    fileModified = sortMediaItemModel.fileModified,
-                    hasBeenProcessed = sortMediaItemModel.hasBeenProcessed,
-                    hasBeenSanitized = sortMediaItemModel.hasBeenSanitized
+                    pk_MediaID = MediaManagerDBModel.pk_MediaID,
+                    filePath = MediaManagerDBModel.filePath,
+                    fileName = MediaManagerDBModel.fileName,
+                    fileNameSanitized = MediaManagerDBModel.fileNameSanitized,
+                    fk_fileMediaTypeID = MediaManagerDBModel.fk_fileMediaTypeID,
+                    fileAdded = MediaManagerDBModel.fileAdded,
+                    fileModified = MediaManagerDBModel.fileModified,
+                    hasBeenProcessed = MediaManagerDBModel.hasBeenProcessed,
+                    hasBeenSanitized = MediaManagerDBModel.hasBeenSanitized
                 };
 
                 db.sortItems.Attach(entity);
@@ -76,25 +77,25 @@ namespace DashboardUI.Controllers
                 db.SaveChanges();
             }
 
-            return Json(new[] { sortMediaItemModel }.ToDataSourceResult(request, ModelState));
+            return Json(new[] { MediaManagerDBModel }.ToDataSourceResult(request, ModelState));
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult sortItems_Destroy([DataSourceRequest]DataSourceRequest request, ISortMediaItemModel sortMediaItemModel)
+        public ActionResult sortItems_Destroy([DataSourceRequest]DataSourceRequest request, sortItem MediaManagerDBModel)
         {
             if (ModelState.IsValid)
             {
-                var entity = new SortMediaItemModel
+                var entity = new sortItem
                 {
-                    pk_MediaID = sortMediaItemModel.pk_MediaID,
-                    filePath = sortMediaItemModel.filePath,
-                    fileName = sortMediaItemModel.fileName,
-                    fileNameSanitized = sortMediaItemModel.fileNameSanitized,
-                    fk_fileMediaTypeID = sortMediaItemModel.fk_fileMediaTypeID,
-                    fileAdded = sortMediaItemModel.fileAdded,
-                    fileModified = sortMediaItemModel.fileModified,
-                    hasBeenProcessed = sortMediaItemModel.hasBeenProcessed,
-                    hasBeenSanitized = sortMediaItemModel.hasBeenSanitized
+                    pk_MediaID = MediaManagerDBModel.pk_MediaID,
+                    filePath = MediaManagerDBModel.filePath,
+                    fileName = MediaManagerDBModel.fileName,
+                    fileNameSanitized = MediaManagerDBModel.fileNameSanitized,
+                    fk_fileMediaTypeID = MediaManagerDBModel.fk_fileMediaTypeID,
+                    fileAdded = MediaManagerDBModel.fileAdded,
+                    fileModified = MediaManagerDBModel.fileModified,
+                    hasBeenProcessed = MediaManagerDBModel.hasBeenProcessed,
+                    hasBeenSanitized = MediaManagerDBModel.hasBeenSanitized
                 };
 
                 db.sortItems.Attach(entity);
@@ -102,7 +103,7 @@ namespace DashboardUI.Controllers
                 db.SaveChanges();
             }
 
-            return Json(new[] { sortMediaItemModel }.ToDataSourceResult(request, ModelState));
+            return Json(new[] { MediaManagerDBModel }.ToDataSourceResult(request, ModelState));
         }
 
         protected override void Dispose(bool disposing)

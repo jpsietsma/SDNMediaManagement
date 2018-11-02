@@ -1,5 +1,6 @@
-﻿using DashboardUI.Items;
+﻿
 using Kendo.Mvc.Extensions;
+using SDNMediaModels.DBContext;
 using SDNMediaModels.Sort;
 using SDNMediaModels.Television;
 using System.Collections.Generic;
@@ -22,32 +23,32 @@ namespace DashboardUI.Controllers
 
         public ActionResult WatchEpisode(int id)
         {
-            TelevisionEpisodeItem db_episodes = new TelevisionEpisodeItem();
+            MediaManagerDB db_episodes = new MediaManagerDB();
 
-            var model = db_episodes.sdnTelevisionEpisodes.Where(x => x.pk_EpisodeID == id).Where(episode => episode.IsEnabled.Equals(1)).First();
+            var model = db_episodes.TelevisionEpisodes.Where(x => x.pk_EpisodeID == id).Where(episode => episode.IsEnabled.Equals(1)).First();
             return PartialView("_WatchEpisode", model);
         }
 
         public ActionResult EditEpisodeDetails(int id)
         {
-            TelevisionEpisodeItem db_episodes = new TelevisionEpisodeItem();
+            MediaManagerDB db_episodes = new MediaManagerDB();
 
-            var model = db_episodes.sdnTelevisionEpisodes.Where(e => e.pk_EpisodeID == id).Where(episode => episode.IsEnabled.Equals(1)).First();
+            var model = db_episodes.TelevisionEpisodes.Where(e => e.pk_EpisodeID == id).Where(episode => episode.IsEnabled.Equals(1)).First();
             return PartialView("_EditEpisode", model);
         }
 
         public ActionResult EpisodeDetails(int id)
         {
-            TelevisionEpisodeItem db_episodes = new TelevisionEpisodeItem();
+            MediaManagerDB db_episodes = new MediaManagerDB();
 
-            return View(db_episodes.sdnTelevisionEpisodes.Where(e => e.pk_EpisodeID == id).Where(episode => episode.IsEnabled.Equals(1)).First());
+            return View(db_episodes.TelevisionEpisodes.Where(e => e.pk_EpisodeID == id).Where(episode => episode.IsEnabled.Equals(1)).First());
         }
 
         public ActionResult EpisodeInfo(int id)
         {
-            TelevisionEpisodeItem db_episodes = new TelevisionEpisodeItem();
+            MediaManagerDB db_episodes = new MediaManagerDB();
 
-            return View(db_episodes.sdnTelevisionEpisodes.Where(episodes => episodes.fk_SeasonID == id).OrderBy(o => o.EpisodeNum).Where(episode => episode.IsEnabled.Equals(1)));
+            return View(db_episodes.TelevisionEpisodes.Where(episodes => episodes.fk_SeasonID == id).OrderBy(o => o.EpisodeNum).Where(episode => episode.IsEnabled.Equals(1)));
         }
 
 #endregion
@@ -57,17 +58,17 @@ namespace DashboardUI.Controllers
         //Lists all seasons of the show who's id is passed
         public ActionResult SeasonInfo(int id)
         {
-            TelevisionSeasonItem db_seasons = new TelevisionSeasonItem();
+            MediaManagerDB db_seasons = new MediaManagerDB();
 
-            return View(db_seasons.sdnTelevisionSeasons.Where(season => season.fk_ShowID.Equals(id)).Where(season => season.IsEnabled.Equals(1)));
+            return View(db_seasons.TelevisionSeasons.Where(season => season.fk_ShowID.Equals(id)).Where(season => season.IsEnabled.Equals(1)));
 
         }
 
         //Plays season with episodes populated in playlist
         public ActionResult WatchSeason(int id)
         {
-            TelevisionEpisodeItem db_episodes = new TelevisionEpisodeItem();
-            List<ITelevisionEpisodeModel> episodes = db_episodes.sdnTelevisionEpisodes.Where(e => e.fk_SeasonID == id).Where(e => e.IsEnabled.Equals(1)).ToList<ITelevisionEpisodeModel>();
+            MediaManagerDB db_episodes = new MediaManagerDB();
+            List<ITelevisionEpisode> episodes = db_episodes.TelevisionEpisodes.Where(e => e.fk_SeasonID == id).Where(e => e.IsEnabled.Equals(1)).ToList<ITelevisionEpisode>();
 
             return PartialView("_WatchSeason", episodes);
         }
@@ -75,14 +76,14 @@ namespace DashboardUI.Controllers
         //Show view to create new season
         public ActionResult AddSeason(int id)
         {
-            TelevisionShowItem shows_db = new TelevisionShowItem();
-            ITelevisionShowModel show = shows_db.sdnTelevisionShows.Where(showDetails => showDetails.pk_ShowID == id).FirstOrDefault();
+            MediaManagerDB shows_db = new MediaManagerDB();
+            ITelevisionShow show = shows_db.TelevisionShows.Where(showDetails => showDetails.pk_ShowID == id).FirstOrDefault();
 
             return View(show);
         }
 
         //Add new season model created and save changes to database, redirect to seasons listing of parent show
-        public ActionResult SaveSeason(ITelevisionSeasonModel newSeason)
+        public ActionResult SaveSeason(ITelevisionSeason newSeason)
         {
             //SietsmaDevMediaModel db = new SietsmaDevMediaModel();
             //seasons.SaveChanges();
@@ -108,13 +109,13 @@ namespace DashboardUI.Controllers
         /// <summary>
         /// Action to add show to database
         /// </summary>
-        /// <param name="newShow">TelevisionShowModel representing show to be added</param>
+        /// <param name="newShow">ITelevisionShow representing show to be added</param>
         /// <returns>redirect to list of shows when successful</returns>
-        public ActionResult AddShow(TelevisionShowModel newShow)
+        public ActionResult AddShow(TelevisionShow newShow)
         {
-            TelevisionShowItem shows = new TelevisionShowItem();
+            MediaManagerDB shows = new MediaManagerDB();
 
-            shows.sdnTelevisionShows.Add(newShow);
+            shows.TelevisionShows.Add(newShow);
             shows.SaveChanges();
 
             return RedirectToAction("ShowInfo");
@@ -127,7 +128,7 @@ namespace DashboardUI.Controllers
         /// <returns>form for adding a new sort item</returns>
         public ActionResult AddSortItem()
         {
-            SortMediaItem items = new SortMediaItem();
+            MediaManagerDB items = new MediaManagerDB();
 
             return View();
         }
@@ -135,13 +136,13 @@ namespace DashboardUI.Controllers
         /// <summary>
         /// Action to add sort item to the database
         /// </summary>
-        /// <param name="newItem">SortMediaItemModel representing the new item to add to the database</param>
+        /// <param name="newItem">MediaManagerDBModel representing the new item to add to the database</param>
         /// <returns>
         /// redirect to view displaying kendoui grid with all sort items
         /// </returns>
-        public ActionResult AddSortItem(SortMediaItemModel newItem)
+        public ActionResult AddSortItem(sortItem newItem)
         {
-            SortMediaItem items = new SortMediaItem();
+            MediaManagerDB items = new MediaManagerDB();
             items.sortItems.Add(newItem);
             items.SaveChanges();
 
@@ -157,17 +158,17 @@ namespace DashboardUI.Controllers
         /// </returns>
         public ActionResult ShowInfo(int? id)
         {
-            TelevisionShowItem db_shows = new TelevisionShowItem();
+            MediaManagerDB db_shows = new MediaManagerDB();
 
             if (string.IsNullOrEmpty(id.ToString()))
             {
 
-                return View(db_shows.sdnTelevisionShows.OrderBy(show => show.ShowName));
+                return View(db_shows.TelevisionShows.OrderBy(show => show.ShowName));
 
             } else
             {
 
-                return View(db_shows.sdnTelevisionShows.Where(show => show.pk_ShowID.Equals(id)));
+                return View(db_shows.TelevisionShows.Where(show => show.pk_ShowID.Equals(id)));
 
             }
         }
