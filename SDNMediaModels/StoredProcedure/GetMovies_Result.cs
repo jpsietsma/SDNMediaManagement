@@ -10,15 +10,16 @@
 namespace SDNMediaModels.StoredProcedure
 {
     using System;
-    
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class GetMovies_Result
     {
 
         public GetMovies_Result()
         {
-            string path = this.FilePath;
+            string[] path = this.FilePath.Split('\\');
 
-            this.FileName = path.Split('\\').
+            this.FileName = path[path.Length - 1];
         }
 
         public int pk_MovieID { get; set; }
@@ -27,8 +28,8 @@ namespace SDNMediaModels.StoredProcedure
         public int fk_MovieGenre { get; set; }
         public string FilePath { get; set; }
 
-        [notmaped]
-        public string FileName { get; set; } = FilePath.Split('\\')[]
+        [NotMapped]
+        public string FileName { get; set; }
         public string ImdbID { get; set; }
         public string TvdbID { get; set; }
         public int SubtitlesExist { get; set; }
