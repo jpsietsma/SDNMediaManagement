@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace SDNMediaModels.enums
 {
     /// <summary>
-    /// Selection of options for MovieGenre property of Movy object
+    /// Selection of options for MovieGenre property of Movie object
     /// </summary>
     public enum MovieGenreOptions
     {

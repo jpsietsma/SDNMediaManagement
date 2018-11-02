@@ -35,6 +35,6 @@ namespace SDNMediaModels.Sort
         list_MediaTypes list_MediaTypes { get; set; }
         ICollection<Movie.Movie> Movies { get; set; }
         int pk_MediaID { get; set; }
-        ICollection<ITelevisionEpisode> TelevisionEpisodes { get; set; }
+        ICollection<TelevisionEpisode> TelevisionEpisodes { get; set; }
     }
 }

@@ -22,8 +22,8 @@ namespace SDNMediaModels.Television
         int pk_EpisodeID { get; set; }
         ICollection<PlaybackHistory> PlaybackHistories { get; set; }
         sortItem sortItem { get; set; }
-        ITelevisionSeason ITelevisionSeason { get; set; }
-        ITelevisionShow ITelevisionShow { get; set; }
+        TelevisionSeason TelevisionSeason { get; set; }
+        TelevisionShow TelevisionShow { get; set; }
         ICollection<UserRequest> UserRequests { get; set; }
     }
 }

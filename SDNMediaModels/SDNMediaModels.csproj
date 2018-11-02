@@ -97,6 +97,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MediaManagerDB.edmx</DependentUpon>
     </Compile>
+    <Compile Include="DBContext\MediaManagerDB1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MediaManagerDB.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Download\DownloadQueue.cs" />
     <Compile Include="Download\IDownloadQueue.cs" />
     <Compile Include="enums\AutomationStatusOptions.cs" />
@@ -144,7 +149,7 @@
     <None Include="App.config" />
     <EntityDeploy Include="DBContext\MediaManagerDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>MediaManagerDB.Designer.cs</LastGenOutput>
+      <LastGenOutput>MediaManagerDB1.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <None Include="DBContext\MediaManagerDB.edmx.diagram">
       <DependentUpon>MediaManagerDB.edmx</DependentUpon>

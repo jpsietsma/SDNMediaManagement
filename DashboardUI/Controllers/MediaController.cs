@@ -68,7 +68,7 @@ namespace DashboardUI.Controllers
         public ActionResult WatchSeason(int id)
         {
             MediaManagerDB db_episodes = new MediaManagerDB();
-            List<ITelevisionEpisode> episodes = db_episodes.TelevisionEpisodes.Where(e => e.fk_SeasonID == id).Where(e => e.IsEnabled.Equals(1)).ToList<ITelevisionEpisode>();
+            List<TelevisionEpisode> episodes = db_episodes.TelevisionEpisodes.Where(e => e.fk_SeasonID == id).Where(e => e.IsEnabled.Equals(1)).ToList<TelevisionEpisode>();
 
             return PartialView("_WatchSeason", episodes);
         }
@@ -77,13 +77,13 @@ namespace DashboardUI.Controllers
         public ActionResult AddSeason(int id)
         {
             MediaManagerDB shows_db = new MediaManagerDB();
-            ITelevisionShow show = shows_db.TelevisionShows.Where(showDetails => showDetails.pk_ShowID == id).FirstOrDefault();
+            TelevisionShow show = shows_db.TelevisionShows.Where(showDetails => showDetails.pk_ShowID == id).FirstOrDefault();
 
             return View(show);
         }
 
         //Add new season model created and save changes to database, redirect to seasons listing of parent show
-        public ActionResult SaveSeason(ITelevisionSeason newSeason)
+        public ActionResult SaveSeason(TelevisionSeason newSeason)
         {
             //SietsmaDevMediaModel db = new SietsmaDevMediaModel();
             //seasons.SaveChanges();
@@ -109,7 +109,7 @@ namespace DashboardUI.Controllers
         /// <summary>
         /// Action to add show to database
         /// </summary>
-        /// <param name="newShow">ITelevisionShow representing show to be added</param>
+        /// <param name="newShow">TelevisionShow representing show to be added</param>
         /// <returns>redirect to list of shows when successful</returns>
         public ActionResult AddShow(TelevisionShow newShow)
         {

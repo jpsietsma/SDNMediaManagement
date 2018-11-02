@@ -158,12 +158,11 @@
 
                 List<string> shows_auto = new List<string>();
 
-                foreach (SDNMediaModels.Television.ITelevisionShow show in shows)
+                foreach (SDNMediaModels.Television.TelevisionShow show in shows)
                 {
                     shows_auto.Add(show.ShowName);
                 }
 
-                string shows_auto2 = Json.Encode(shows);
 
                 @(Html.Kendo().AutoComplete()
                                                         .Name("autocomplete_shows")

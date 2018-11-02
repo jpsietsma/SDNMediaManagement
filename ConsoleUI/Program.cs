@@ -15,10 +15,7 @@ namespace ConsoleUI
 
         public static void Main(string[] args)
         {                   
-
-            MediaManagerDB sdn_db = new MediaManagerDB();
-            List<ITelevisionShow> shows = new List<ITelevisionShow>();
-                        
+                                    
         }
 
             //Console.WriteLine(MediaConversion.GetJsonArrayImageSrc(Directory.GetFiles(@"D:\xampp\htdocs\gamescreens\minecraft", "*", SearchOption.TopDirectoryOnly), @"minecraft"));
@@ -116,7 +113,7 @@ namespace ConsoleUI
 
 
             //sortItem sortItem = new sortItem { pk_MediaID = 1, fileName = "Test.Show.S01E01.mkv", filePath = @"S:\Test.Show.S01E01.mkv"};
-            //ITelevisionEpisode episode = sortItem.ToEpisode();
+            //TelevisionEpisode episode = sortItem.ToEpisode();
 
             //Console.WriteLine(episode.EpisodePath);
 

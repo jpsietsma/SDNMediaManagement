@@ -25,8 +25,8 @@ namespace SDNMediaModels.Feedback
         string RequestShow { get; set; }
         int? RequestSubtype { get; set; }
         int? RequestType { get; set; }
-        ITelevisionEpisode ITelevisionEpisode { get; set; }
-        ITelevisionSeason ITelevisionSeason { get; set; }
-        ITelevisionShow ITelevisionShow { get; set; }
+        TelevisionEpisode TelevisionEpisode { get; set; }
+        TelevisionSeason TelevisionSeason { get; set; }
+        TelevisionShow TelevisionShow { get; set; }
     }
 }

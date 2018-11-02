@@ -17,8 +17,8 @@ namespace SDNMediaModels.Television
         string ShowName { get; set; }
         int ShowNumEpisodes { get; set; }
         int ShowNumSeasons { get; set; }
-        ICollection<ITelevisionEpisode> TelevisionEpisodes { get; set; }
-        ICollection<ITelevisionSeason> TelevisionSeasons { get; set; }
+        ICollection<TelevisionEpisode> TelevisionEpisodes { get; set; }
+        ICollection<TelevisionSeason> TelevisionSeasons { get; set; }
         string TvdbID { get; set; }
         ICollection<UserRequest> UserRequests { get; set; }
     }

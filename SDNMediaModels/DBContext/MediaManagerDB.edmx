@@ -1104,7 +1104,7 @@
           <Property Name="fk_TaskPriority" Type="Int32" Nullable="false" />
           <NavigationProperty Name="list_AutomationPriority" Relationship="Self.FK_list_TaskTypes_list_TaskTypes" FromRole="list_TaskTypes" ToRole="list_AutomationPriority" />
         </EntityType>
-        <EntityType Name="Movy">
+        <EntityType Name="Movie">
           <Key>
             <PropertyRef Name="pk_MovieID" />
           </Key>
@@ -1134,9 +1134,9 @@
           <Property Name="fk_ShowID" Type="Int32" Nullable="false" />
           <Property Name="fk_SeasonID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK_sdnPlaybackHistory_AspNetUsers" FromRole="PlaybackHistory" ToRole="AspNetUsers" />
-          <NavigationProperty Name="ITelevisionEpisode" Relationship="Self.FK_sdnPlaybackHistory_sdnTelevisionEpisodes" FromRole="PlaybackHistory" ToRole="TelevisionEpisodes" />
-          <NavigationProperty Name="ITelevisionSeason" Relationship="Self.FK_sdnPlaybackHistory_sdnTelevisionSeasons" FromRole="PlaybackHistory" ToRole="TelevisionSeasons" />
-          <NavigationProperty Name="ITelevisionShow" Relationship="Self.FK_sdnPlaybackHistory_TelevisionShows" FromRole="PlaybackHistory" ToRole="TelevisionShows" />
+          <NavigationProperty Name="TelevisionEpisode" Relationship="Self.FK_sdnPlaybackHistory_sdnTelevisionEpisodes" FromRole="PlaybackHistory" ToRole="TelevisionEpisodes" />
+          <NavigationProperty Name="TelevisionSeason" Relationship="Self.FK_sdnPlaybackHistory_sdnTelevisionSeasons" FromRole="PlaybackHistory" ToRole="TelevisionSeasons" />
+          <NavigationProperty Name="TelevisionShow" Relationship="Self.FK_sdnPlaybackHistory_TelevisionShows" FromRole="PlaybackHistory" ToRole="TelevisionShows" />
         </EntityType>
         <EntityType Name="ProcessQueue">
           <Key>
@@ -1204,7 +1204,7 @@
           <NavigationProperty Name="TaskQueue1" Relationship="Self.FK_sdnTaskQueue_sdnParentTask" FromRole="TaskQueue" ToRole="TaskQueue1" />
           <NavigationProperty Name="TaskQueue2" Relationship="Self.FK_sdnTaskQueue_sdnParentTask" FromRole="TaskQueue1" ToRole="TaskQueue" />
         </EntityType>
-        <EntityType Name="ITelevisionEpisode">
+        <EntityType Name="TelevisionEpisode">
           <Key>
             <PropertyRef Name="pk_EpisodeID" />
           </Key>
@@ -1223,10 +1223,10 @@
           <NavigationProperty Name="PlaybackHistories" Relationship="Self.FK_sdnPlaybackHistory_sdnTelevisionEpisodes" FromRole="TelevisionEpisodes" ToRole="PlaybackHistory" />
           <NavigationProperty Name="sortItem" Relationship="Self.FK_sdnTelevisionEpisodes_sortItems" FromRole="TelevisionEpisodes" ToRole="sortItems" />
           <NavigationProperty Name="UserRequests" Relationship="Self.FK_sdnRequestedMedia_sdnTelevisionEpisodes" FromRole="TelevisionEpisodes" ToRole="UserRequests" />
-          <NavigationProperty Name="ITelevisionSeason" Relationship="Self.FK_sdnTelevisionEpisodes_sdnTelevisionSeasons" FromRole="TelevisionEpisodes" ToRole="TelevisionSeasons" />
-          <NavigationProperty Name="ITelevisionShow" Relationship="Self.FK_sdnTelevisionEpisodes_ShowID_TelevisionShows" FromRole="TelevisionEpisodes" ToRole="TelevisionShows" />
+          <NavigationProperty Name="TelevisionSeason" Relationship="Self.FK_sdnTelevisionEpisodes_sdnTelevisionSeasons" FromRole="TelevisionEpisodes" ToRole="TelevisionSeasons" />
+          <NavigationProperty Name="TelevisionShow" Relationship="Self.FK_sdnTelevisionEpisodes_ShowID_TelevisionShows" FromRole="TelevisionEpisodes" ToRole="TelevisionShows" />
         </EntityType>
-        <EntityType Name="ITelevisionSeason">
+        <EntityType Name="TelevisionSeason">
           <Key>
             <PropertyRef Name="pk_SeasonID" />
           </Key>
@@ -1240,9 +1240,9 @@
           <NavigationProperty Name="PlaybackHistories" Relationship="Self.FK_sdnPlaybackHistory_sdnTelevisionSeasons" FromRole="TelevisionSeasons" ToRole="PlaybackHistory" />
           <NavigationProperty Name="TelevisionEpisodes" Relationship="Self.FK_sdnTelevisionEpisodes_sdnTelevisionSeasons" FromRole="TelevisionSeasons" ToRole="TelevisionEpisodes" />
           <NavigationProperty Name="UserRequests" Relationship="Self.FK_sdnRequestedMedia_sdnTelevisionSeasons" FromRole="TelevisionSeasons" ToRole="UserRequests" />
-          <NavigationProperty Name="ITelevisionShow" Relationship="Self.FK_sdnTelevisionSeasons_ShowID_TelevisionShows" FromRole="TelevisionSeasons" ToRole="TelevisionShows" />
+          <NavigationProperty Name="TelevisionShow" Relationship="Self.FK_sdnTelevisionSeasons_ShowID_TelevisionShows" FromRole="TelevisionSeasons" ToRole="TelevisionShows" />
         </EntityType>
-        <EntityType Name="ITelevisionShow">
+        <EntityType Name="TelevisionShow">
           <Key>
             <PropertyRef Name="pk_ShowID" />
           </Key>
@@ -1285,9 +1285,9 @@
           <Property Name="fk_AutomationStatus" Type="Int32" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK_sdnRequestedMedia_AspNetUsers" FromRole="UserRequests" ToRole="AspNetUsers" />
           <NavigationProperty Name="list_AutomationStatuses" Relationship="Self.FK_sdnRequestedMedia_list_AutomationStatuses" FromRole="UserRequests" ToRole="list_AutomationStatuses" />
-          <NavigationProperty Name="ITelevisionEpisode" Relationship="Self.FK_sdnRequestedMedia_sdnTelevisionEpisodes" FromRole="UserRequests" ToRole="TelevisionEpisodes" />
-          <NavigationProperty Name="ITelevisionSeason" Relationship="Self.FK_sdnRequestedMedia_sdnTelevisionSeasons" FromRole="UserRequests" ToRole="TelevisionSeasons" />
-          <NavigationProperty Name="ITelevisionShow" Relationship="Self.FK_sdnRequestedMedia_TelevisionShows" FromRole="UserRequests" ToRole="TelevisionShows" />
+          <NavigationProperty Name="TelevisionEpisode" Relationship="Self.FK_sdnRequestedMedia_sdnTelevisionEpisodes" FromRole="UserRequests" ToRole="TelevisionEpisodes" />
+          <NavigationProperty Name="TelevisionSeason" Relationship="Self.FK_sdnRequestedMedia_sdnTelevisionSeasons" FromRole="UserRequests" ToRole="TelevisionSeasons" />
+          <NavigationProperty Name="TelevisionShow" Relationship="Self.FK_sdnRequestedMedia_TelevisionShows" FromRole="UserRequests" ToRole="TelevisionShows" />
         </EntityType>
         <Association Name="FK_sdnApiTokens_sdnApiTokens">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
@@ -1499,7 +1499,7 @@
         </Association>
         <Association Name="FK_sdnMovies_list_MediaTypes">
           <End Role="list_MediaTypes" Type="Self.list_MediaTypes" Multiplicity="1" />
-          <End Role="Movies" Type="Self.Movy" Multiplicity="*" />
+          <End Role="Movies" Type="Self.Movie" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="list_MediaTypes">
               <PropertyRef Name="pk_MediaTypeID" />
@@ -1511,7 +1511,7 @@
         </Association>
         <Association Name="FK_sdnTelevisionEpisodes_list_MediaTypes">
           <End Role="list_MediaTypes" Type="Self.list_MediaTypes" Multiplicity="0..1" />
-          <End Role="TelevisionEpisodes" Type="Self.ITelevisionEpisode" Multiplicity="*" />
+          <End Role="TelevisionEpisodes" Type="Self.TelevisionEpisode" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="list_MediaTypes">
               <PropertyRef Name="pk_MediaTypeID" />
@@ -1535,7 +1535,7 @@
         </Association>
         <Association Name="FK_sdnMovies_list_MovieGenres">
           <End Role="list_MovieGenres" Type="Self.list_MovieGenres" Multiplicity="1" />
-          <End Role="Movies" Type="Self.Movy" Multiplicity="*" />
+          <End Role="Movies" Type="Self.Movie" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="list_MovieGenres">
               <PropertyRef Name="pk_GenreID" />
@@ -1547,7 +1547,7 @@
         </Association>
         <Association Name="FK_sdnMovies_sortItems">
           <End Role="sortItems" Type="Self.sortItem" Multiplicity="0..1" />
-          <End Role="Movies" Type="Self.Movy" Multiplicity="*" />
+          <End Role="Movies" Type="Self.Movie" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="sortItems">
               <PropertyRef Name="pk_MediaID" />
@@ -1558,7 +1558,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_sdnPlaybackHistory_sdnTelevisionEpisodes">
-          <End Role="TelevisionEpisodes" Type="Self.ITelevisionEpisode" Multiplicity="1" />
+          <End Role="TelevisionEpisodes" Type="Self.TelevisionEpisode" Multiplicity="1" />
           <End Role="PlaybackHistory" Type="Self.PlaybackHistory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TelevisionEpisodes">
@@ -1570,7 +1570,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_sdnPlaybackHistory_sdnTelevisionSeasons">
-          <End Role="TelevisionSeasons" Type="Self.ITelevisionSeason" Multiplicity="1" />
+          <End Role="TelevisionSeasons" Type="Self.TelevisionSeason" Multiplicity="1" />
           <End Role="PlaybackHistory" Type="Self.PlaybackHistory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TelevisionSeasons">
@@ -1582,7 +1582,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_sdnPlaybackHistory_TelevisionShows">
-          <End Role="TelevisionShows" Type="Self.ITelevisionShow" Multiplicity="1" />
+          <End Role="TelevisionShows" Type="Self.TelevisionShow" Multiplicity="1" />
           <End Role="PlaybackHistory" Type="Self.PlaybackHistory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TelevisionShows">
@@ -1595,7 +1595,7 @@
         </Association>
         <Association Name="FK_sdnTelevisionEpisodes_sortItems">
           <End Role="sortItems" Type="Self.sortItem" Multiplicity="0..1" />
-          <End Role="TelevisionEpisodes" Type="Self.ITelevisionEpisode" Multiplicity="*" />
+          <End Role="TelevisionEpisodes" Type="Self.TelevisionEpisode" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="sortItems">
               <PropertyRef Name="pk_MediaID" />
@@ -1618,7 +1618,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_sdnRequestedMedia_sdnTelevisionEpisodes">
-          <End Role="TelevisionEpisodes" Type="Self.ITelevisionEpisode" Multiplicity="0..1" />
+          <End Role="TelevisionEpisodes" Type="Self.TelevisionEpisode" Multiplicity="0..1" />
           <End Role="UserRequests" Type="Self.UserRequest" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TelevisionEpisodes">
@@ -1630,8 +1630,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_sdnTelevisionEpisodes_sdnTelevisionSeasons">
-          <End Role="TelevisionSeasons" Type="Self.ITelevisionSeason" Multiplicity="1" />
-          <End Role="TelevisionEpisodes" Type="Self.ITelevisionEpisode" Multiplicity="*" />
+          <End Role="TelevisionSeasons" Type="Self.TelevisionSeason" Multiplicity="1" />
+          <End Role="TelevisionEpisodes" Type="Self.TelevisionEpisode" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TelevisionSeasons">
               <PropertyRef Name="pk_SeasonID" />
@@ -1642,8 +1642,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_sdnTelevisionEpisodes_ShowID_TelevisionShows">
-          <End Role="TelevisionShows" Type="Self.ITelevisionShow" Multiplicity="1" />
-          <End Role="TelevisionEpisodes" Type="Self.ITelevisionEpisode" Multiplicity="*" />
+          <End Role="TelevisionShows" Type="Self.TelevisionShow" Multiplicity="1" />
+          <End Role="TelevisionEpisodes" Type="Self.TelevisionEpisode" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TelevisionShows">
               <PropertyRef Name="pk_ShowID" />
@@ -1654,7 +1654,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_sdnRequestedMedia_sdnTelevisionSeasons">
-          <End Role="TelevisionSeasons" Type="Self.ITelevisionSeason" Multiplicity="0..1" />
+          <End Role="TelevisionSeasons" Type="Self.TelevisionSeason" Multiplicity="0..1" />
           <End Role="UserRequests" Type="Self.UserRequest" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TelevisionSeasons">
@@ -1666,8 +1666,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_sdnTelevisionSeasons_ShowID_TelevisionShows">
-          <End Role="TelevisionShows" Type="Self.ITelevisionShow" Multiplicity="1" />
-          <End Role="TelevisionSeasons" Type="Self.ITelevisionSeason" Multiplicity="*" />
+          <End Role="TelevisionShows" Type="Self.TelevisionShow" Multiplicity="1" />
+          <End Role="TelevisionSeasons" Type="Self.TelevisionSeason" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TelevisionShows">
               <PropertyRef Name="pk_ShowID" />
@@ -1678,7 +1678,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_sdnRequestedMedia_TelevisionShows">
-          <End Role="TelevisionShows" Type="Self.ITelevisionShow" Multiplicity="0..1" />
+          <End Role="TelevisionShows" Type="Self.TelevisionShow" Multiplicity="0..1" />
           <End Role="UserRequests" Type="Self.UserRequest" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TelevisionShows">
@@ -1708,14 +1708,14 @@
           <EntitySet Name="list_MovieGenres" EntityType="Self.list_MovieGenres" />
           <EntitySet Name="list_permissionLevels" EntityType="Self.list_permissionLevels" />
           <EntitySet Name="list_TaskTypes" EntityType="Self.list_TaskTypes" />
-          <EntitySet Name="Movies" EntityType="Self.Movy" />
+          <EntitySet Name="Movies" EntityType="Self.Movie" />
           <EntitySet Name="PlaybackHistories" EntityType="Self.PlaybackHistory" />
           <EntitySet Name="ProcessQueues" EntityType="Self.ProcessQueue" />
           <EntitySet Name="sortItems" EntityType="Self.sortItem" />
           <EntitySet Name="TaskQueues" EntityType="Self.TaskQueue" />
-          <EntitySet Name="TelevisionEpisodes" EntityType="Self.ITelevisionEpisode" />
-          <EntitySet Name="TelevisionSeasons" EntityType="Self.ITelevisionSeason" />
-          <EntitySet Name="TelevisionShows" EntityType="Self.ITelevisionShow" />
+          <EntitySet Name="TelevisionEpisodes" EntityType="Self.TelevisionEpisode" />
+          <EntitySet Name="TelevisionSeasons" EntityType="Self.TelevisionSeason" />
+          <EntitySet Name="TelevisionShows" EntityType="Self.TelevisionShow" />
           <EntitySet Name="UserRequests" EntityType="Self.UserRequest" />
           <AssociationSet Name="FK_sdnApiTokens_sdnApiTokens" Association="Self.FK_sdnApiTokens_sdnApiTokens">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -2192,7 +2192,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Movies">
-            <EntityTypeMapping TypeName="MediaManagerDB.Movy">
+            <EntityTypeMapping TypeName="MediaManagerDB.Movie">
               <MappingFragment StoreEntitySet="Movies">
                 <ScalarProperty Name="pk_MovieID" ColumnName="pk_MovieID" />
                 <ScalarProperty Name="MovieTitle" ColumnName="MovieTitle" />
@@ -2276,7 +2276,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TelevisionEpisodes">
-            <EntityTypeMapping TypeName="MediaManagerDB.ITelevisionEpisode">
+            <EntityTypeMapping TypeName="MediaManagerDB.TelevisionEpisode">
               <MappingFragment StoreEntitySet="TelevisionEpisodes">
                 <ScalarProperty Name="pk_EpisodeID" ColumnName="pk_EpisodeID" />
                 <ScalarProperty Name="fk_SeasonID" ColumnName="fk_SeasonID" />
@@ -2293,7 +2293,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TelevisionSeasons">
-            <EntityTypeMapping TypeName="MediaManagerDB.ITelevisionSeason">
+            <EntityTypeMapping TypeName="MediaManagerDB.TelevisionSeason">
               <MappingFragment StoreEntitySet="TelevisionSeasons">
                 <ScalarProperty Name="pk_SeasonID" ColumnName="pk_SeasonID" />
                 <ScalarProperty Name="fk_ShowID" ColumnName="fk_ShowID" />
@@ -2306,7 +2306,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TelevisionShows">
-            <EntityTypeMapping TypeName="MediaManagerDB.ITelevisionShow">
+            <EntityTypeMapping TypeName="MediaManagerDB.TelevisionShow">
               <MappingFragment StoreEntitySet="TelevisionShows">
                 <ScalarProperty Name="pk_ShowID" ColumnName="pk_ShowID" />
                 <ScalarProperty Name="ShowName" ColumnName="ShowName" />

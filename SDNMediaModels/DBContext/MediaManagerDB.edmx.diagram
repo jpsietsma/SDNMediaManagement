@@ -19,14 +19,14 @@
         <EntityTypeShape EntityType="MediaManagerDB.list_MovieGenres" Width="1.5" PointX="6" PointY="7.125" IsExpanded="true" />
         <EntityTypeShape EntityType="MediaManagerDB.list_permissionLevels" Width="1.5" PointX="0.75" PointY="13.625" IsExpanded="true" />
         <EntityTypeShape EntityType="MediaManagerDB.list_TaskTypes" Width="1.5" PointX="10.5" PointY="23.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="MediaManagerDB.Movy" Width="1.5" PointX="8.25" PointY="19.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MediaManagerDB.Movie" Width="1.5" PointX="8.25" PointY="19.375" IsExpanded="true" />
         <EntityTypeShape EntityType="MediaManagerDB.PlaybackHistory" Width="1.5" PointX="10.5" PointY="12.875" IsExpanded="true" />
         <EntityTypeShape EntityType="MediaManagerDB.ProcessQueue" Width="1.5" PointX="10.5" PointY="3.125" IsExpanded="true" />
         <EntityTypeShape EntityType="MediaManagerDB.sortItem" Width="1.5" PointX="6" PointY="22.5" IsExpanded="true" />
         <EntityTypeShape EntityType="MediaManagerDB.TaskQueue" Width="1.5" PointX="10.5" PointY="7.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="MediaManagerDB.ITelevisionEpisode" Width="1.5" PointX="8.25" PointY="24.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="MediaManagerDB.ITelevisionSeason" Width="1.5" PointX="6" PointY="29.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="MediaManagerDB.ITelevisionShow" Width="1.5" PointX="3.75" PointY="29.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MediaManagerDB.TelevisionEpisode" Width="1.5" PointX="8.25" PointY="24.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MediaManagerDB.TelevisionSeason" Width="1.5" PointX="6" PointY="29.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MediaManagerDB.TelevisionShow" Width="1.5" PointX="3.75" PointY="29.25" IsExpanded="true" />
         <EntityTypeShape EntityType="MediaManagerDB.UserRequest" Width="1.5" PointX="10.5" PointY="16.875" IsExpanded="true" />
         <AssociationConnector Association="MediaManagerDB.FK_sdnApiTokens_sdnApiTokens" ManuallyRouted="false" />
         <AssociationConnector Association="MediaManagerDB.FK_AspNetRoles_list_permissionLevels" ManuallyRouted="false" />

@@ -20,7 +20,7 @@ namespace MediaMaintenanceLibrary
         /// Convert finalized Sort Item to Television Episode
         /// </summary>
         /// <param name="sortModel">Model to convert to Television Episode</param>
-        /// <returns>ITelevisionEpisode converted from SortMediaItem</returns>
+        /// <returns>TelevisionEpisode converted from SortMediaItem</returns>
         public static TelevisionEpisode ToEpisode(this sortItem sortModel)
         {
             TelevisionEpisode newEpisode = new TelevisionEpisode { pk_EpisodeID = sortModel.pk_MediaID, EpisodePath = sortModel.filePath };
@@ -64,7 +64,7 @@ namespace MediaMaintenanceLibrary
         /// <summary>
         /// Return or build source url for streaming content
         /// </summary>
-        /// <param name="movie">ITelevisionEpisode to build streaming url</param>
+        /// <param name="movie">TelevisionEpisode to build streaming url</param>
         /// <returns>string url to pass to web media streaming</returns>
         public static string BuildStreamingUrl(Movie movie)
         {
@@ -81,9 +81,9 @@ namespace MediaMaintenanceLibrary
         /// <summary>
         /// Return or build source url for streaming content
         /// </summary>
-        /// <param name="episode">ITelevisionEpisode to build streaming url</param>
+        /// <param name="episode">TelevisionEpisode to build streaming url</param>
         /// <returns>string url to pass to web media streaming</returns>
-        public static string BuildStreamingUrl(ITelevisionEpisode episode)
+        public static string BuildStreamingUrl(TelevisionEpisode episode)
         {
 
             if (string.IsNullOrEmpty(episode.EpisodePlayerPath))
@@ -108,11 +108,11 @@ namespace MediaMaintenanceLibrary
         /// </summary>
         /// <param name="episodeModels">List of string paths containing episodes</param>
         /// <returns>List of strings containing urls for streaming</returns>
-        public static List<string> BuildStreamingPlaylist (List<ITelevisionEpisode> episodeModels)
+        public static List<string> BuildStreamingPlaylist (List<TelevisionEpisode> episodeModels)
         {
             List<string> finalUrls = new List<string>();
 
-            foreach (ITelevisionEpisode episode in episodeModels)
+            foreach (TelevisionEpisode episode in episodeModels)
             {
 
                 finalUrls.Add(BuildStreamingUrl(episode));

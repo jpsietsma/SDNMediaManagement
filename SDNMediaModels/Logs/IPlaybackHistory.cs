@@ -14,8 +14,8 @@ namespace SDNMediaModels.Logs
         int pk_PlaybackID { get; set; }
         DateTime PlaybackDate { get; set; }
         int PlaybackProgressStopped { get; set; }
-        ITelevisionEpisode ITelevisionEpisode { get; set; }
-        ITelevisionSeason ITelevisionSeason { get; set; }
-        ITelevisionShow ITelevisionShow { get; set; }
+        TelevisionEpisode TelevisionEpisode { get; set; }
+        TelevisionSeason TelevisionSeason { get; set; }
+        TelevisionShow TelevisionShow { get; set; }
     }
 }
