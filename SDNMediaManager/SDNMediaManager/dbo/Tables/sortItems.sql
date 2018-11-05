@@ -1,0 +1,27 @@
+﻿CREATE TABLE [dbo].[sortItems] (
+    [pk_MediaID]           INT            IDENTITY (1, 1) NOT NULL,
+    [filePath]             VARCHAR (200)  NOT NULL,
+    [fileName]             NVARCHAR (200) NOT NULL,
+    [hasBeenSanitized]     INT            CONSTRAINT [DF_sortItems_hasBeenSanitized] DEFAULT ((0)) NOT NULL,
+    [fileNameSanitized]    VARCHAR (100)  NULL,
+    [hasBeenProcessed]     INT            CONSTRAINT [DF_sortItems_hasBeenProcessed] DEFAULT ((0)) NOT NULL,
+    [fileModified]         DATETIME2 (3)  CONSTRAINT [DF_sortItems_fileModified] DEFAULT (sysdatetime()) NOT NULL,
+    [fileAdded]            DATETIME2 (3)  CONSTRAINT [DF_sortItems_fileAdded] DEFAULT (sysdatetime()) NOT NULL,
+    [fk_fileMediaTypeID]   INT            CONSTRAINT [DF_sortItems_fk_fileMediaTypeID] DEFAULT ((3)) NOT NULL,
+    [fk_automationStatus]  INT            CONSTRAINT [DF_sortItems_fk_automationStatus] DEFAULT ((1)) NOT NULL,
+    [finalizedFilePath]    VARCHAR (150)  NULL,
+    [finalizedFileName]    VARCHAR (150)  NULL,
+    [finalizedShowName]    VARCHAR (50)   NULL,
+    [finalizedShowSeason]  VARCHAR (10)   NULL,
+    [finalizedShowEpisode] NCHAR (10)     NULL,
+    [hasBeenFinalized]     INT            CONSTRAINT [DF_sortItems_hasBeenFinalized] DEFAULT ((0)) NOT NULL,
+    [hasBeenDistributed]   INT            CONSTRAINT [DF_sortItems_hasBeenDistributed] DEFAULT ((0)) NOT NULL,
+    [dlFileExists]         INT            CONSTRAINT [DF_sortItems_dlFileExists] DEFAULT ((0)) NOT NULL,
+    [finalizedStatus]      INT            CONSTRAINT [DF_sortItems_finalizedStatus] DEFAULT ((0)) NOT NULL,
+    [fk_torrentID]         NVARCHAR (150) NULL,
+    CONSTRAINT [PK_sortItems] PRIMARY KEY CLUSTERED ([pk_MediaID] ASC),
+    CONSTRAINT [FK_sortItems_automationStatus_sortItems] FOREIGN KEY ([fk_automationStatus]) REFERENCES [dbo].[list_AutomationStatuses] ([pk_automationStatus]),
+    CONSTRAINT [FK_sortItems_mediaTypeID_sortItems] FOREIGN KEY ([fk_fileMediaTypeID]) REFERENCES [dbo].[list_MediaTypes] ([pk_MediaTypeID]),
+    CONSTRAINT [FK_sortItems_torrentID_sdnDownloadQueue] FOREIGN KEY ([fk_torrentID]) REFERENCES [dbo].[DownloadQueue] ([pk_torrentID])
+);
+

@@ -1,0 +1,26 @@
+﻿CREATE TABLE [dbo].[UserRequests] (
+    [pk_RequestID]        INT            IDENTITY (1, 1) NOT NULL,
+    [RequestType]         INT            NULL,
+    [RequestSubtype]      INT            NULL,
+    [ExistingSeries]      NVARCHAR (10)  NULL,
+    [RequestQuery]        NVARCHAR (100) NULL,
+    [RequestShow]         NVARCHAR (75)  NULL,
+    [RequestSeason]       NVARCHAR (50)  NULL,
+    [RequestEpisode]      NVARCHAR (50)  NULL,
+    [RequestMovie]        NVARCHAR (50)  NULL,
+    [RequestMovieYear]    NVARCHAR (5)   NULL,
+    [RequestMovieGenre]   NVARCHAR (50)  NULL,
+    [RequestCompleted]    INT            CONSTRAINT [DF_sdnRequestedMedia_RequestCompleted] DEFAULT ((0)) NULL,
+    [fk_ShowID]           INT            NULL,
+    [fk_EpisodeID]        INT            NULL,
+    [fk_SeasonID]         INT            NULL,
+    [fk_UserID]           NVARCHAR (128) NULL,
+    [fk_AutomationStatus] INT            NULL,
+    CONSTRAINT [PK_sdnRequestedMedia] PRIMARY KEY CLUSTERED ([pk_RequestID] ASC),
+    CONSTRAINT [FK_sdnRequestedMedia_AspNetUsers] FOREIGN KEY ([fk_UserID]) REFERENCES [dbo].[AspNetUsers] ([Id]),
+    CONSTRAINT [FK_sdnRequestedMedia_list_AutomationStatuses] FOREIGN KEY ([fk_AutomationStatus]) REFERENCES [dbo].[list_AutomationStatuses] ([pk_automationStatus]),
+    CONSTRAINT [FK_sdnRequestedMedia_sdnTelevisionEpisodes] FOREIGN KEY ([fk_EpisodeID]) REFERENCES [dbo].[TelevisionEpisodes] ([pk_EpisodeID]),
+    CONSTRAINT [FK_sdnRequestedMedia_sdnTelevisionSeasons] FOREIGN KEY ([fk_SeasonID]) REFERENCES [dbo].[TelevisionSeasons] ([pk_SeasonID]),
+    CONSTRAINT [FK_sdnRequestedMedia_sdnTelevisionShows] FOREIGN KEY ([fk_ShowID]) REFERENCES [dbo].[TelevisionShows] ([pk_ShowID])
+);
+
