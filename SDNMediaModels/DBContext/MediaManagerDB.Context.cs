@@ -11,7 +11,7 @@ using SDNMediaModels.List;
 using SDNMediaModels.Sort;
 using SDNMediaModels.Television;
 using SDNMediaModels.StoredProcedure;
-using SDNMediaModels.Movie;
+using SDNMediaModels.Movies;
 
 namespace SDNMediaModels.DBContext
 {

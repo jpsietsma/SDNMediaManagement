@@ -112,24 +112,23 @@ namespace DashboardUI.Controllers
         /// </summary>
         /// <param name="newShow">TelevisionShow representing show to be added</param>
         /// <returns>redirect to list of shows when successful</returns>
-        public ActionResult SaveNewShow(TelevisionShow newShow)
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SaveNewShow([Bind(Include = "pk_ShowID,ShowName,ShowDriveLetter,ShowHomePath,ShowNumSeasons,ShowNumEpisodes,ShowAlbumArtPath,IsEnabled,TvdbID,ImdbID,fk_MediaType")] TelevisionShow televisionShow)
         {
-            using (MediaManagerDB shows = new MediaManagerDB())
+            if (ModelState.IsValid)
             {
-                try
+                using (MediaManagerDB db = new MediaManagerDB())
                 {
-                    shows.TelevisionShows.Add(newShow);
-                    shows.SaveChanges();
+                    db.TelevisionShows.Add(televisionShow);
+                    db.SaveChanges();
                 }
-                catch (Exception e)
-                {
-                    throw new Exception(e.Message);
-                }
+                
+                return RedirectToAction("SeasonInfo", "Media", new { id = televisionShow.pk_ShowID });
+            }
 
-                return RedirectToAction("SeasonInfo", "Media", new { id = newShow.pk_ShowID });
-
-            }            
-                        
+            return View(televisionShow);
         }
 
         /// <summary>

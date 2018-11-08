@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using SDNMediaModels.Movie;
+using SDNMediaModels.Movies;
 using SDNMediaModels.Sort;
 using SDNMediaModels.Television;
 using System.Collections.Generic;

@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SDNMediaModels.Movie
+namespace SDNMediaModels.Movies
 {   
 
     public partial class Movie : IMovie

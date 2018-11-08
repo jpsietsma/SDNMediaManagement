@@ -1,4 +1,4 @@
-using SDNMediaModels.Movie;
+using SDNMediaModels.Movies;
 using System;
 using System.Collections.Generic;
 

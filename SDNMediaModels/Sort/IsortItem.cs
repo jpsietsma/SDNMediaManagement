@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using SDNMediaModels.Feedback;
 using SDNMediaModels.List;
 using SDNMediaModels.Logs;
-using SDNMediaModels.Movie;
+using SDNMediaModels.Movies;
 using SDNMediaModels.Television;
 
 namespace SDNMediaModels.Sort
@@ -33,7 +33,7 @@ namespace SDNMediaModels.Sort
         int hasBeenSanitized { get; set; }
         list_AutomationStatuses list_AutomationStatuses { get; set; }
         list_MediaTypes list_MediaTypes { get; set; }
-        ICollection<Movie.Movie> Movies { get; set; }
+        ICollection<Movie> Movies { get; set; }
         int pk_MediaID { get; set; }
         ICollection<TelevisionEpisode> TelevisionEpisodes { get; set; }
     }

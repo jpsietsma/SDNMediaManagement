@@ -1,7 +1,7 @@
 ﻿using SDNMediaModels.List;
 using SDNMediaModels.Sort;
 
-namespace SDNMediaModels.Movie
+namespace SDNMediaModels.Movies
 {
     public interface IMovie
     {

@@ -1,7 +1,7 @@
 using SDNMediaModels.Feedback;
 using SDNMediaModels.List;
 using SDNMediaModels.Logs;
-using SDNMediaModels.Movie;
+using SDNMediaModels.Movies;
 using SDNMediaModels.Television;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace SDNMediaModels.Sort
 {   
     
-    public partial class sortItem : IsortItem
+    public partial class sortItem
     {
 
         public sortItem()
