@@ -1,0 +1,87 @@
+﻿@model IEnumerable<SDNMediaModels.Television.TelevisionShow>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ShowName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShowDriveLetter)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShowHomePath)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShowNumSeasons)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShowNumEpisodes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShowAlbumArtPath)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsEnabled)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TvdbID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImdbID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fk_MediaType)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShowName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShowDriveLetter)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShowHomePath)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShowNumSeasons)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShowNumEpisodes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShowAlbumArtPath)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsEnabled)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TvdbID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ImdbID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fk_MediaType)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.pk_ShowID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.pk_ShowID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.pk_ShowID })
+        </td>
+    </tr>
+}
+
+</table>

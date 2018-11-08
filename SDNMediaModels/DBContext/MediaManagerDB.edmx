@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MediaManagerDB.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MediaManagerDB.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ApiTokens">
           <Key>
             <PropertyRef Name="pk_tokenID" />
@@ -121,6 +121,15 @@
           <Property Name="pk_automationStatus" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="automationStatusDisplay" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="automationNextAction" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="list_MediaDrives">
+          <Key>
+            <PropertyRef Name="pk_MediaDriveID" />
+          </Key>
+          <Property Name="pk_MediaDriveID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DriveLetter" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="fk_MediaTypeID" Type="int" Nullable="false" />
+          <Property Name="DriveSpace" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="list_MediaTypes">
           <Key>
@@ -269,10 +278,10 @@
           <Property Name="ShowName" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="ShowDriveLetter" Type="nvarchar" MaxLength="1" Nullable="false" />
           <Property Name="ShowHomePath" Type="nvarchar" MaxLength="200" Nullable="false" />
-          <Property Name="ShowNumSeasons" Type="int" Nullable="false" />
-          <Property Name="ShowNumEpisodes" Type="int" Nullable="false" />
+          <Property Name="ShowNumSeasons" Type="int" />
+          <Property Name="ShowNumEpisodes" Type="int" />
           <Property Name="ShowAlbumArtPath" Type="nvarchar" MaxLength="200" Nullable="false" />
-          <Property Name="IsEnabled" Type="int" Nullable="false" />
+          <Property Name="IsEnabled" Type="nvarchar" MaxLength="5" Nullable="false" />
           <Property Name="TvdbID" Type="nvarchar" MaxLength="50" />
           <Property Name="ImdbID" Type="nvarchar" MaxLength="50" />
           <Property Name="fk_MediaType" Type="int" />
@@ -364,6 +373,18 @@
             </Principal>
             <Dependent Role="AspNetUserRoles">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_list_MediaDrives_list_MediaTypes">
+          <End Role="list_MediaTypes" Type="Self.list_MediaTypes" Multiplicity="1" />
+          <End Role="list_MediaDrives" Type="Self.list_MediaDrives" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="list_MediaTypes">
+              <PropertyRef Name="pk_MediaTypeID" />
+            </Principal>
+            <Dependent Role="list_MediaDrives">
+              <PropertyRef Name="pk_MediaDriveID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -487,7 +508,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_sdnPlaybackHistory_TelevisionShows">
+        <Association Name="FK_sdnPlaybackHistory_sdnTelevisionShows">
           <End Role="TelevisionShows" Type="Self.TelevisionShows" Multiplicity="1" />
           <End Role="PlaybackHistory" Type="Self.PlaybackHistory" Multiplicity="*" />
           <ReferentialConstraint>
@@ -571,7 +592,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_sdnRequestedMedia_TelevisionShows">
+        <Association Name="FK_sdnRequestedMedia_sdnTelevisionShows">
           <End Role="TelevisionShows" Type="Self.TelevisionShows" Multiplicity="0..1" />
           <End Role="UserRequests" Type="Self.UserRequests" Multiplicity="*" />
           <ReferentialConstraint>
@@ -655,7 +676,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_sdnTelevisionEpisodes_ShowID_TelevisionShows">
+        <Association Name="FK_sdnTelevisionEpisodes_ShowID_sdnTelevisionShows">
           <End Role="TelevisionShows" Type="Self.TelevisionShows" Multiplicity="1" />
           <End Role="TelevisionEpisodes" Type="Self.TelevisionEpisodes" Multiplicity="*" />
           <ReferentialConstraint>
@@ -679,7 +700,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_sdnTelevisionSeasons_ShowID_TelevisionShows">
+        <Association Name="FK_sdnTelevisionSeasons_ShowID_sdnTelevisionShows">
           <End Role="TelevisionShows" Type="Self.TelevisionShows" Multiplicity="1" />
           <End Role="TelevisionSeasons" Type="Self.TelevisionSeasons" Multiplicity="*" />
           <ReferentialConstraint>
@@ -776,6 +797,7 @@
           <EntitySet Name="list_AutomationActions" EntityType="Self.list_AutomationActions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="list_AutomationPriority" EntityType="Self.list_AutomationPriority" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="list_AutomationStatuses" EntityType="Self.list_AutomationStatuses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="list_MediaDrives" EntityType="Self.list_MediaDrives" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="list_MediaTypes" EntityType="Self.list_MediaTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="list_MovieGenres" EntityType="Self.list_MovieGenres" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="list_permissionLevels" EntityType="Self.list_permissionLevels" Schema="dbo" store:Type="Tables" />
@@ -808,6 +830,10 @@
           <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_list_MediaDrives_list_MediaTypes" Association="Self.FK_list_MediaDrives_list_MediaTypes">
+            <End Role="list_MediaTypes" EntitySet="list_MediaTypes" />
+            <End Role="list_MediaDrives" EntitySet="list_MediaDrives" />
           </AssociationSet>
           <AssociationSet Name="FK_list_TaskTypes_list_TaskTypes" Association="Self.FK_list_TaskTypes_list_TaskTypes">
             <End Role="list_AutomationPriority" EntitySet="list_AutomationPriority" />
@@ -849,7 +875,7 @@
             <End Role="TelevisionSeasons" EntitySet="TelevisionSeasons" />
             <End Role="PlaybackHistory" EntitySet="PlaybackHistory" />
           </AssociationSet>
-          <AssociationSet Name="FK_sdnPlaybackHistory_TelevisionShows" Association="Self.FK_sdnPlaybackHistory_TelevisionShows">
+          <AssociationSet Name="FK_sdnPlaybackHistory_sdnTelevisionShows" Association="Self.FK_sdnPlaybackHistory_sdnTelevisionShows">
             <End Role="TelevisionShows" EntitySet="TelevisionShows" />
             <End Role="PlaybackHistory" EntitySet="PlaybackHistory" />
           </AssociationSet>
@@ -877,7 +903,7 @@
             <End Role="TelevisionSeasons" EntitySet="TelevisionSeasons" />
             <End Role="UserRequests" EntitySet="UserRequests" />
           </AssociationSet>
-          <AssociationSet Name="FK_sdnRequestedMedia_TelevisionShows" Association="Self.FK_sdnRequestedMedia_TelevisionShows">
+          <AssociationSet Name="FK_sdnRequestedMedia_sdnTelevisionShows" Association="Self.FK_sdnRequestedMedia_sdnTelevisionShows">
             <End Role="TelevisionShows" EntitySet="TelevisionShows" />
             <End Role="UserRequests" EntitySet="UserRequests" />
           </AssociationSet>
@@ -905,7 +931,7 @@
             <End Role="TelevisionSeasons" EntitySet="TelevisionSeasons" />
             <End Role="TelevisionEpisodes" EntitySet="TelevisionEpisodes" />
           </AssociationSet>
-          <AssociationSet Name="FK_sdnTelevisionEpisodes_ShowID_TelevisionShows" Association="Self.FK_sdnTelevisionEpisodes_ShowID_TelevisionShows">
+          <AssociationSet Name="FK_sdnTelevisionEpisodes_ShowID_sdnTelevisionShows" Association="Self.FK_sdnTelevisionEpisodes_ShowID_sdnTelevisionShows">
             <End Role="TelevisionShows" EntitySet="TelevisionShows" />
             <End Role="TelevisionEpisodes" EntitySet="TelevisionEpisodes" />
           </AssociationSet>
@@ -913,7 +939,7 @@
             <End Role="sortItems" EntitySet="sortItems" />
             <End Role="TelevisionEpisodes" EntitySet="TelevisionEpisodes" />
           </AssociationSet>
-          <AssociationSet Name="FK_sdnTelevisionSeasons_ShowID_TelevisionShows" Association="Self.FK_sdnTelevisionSeasons_ShowID_TelevisionShows">
+          <AssociationSet Name="FK_sdnTelevisionSeasons_ShowID_sdnTelevisionShows" Association="Self.FK_sdnTelevisionSeasons_ShowID_sdnTelevisionShows">
             <End Role="TelevisionShows" EntitySet="TelevisionShows" />
             <End Role="TelevisionSeasons" EntitySet="TelevisionSeasons" />
           </AssociationSet>
@@ -930,8 +956,7 @@
             <End Role="sortItems" EntitySet="sortItems" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MediaManagerDB" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1075,6 +1100,7 @@
           <NavigationProperty Name="Movies" Relationship="Self.FK_sdnMovies_list_MediaTypes" FromRole="list_MediaTypes" ToRole="Movies" />
           <NavigationProperty Name="TelevisionEpisodes" Relationship="Self.FK_sdnTelevisionEpisodes_list_MediaTypes" FromRole="list_MediaTypes" ToRole="TelevisionEpisodes" />
           <NavigationProperty Name="sortItems" Relationship="Self.FK_sortItems_mediaTypeID_sortItems" FromRole="list_MediaTypes" ToRole="sortItems" />
+          <NavigationProperty Name="list_MediaDrives" Relationship="MediaManagerDB.FK_list_MediaDrives_list_MediaTypes" FromRole="list_MediaTypes" ToRole="list_MediaDrives" />
         </EntityType>
         <EntityType Name="list_MovieGenres">
           <Key>
@@ -1250,10 +1276,10 @@
           <Property Name="ShowName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ShowDriveLetter" Type="String" MaxLength="1" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ShowHomePath" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ShowNumSeasons" Type="Int32" Nullable="false" />
-          <Property Name="ShowNumEpisodes" Type="Int32" Nullable="false" />
+          <Property Name="ShowNumSeasons" Type="Int32" Nullable="true" />
+          <Property Name="ShowNumEpisodes" Type="Int32" Nullable="true" />
           <Property Name="ShowAlbumArtPath" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="IsEnabled" Type="Int32" Nullable="false" />
+          <Property Name="IsEnabled" Type="Boolean" Nullable="false" DefaultValue="true" />
           <Property Name="TvdbID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ImdbID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="fk_MediaType" Type="Int32" />
@@ -1854,13 +1880,13 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
           <FunctionImport Name="ActivateEpisode">
-            <Parameter Name="episodeID" Mode="In" Type="Int32" />
+          <Parameter Name="episodeID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="ActivateSeason">
-            <Parameter Name="seasonID" Mode="In" Type="Int32" />
+          <Parameter Name="seasonID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="ActivateShow">
-            <Parameter Name="showID" Mode="In" Type="Int32" />
+          <Parameter Name="showID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="BuildEpisodeStreamingUrl" ReturnType="Collection(String)">
             <Parameter Name="fileName" Mode="In" Type="String" />
@@ -1871,25 +1897,30 @@
           <FunctionImport Name="GetAllShows" ReturnType="Collection(MediaManagerDB.GetAllShows_Result)" />
           <FunctionImport Name="GetDailyDownloads" ReturnType="Collection(MediaManagerDB.GetDailyDownloads_Result)" />
           <FunctionImport Name="GetDisplayDuration" ReturnType="Collection(String)">
-            <Parameter Name="mins" Mode="In" Type="Int32" />
+          <Parameter Name="mins" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetMovies" ReturnType="Collection(MediaManagerDB.GetMovies_Result)" />
           <FunctionImport Name="GetOrphanSortItems" ReturnType="Collection(MediaManagerDB.GetOrphanSortItems_Result)" />
           <FunctionImport Name="GetShowEpisodes" ReturnType="Collection(MediaManagerDB.GetShowEpisodes_Result)">
-            <Parameter Name="showID" Mode="In" Type="Int32" />
+          <Parameter Name="showID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetShowEpisodesBySeason" ReturnType="Collection(MediaManagerDB.GetShowEpisodesBySeason_Result)">
-            <Parameter Name="seasonID" Mode="In" Type="Int32" />
+          <Parameter Name="seasonID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetShowIdByName" ReturnType="Collection(Int32)">
             <Parameter Name="ShowName" Mode="In" Type="String" />
             <Parameter Name="ShowID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetShowSeasons" ReturnType="Collection(MediaManagerDB.GetShowSeasons_Result)">
-            <Parameter Name="showID" Mode="In" Type="Int32" />
+          <Parameter Name="showID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetSortItems" ReturnType="Collection(MediaManagerDB.GetSortItems_Result)" />
           <FunctionImport Name="GetUsers" ReturnType="Collection(MediaManagerDB.GetUsers_Result)" />
+          <EntitySet Name="list_MediaDrives" EntityType="MediaManagerDB.list_MediaDrives" />
+          <AssociationSet Name="FK_list_MediaDrives_list_MediaTypes" Association="MediaManagerDB.FK_list_MediaDrives_list_MediaTypes">
+            <End Role="list_MediaTypes" EntitySet="list_MediaTypes" />
+            <End Role="list_MediaDrives" EntitySet="list_MediaDrives" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="GetAllShows_Result">
           <Property Type="Int32" Name="pk_ShowID" Nullable="false" />
@@ -2032,6 +2063,28 @@
           <Property Type="String" Name="AddressZipcode" Nullable="true" MaxLength="5" />
           <Property Type="Int32" Name="AllowAccess" Nullable="false" />
         </ComplexType>
+        <EntityType Name="list_MediaDrives">
+          <Key>
+            <PropertyRef Name="pk_MediaDriveID" />
+          </Key>
+          <Property Name="pk_MediaDriveID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DriveLetter" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="fk_MediaTypeID" Type="Int32" Nullable="false" />
+          <Property Name="DriveSpace" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="list_MediaTypes" Relationship="MediaManagerDB.FK_list_MediaDrives_list_MediaTypes" FromRole="list_MediaDrives" ToRole="list_MediaTypes" />
+        </EntityType>
+        <Association Name="FK_list_MediaDrives_list_MediaTypes">
+          <End Type="MediaManagerDB.list_MediaTypes" Role="list_MediaTypes" Multiplicity="1" />
+          <End Type="MediaManagerDB.list_MediaDrives" Role="list_MediaDrives" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="list_MediaTypes">
+              <PropertyRef Name="pk_MediaTypeID" />
+            </Principal>
+            <Dependent Role="list_MediaDrives">
+              <PropertyRef Name="pk_MediaDriveID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2536,6 +2589,16 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="list_MediaDrives">
+            <EntityTypeMapping TypeName="MediaManagerDB.list_MediaDrives">
+              <MappingFragment StoreEntitySet="list_MediaDrives">
+                <ScalarProperty Name="DriveSpace" ColumnName="DriveSpace" />
+                <ScalarProperty Name="fk_MediaTypeID" ColumnName="fk_MediaTypeID" />
+                <ScalarProperty Name="DriveLetter" ColumnName="DriveLetter" />
+                <ScalarProperty Name="pk_MediaDriveID" ColumnName="pk_MediaDriveID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

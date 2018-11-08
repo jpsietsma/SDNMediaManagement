@@ -1,9 +1,9 @@
 ﻿@model IEnumerable<SDNMediaModels.Television.TelevisionEpisode>
 
 @{
-    ViewBag.Title = Model.First().ShowName + " - " + Model.First().SeasonName + " Episodes";
+    ViewBag.Title = Model.First().TelevisionShow.ShowName + " - " + Model.First().TelevisionSeason.SeasonName + " Episodes";
 }
-<center><h2>@Html.ActionLink(Model.First().ShowName, "ShowInfo") / @Html.ActionLink(Model.First().SeasonName, "SeasonInfo", new { id = Model.First().fk_ShowID }) / Episodes</h2></center>
+<center><h2>@Html.ActionLink(Model.First().TelevisionShow.ShowName, "ShowInfo") / @Html.ActionLink(Model.First().TelevisionSeason.SeasonName, "SeasonInfo", new { id = Model.First().fk_ShowID }) / Episodes</h2></center>
 
 <table style="margin: 0 auto 0;">
 
@@ -31,7 +31,7 @@
                         <div style=" width: 200px; float: left; background-color: black; color: white;" class="back">
                             
                             <!-- back content -->
-                            <b style="color:darkorange">Season:</b> @item.SeasonName<br /><b style="color:darkorange">Episode:</b> @item.EpisodeNum<br /><br /><b style="color:darkorange">Summary:</b> This is where we can populate the episode description<br /><br />
+                            <b style="color:darkorange">Season:</b> @item.TelevisionSeason.SeasonName<br /><b style="color:darkorange">Episode:</b> @item.EpisodeNum<br /><br /><b style="color:darkorange">Summary:</b> This is where we can populate the episode description<br /><br />
                             <center>
                                 <i class="fa fa-play-circle"></i> @Html.ActionLink("Watch Episode", "WatchEpisode", new { id = item.pk_EpisodeID }, new { data_target = "#episode-player-modal-container", data_toggle = "modal" })
                             </center><br />

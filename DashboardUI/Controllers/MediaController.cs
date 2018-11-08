@@ -3,6 +3,7 @@ using Kendo.Mvc.Extensions;
 using SDNMediaModels.DBContext;
 using SDNMediaModels.Sort;
 using SDNMediaModels.Television;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -13,13 +14,13 @@ namespace DashboardUI.Controllers
     public class MediaController : Controller
     {
 
-#region Navigation Actions/Views...
+        #region Navigation Actions/Views...
 
         //header nav and show search autocomplete related code will go here
 
         #endregion
 
-#region Episode Action / Views...
+        #region Episode Action / Views...
 
         public ActionResult WatchEpisode(int id)
         {
@@ -51,9 +52,9 @@ namespace DashboardUI.Controllers
             return View(db_episodes.TelevisionEpisodes.Where(episodes => episodes.fk_SeasonID == id).OrderBy(o => o.EpisodeNum).Where(episode => episode.IsEnabled.Equals(1)));
         }
 
-#endregion
+        #endregion
 
-#region Season Actions / Views...
+        #region Season Actions / Views...
 
         //Lists all seasons of the show who's id is passed
         public ActionResult SeasonInfo(int id)
@@ -93,7 +94,7 @@ namespace DashboardUI.Controllers
 
         #endregion
 
-#region Series Actions / Views...
+        #region Series Actions / Views...
 
         /// <summary>
         /// Display form for adding a new show to the database
@@ -111,15 +112,24 @@ namespace DashboardUI.Controllers
         /// </summary>
         /// <param name="newShow">TelevisionShow representing show to be added</param>
         /// <returns>redirect to list of shows when successful</returns>
-        public ActionResult AddShow(TelevisionShow newShow)
+        public ActionResult SaveNewShow(TelevisionShow newShow)
         {
-            MediaManagerDB shows = new MediaManagerDB();
+            using (MediaManagerDB shows = new MediaManagerDB())
+            {
+                try
+                {
+                    shows.TelevisionShows.Add(newShow);
+                    shows.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    throw new Exception(e.Message);
+                }
 
-            shows.TelevisionShows.Add(newShow);
-            shows.SaveChanges();
+                return RedirectToAction("SeasonInfo", "Media", new { id = newShow.pk_ShowID });
 
-            return RedirectToAction("ShowInfo");
-
+            }            
+                        
         }
 
         /// <summary>

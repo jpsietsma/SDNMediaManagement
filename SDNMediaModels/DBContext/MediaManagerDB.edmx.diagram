@@ -62,6 +62,8 @@
         <AssociationConnector Association="MediaManagerDB.FK_sdnTelevisionSeasons_ShowID_TelevisionShows" ManuallyRouted="false" />
         <AssociationConnector Association="MediaManagerDB.FK_sdnRequestedMedia_TelevisionShows" ManuallyRouted="false" />
         <AssociationConnector Association="MediaManagerDB.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="MediaManagerDB.list_MediaDrives" Width="1.5" PointX="8.25" PointY="29.875" />
+        <AssociationConnector Association="MediaManagerDB.FK_list_MediaDrives_list_MediaTypes" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

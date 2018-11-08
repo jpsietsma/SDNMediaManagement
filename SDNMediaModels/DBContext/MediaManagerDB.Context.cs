@@ -19,10 +19,10 @@ namespace SDNMediaModels.DBContext
     using SDNMediaModels.Feedback;
     using SDNMediaModels.Logs;
     using SDNMediaModels.List;
-    using SDNMediaModels.Movie;
     using SDNMediaModels.Sort;
     using SDNMediaModels.Television;
     using SDNMediaModels.StoredProcedure;
+    using SDNMediaModels.Movie;
 
     public partial class MediaManagerDB : DbContext
     {
@@ -33,7 +33,7 @@ namespace SDNMediaModels.DBContext
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-
+            throw new UnintentionalCodeFirstException();
         }
     
         public virtual DbSet<ApiToken> ApiTokens { get; set; }
@@ -50,6 +50,7 @@ namespace SDNMediaModels.DBContext
         public virtual DbSet<list_MovieGenres> list_MovieGenres { get; set; }
         public virtual DbSet<list_permissionLevels> list_permissionLevels { get; set; }
         public virtual DbSet<list_TaskTypes> list_TaskTypes { get; set; }
+        public virtual DbSet<list_MediaDrives> list_MediaDrives { get; set; }
         public virtual DbSet<Movie> Movies { get; set; }
         public virtual DbSet<PlaybackHistory> PlaybackHistories { get; set; }
         public virtual DbSet<ProcessQueue> ProcessQueues { get; set; }
@@ -59,7 +60,7 @@ namespace SDNMediaModels.DBContext
         public virtual DbSet<TelevisionSeason> TelevisionSeasons { get; set; }
         public virtual DbSet<TelevisionShow> TelevisionShows { get; set; }
         public virtual DbSet<UserRequest> UserRequests { get; set; }
-    
+            
         public virtual int ActivateEpisode(Nullable<int> episodeID)
         {
             var episodeIDParameter = episodeID.HasValue ?

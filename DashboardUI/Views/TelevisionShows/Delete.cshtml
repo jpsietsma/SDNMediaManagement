@@ -1,0 +1,104 @@
+﻿@model SDNMediaModels.Television.TelevisionShow
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>TelevisionShow</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ShowName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShowName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShowDriveLetter)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShowDriveLetter)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShowHomePath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShowHomePath)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShowNumSeasons)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShowNumSeasons)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShowNumEpisodes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShowNumEpisodes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShowAlbumArtPath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShowAlbumArtPath)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsEnabled)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsEnabled)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TvdbID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TvdbID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImdbID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImdbID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fk_MediaType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fk_MediaType)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

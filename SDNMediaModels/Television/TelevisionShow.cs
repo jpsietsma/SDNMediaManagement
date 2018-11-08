@@ -13,37 +13,34 @@ namespace SDNMediaModels.Television
     using SDNMediaModels.Logs;
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class TelevisionShow : ITelevisionShow
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TelevisionShow()
         {
+            this.IsEnabled = true;
             this.PlaybackHistories = new HashSet<PlaybackHistory>();
             this.TelevisionEpisodes = new HashSet<TelevisionEpisode>();
             this.TelevisionSeasons = new HashSet<TelevisionSeason>();
             this.UserRequests = new HashSet<UserRequest>();
         }
-    
+
         public int pk_ShowID { get; set; }
         public string ShowName { get; set; }
         public string ShowDriveLetter { get; set; }
         public string ShowHomePath { get; set; }
-        public int ShowNumSeasons { get; set; }
-        public int ShowNumEpisodes { get; set; }
+        public Nullable<int> ShowNumSeasons { get; set; }
+        public Nullable<int> ShowNumEpisodes { get; set; }
         public string ShowAlbumArtPath { get; set; }
-        public int IsEnabled { get; set; }
+        public bool IsEnabled { get; set; }
         public string TvdbID { get; set; }
         public string ImdbID { get; set; }
         public Nullable<int> fk_MediaType { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
         public virtual ICollection<PlaybackHistory> PlaybackHistories { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TelevisionEpisode> TelevisionEpisodes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TelevisionSeason> TelevisionSeasons { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserRequest> UserRequests { get; set; }
     }
 }

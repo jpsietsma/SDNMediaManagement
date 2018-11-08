@@ -292,6 +292,7 @@
     <Compile Include="Controllers\MediaController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\SortController.cs" />
+    <Compile Include="Controllers\TelevisionShowsController.cs" />
     <Compile Include="Controllers\TvShowController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Global.asax.cs">
@@ -442,7 +443,6 @@
     <Content Include="Views\Feedback\Edit.cshtml" />
     <Content Include="Views\Feedback\Index.cshtml" />
     <Content Include="Views\Feedback\Tasks.cshtml" />
-    <Content Include="Views\Media\AddShow.cshtml" />
     <Content Include="Views\Media\AddSeason.cshtml" />
     <Content Include="Views\Media\AddSortItem.cshtml" />
     <Content Include="webfonts\fa-brands-400.svg" />
@@ -496,6 +496,11 @@
     <Content Include="webfonts\fa-solid-900.ttf" />
     <Content Include="webfonts\fa-solid-900.woff" />
     <Content Include="webfonts\fa-solid-900.woff2" />
+    <Content Include="Views\TelevisionShows\Create.cshtml" />
+    <Content Include="Views\TelevisionShows\Delete.cshtml" />
+    <Content Include="Views\TelevisionShows\Details.cshtml" />
+    <Content Include="Views\TelevisionShows\Edit.cshtml" />
+    <Content Include="Views\TelevisionShows\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

@@ -1,0 +1,98 @@
+﻿@model SDNMediaModels.Television.TelevisionShow
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TelevisionShow</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ShowName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShowName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShowDriveLetter)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShowDriveLetter)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShowHomePath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShowHomePath)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShowNumSeasons)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShowNumSeasons)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShowNumEpisodes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShowNumEpisodes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShowAlbumArtPath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShowAlbumArtPath)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsEnabled)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsEnabled)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TvdbID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TvdbID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImdbID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImdbID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fk_MediaType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fk_MediaType)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.pk_ShowID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
