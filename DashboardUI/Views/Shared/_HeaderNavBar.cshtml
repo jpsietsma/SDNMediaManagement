@@ -154,7 +154,7 @@
             {
                 var shows_db = new SDNMediaModels.DBContext.MediaManagerDB();
 
-                var shows = shows_db.TelevisionShows.Where(y => y.IsEnabled == 1).OrderBy(x => x.ShowName);
+                var shows = shows_db.TelevisionShows.Where(y => y.IsEnabled).OrderBy(x => x.ShowName);
 
                 List<string> shows_auto = new List<string>();
 

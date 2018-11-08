@@ -7,7 +7,7 @@ namespace SDNMediaModels.Television
     public interface ITelevisionSeason
     {
         int fk_ShowID { get; set; }
-        int IsEnabled { get; set; }
+        bool IsEnabled { get; set; }
         int pk_SeasonID { get; set; }
         ICollection<PlaybackHistory> PlaybackHistories { get; set; }
         string SeasonAlbumArtPath { get; set; }

@@ -97,11 +97,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MediaManagerDB.edmx</DependentUpon>
     </Compile>
-    <Compile Include="DBContext\MediaManagerDB1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MediaManagerDB.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Download\DownloadQueue.cs" />
     <Compile Include="Download\IDownloadQueue.cs" />
     <Compile Include="enums\AutomationStatusOptions.cs" />
@@ -150,12 +145,21 @@
     <None Include="App.config" />
     <EntityDeploy Include="DBContext\MediaManagerDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>MediaManagerDB1.Designer.cs</LastGenOutput>
+      <LastGenOutput>MediaManagerDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <None Include="DBContext\MediaManagerDB.edmx.diagram">
       <DependentUpon>MediaManagerDB.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Api\IMDB\" />
+    <Folder Include="Api\Kickass\" />
+    <Folder Include="Api\TheTVDB\" />
+    <Folder Include="EventLog\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DBContext\MediaManagerDB.Context.tt">
@@ -168,15 +172,6 @@
       <DependentUpon>MediaManagerDB.edmx</DependentUpon>
       <LastGenOutput>MediaManagerDB.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Api\IMDB\" />
-    <Folder Include="Api\Kickass\" />
-    <Folder Include="Api\TheTVDB\" />
-    <Folder Include="EventLog\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
