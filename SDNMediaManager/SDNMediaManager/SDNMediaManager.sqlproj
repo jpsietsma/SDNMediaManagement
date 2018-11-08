@@ -291,6 +291,10 @@
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
     <Build Include="dbo\User Defined Types\SQLNET.sql" />
+    <Build Include="dbo\Tables\list_MediaDrives.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
   </ItemGroup>
   <ItemGroup>
     <None Include="Assemblies\Z.Expressions.Compiler.dll" />
