@@ -37,7 +37,7 @@ namespace DashboardUI.Controllers
         }
 
         // GET: TelevisionShows/Create
-        public ActionResult Create()
+        public ActionResult CreateShow()
         {
             return View();
         }
@@ -47,13 +47,13 @@ namespace DashboardUI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "pk_ShowID,ShowName,ShowDriveLetter,ShowHomePath,ShowNumSeasons,ShowNumEpisodes,ShowAlbumArtPath,IsEnabled,TvdbID,ImdbID,fk_MediaType")] TelevisionShow televisionShow)
+        public ActionResult CreateShow([Bind(Include = "ShowName,ShowDriveLetter,ShowHomePath,ShowNumSeasons,ShowNumEpisodes,ShowAlbumArtPath,IsEnabled,TvdbID,ImdbID,fk_MediaType")] TelevisionShow televisionShow)
         {
             if (ModelState.IsValid)
             {
                 db.TelevisionShows.Add(televisionShow);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("SeasonInfo", "Media", new { Id = db.TelevisionShows.First(s => s.ShowName == televisionShow.ShowName) });
             }
 
             return View(televisionShow);

@@ -10,7 +10,7 @@ namespace SDNMediaModels.Account
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("MediaManagerDB")
+            : base("AppUserDB")
         {
         }
     }

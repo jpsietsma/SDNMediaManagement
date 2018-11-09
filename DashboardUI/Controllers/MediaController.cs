@@ -14,13 +14,7 @@ namespace DashboardUI.Controllers
     public class MediaController : Controller
     {
 
-        #region Navigation Actions/Views...
-
-        //header nav and show search autocomplete related code will go here
-
-        #endregion
-
-        #region Episode Action / Views...
+#region Episode Action / Views...
 
         public ActionResult WatchEpisode(int id)
         {
@@ -52,16 +46,16 @@ namespace DashboardUI.Controllers
             return View(db_episodes.TelevisionEpisodes.Where(episodes => episodes.fk_SeasonID == id).OrderBy(o => o.EpisodeNum).Where(episode => episode.IsEnabled.Equals(1)));
         }
 
-        #endregion
+#endregion
 
-        #region Season Actions / Views...
+#region Season Actions / Views...
 
         //Lists all seasons of the show who's id is passed
         public ActionResult SeasonInfo(int id)
         {
-            MediaManagerDB db_seasons = new MediaManagerDB();
+            MediaManagerDB db = new MediaManagerDB();
 
-            return View(db_seasons.TelevisionSeasons.Where(season => season.fk_ShowID.Equals(id)).Where(season => season.IsEnabled.Equals(1)));
+            return View(db.TelevisionSeasons.Where(s => s.fk_ShowID == id).ToList<TelevisionSeason>());
 
         }
 
@@ -92,44 +86,87 @@ namespace DashboardUI.Controllers
             return RedirectToAction("SeasonInfo", new { id = newSeason.fk_ShowID });
         }
 
-        #endregion
+#endregion
 
-        #region Series Actions / Views...
+#region Show Actions / Views...
 
         /// <summary>
-        /// Display form for adding a new show to the database
+        /// Create new Television Show
         /// </summary>
         /// <returns>
-        /// Add Show view form
+        /// Form for entering new show details
         /// </returns>
-        public ActionResult AddShow()
+        public ActionResult CreateShow()
         {
-            return View();
+            return View(new TelevisionShow { ShowAlbumArtPath = "~art", IsEnabled = true, ShowNumSeasons = 0, ShowNumEpisodes = 0, fk_MediaType = 8 });
         }
 
         /// <summary>
-        /// Action to add show to database
+        /// Save new Television Show to the database
         /// </summary>
-        /// <param name="newShow">TelevisionShow representing show to be added</param>
-        /// <returns>redirect to list of shows when successful</returns>
-
+        /// <param name="televisionShow">TelevisionShow entity to add to the database</param>
+        /// <returns>
+        /// Show Listing of Seasons
+        /// </returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SaveNewShow([Bind(Include = "pk_ShowID,ShowName,ShowDriveLetter,ShowHomePath,ShowNumSeasons,ShowNumEpisodes,ShowAlbumArtPath,IsEnabled,TvdbID,ImdbID,fk_MediaType")] TelevisionShow televisionShow)
+        public ActionResult CreateShow([Bind(Include = "ShowName,ShowDriveLetter,ShowHomePath,ShowNumSeasons,ShowNumEpisodes,ShowAlbumArtPath,IsEnabled,TvdbID,ImdbID,fk_MediaType")] TelevisionShow televisionShow)
         {
+            MediaManagerDB db = new MediaManagerDB();
+                        
             if (ModelState.IsValid)
             {
-                using (MediaManagerDB db = new MediaManagerDB())
-                {
-                    db.TelevisionShows.Add(televisionShow);
-                    db.SaveChanges();
-                }
-                
-                return RedirectToAction("SeasonInfo", "Media", new { id = televisionShow.pk_ShowID });
-            }
+                televisionShow.ShowAlbumArtPath = televisionShow.ShowAlbumArtPath.Replace("~art", televisionShow.ShowHomePath + @"\art");
+                televisionShow.ShowNumSeasons = 0;
+                televisionShow.ShowNumEpisodes = 0;
+                televisionShow.ShowDriveLetter = televisionShow.ShowHomePath[0].ToString();
 
+                db.TelevisionShows.Add(televisionShow);
+                db.SaveChanges();
+
+                //var showID = db.TelevisionShows.Where(s => s.ShowName == televisionShow.ShowName).First().pk_ShowID;
+
+                int.TryParse(db.GetShowIdByName(televisionShow.ShowName, null).ToString(), out int showID);
+
+                return RedirectToAction("SeasonInfo", "Media", db.TelevisionSeasons.Where(s => s.fk_ShowID == showID).ToList());
+            }
             return View(televisionShow);
         }
+
+        /// <summary>
+        /// Get the Show Listing or optionally pass a show to get season details
+        /// </summary>
+        /// <param name="id">pk_ShowID of the show to get info on</param>
+        /// <returns>
+        /// List view of all shows or show details if id provided
+        /// </returns>
+        public ActionResult ShowInfo(int? id)
+        {
+            MediaManagerDB db_shows = new MediaManagerDB();
+
+            if (string.IsNullOrEmpty(id.ToString()))
+            {
+
+                return View(db_shows.TelevisionShows.OrderBy(show => show.ShowName));
+
+            } else
+            {
+
+                return View(db_shows.TelevisionShows.Where(show => show.pk_ShowID.Equals(id)));
+
+            }
+        }
+
+#endregion
+
+
+#region Movie Actions / Views...
+
+        //This is where Movie related actions will go
+
+#endregion
+
+#region Sort Actions / Views...
 
         /// <summary>
         /// Displays view with form for adding new sort item to the database
@@ -158,29 +195,11 @@ namespace DashboardUI.Controllers
             return RedirectToAction("GetContent");
         }
 
-        /// <summary>
-        /// Get the Show Listing or optionally pass a show to get season details
-        /// </summary>
-        /// <param name="id">pk_ShowID of the show to get info on</param>
-        /// <returns>
-        /// List view of all shows or show details if id provided
-        /// </returns>
-        public ActionResult ShowInfo(int? id)
-        {
-            MediaManagerDB db_shows = new MediaManagerDB();
+#endregion
 
-            if (string.IsNullOrEmpty(id.ToString()))
-            {
+#region Navigation Actions/Views...
 
-                return View(db_shows.TelevisionShows.OrderBy(show => show.ShowName));
-
-            } else
-            {
-
-                return View(db_shows.TelevisionShows.Where(show => show.pk_ShowID.Equals(id)));
-
-            }
-        }
+        //header nav and show search autocomplete related code will go here
 
 #endregion
 

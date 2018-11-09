@@ -1,3 +1,4 @@
+using Microsoft.AspNet.Identity.EntityFramework;
 using SDNMediaModels.Api;
 using SDNMediaModels.Feedback;
 using SDNMediaModels.Logs;
