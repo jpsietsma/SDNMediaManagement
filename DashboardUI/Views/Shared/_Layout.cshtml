@@ -63,20 +63,15 @@
         }
     </style>
 
-
     @{
         Html.RenderPartial("_HeaderNavBar");
     }
     <div class="container-fluid body-content">
         <br />
-        <br />
         @RenderBody()
     </div>
     <div>
         <hr />
-        @{
-            //Html.RenderPartial("_AIChat");
-        }
 
         @{
             Html.RenderPartial("_FooterNavBar");

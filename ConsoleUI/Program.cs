@@ -14,17 +14,13 @@ namespace ConsoleUI
     {
 
         public static void Main(string[] args)
-        {                   
-                  
+        {                               
             
         }
 
         public static string GetEztvEpisodes(int showID)
         {
-            string baseUrl = $@"https://eztv.ag/api/get-torrents?imdb_id=";
-            baseUrl += showID;
-
-            return baseUrl;
+            return $@"https://eztv.ag/api/get-torrents?imdb_id={ showID }";
         }
 
         //Console.WriteLine(MediaConversion.GetJsonArrayImageSrc(Directory.GetFiles(@"D:\xampp\htdocs\gamescreens\minecraft", "*", SearchOption.TopDirectoryOnly), @"minecraft"));

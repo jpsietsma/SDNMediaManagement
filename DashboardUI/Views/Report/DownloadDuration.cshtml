@@ -1,4 +1,9 @@
-﻿<div id="table">
+﻿@{
+
+    ViewBag.title = "Duration Report ";
+
+}
+<div id="table">
     <div class="row">
 
         <div class="col-md-1">
@@ -11,14 +16,14 @@
                   }       
           @(Html.Kendo().Chart<SDNMediaModels.Feedback.DownloadQueue>()
               .Name("chart")
-              .HtmlAttributes(new { @style = "height: 700px;" })
-              .Title("File Download Durations - Last 24 Hours")
+              .HtmlAttributes(new { @style = "height: 800px; font-size: 20px; font-weight: bold;" })
+              .Title("File Download Duration - Last 24 Hours")
               .Legend(legend => legend.Position(ChartLegendPosition.Bottom))
               .Tooltip(tooltip => tooltip.Visible(true))
               .DataSource(ds => ds.Read(read => read.Action("DownloadQueues_Read", "Report")))
               .Series(series =>
               {
-                  series.Bar(a => a.DownloadDuration).Name("Downloaded Files").Color("Green").Tooltip(t => t.Visible(true).Format("Duration: {0} minutes"));
+                  series.Bar(a => a.DownloadDuration).Name("Downloaded Duration (in Minutes)").Color("Green").Tooltip(t => t.Visible(true).Format("Duration: {0} minutes"));
               })
               .CategoryAxis(axis => axis
                                         .Categories(model => model.TorrentName)

@@ -17,6 +17,7 @@ namespace SDNMediaModels.Television
             this.TelevisionEpisodes = new HashSet<TelevisionEpisode>();
             this.TelevisionSeasons = new HashSet<TelevisionSeason>();
             this.UserRequests = new HashSet<UserRequest>();
+
         }
 
         public int pk_ShowID { get; set; }

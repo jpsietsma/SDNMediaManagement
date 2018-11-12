@@ -49,17 +49,17 @@ namespace DashboardUI.Controllers
 
                 }
 
-                //if ((!started.ToString("yyyy-MM-dd").Contains(DateTime.Today.ToString($"yyyy-MM-dd"))) )
-                //{
+                if ((!started.ToString("yyyy-MM-dd").Contains(DateTime.Today.ToString($"yyyy-MM-dd"))))
+                {
 
-                //    //if download is not from today or yesterday, remove it
-                //    keep.Remove(dl);
+                    //if download is not from today or yesterday, remove it
+                    keep.Remove(dl);
 
-                //}
+                }
 
             }
 
-            return Json(keep.Select(downloadQueue => new {
+            return Json(keep.Take(50).Reverse().Select(downloadQueue => new {
                 TorrentName = downloadQueue.TorrentName,
                 DownloadFinished = downloadQueue.DownloadFinished,
                 DownloadStarted = downloadQueue.DownloadStarted,

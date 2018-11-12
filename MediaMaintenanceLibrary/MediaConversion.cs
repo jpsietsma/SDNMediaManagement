@@ -32,7 +32,7 @@ namespace MediaMaintenanceLibrary
         /// Convert finalized Sort Item to Movie
         /// </summary>
         /// <param name="sortModel">Model to convert to Movie</param>
-        /// <returns>Movy converted from SortMediaItem</returns>
+        /// <returns>Movie converted from SortMediaItem</returns>
         public static Movie ToMovie(this sortItem sortModel)
         {
             Movie newMovie = new Movie { pk_MovieID = sortModel.pk_MediaID, FileName = sortModel.fileName, FilePath = sortModel.filePath };

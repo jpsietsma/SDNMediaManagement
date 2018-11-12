@@ -22,12 +22,12 @@ namespace SDNMediaModels.DBContext
             : base("name=MediaManagerDB")
         {
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
         }
-    
+
         public virtual DbSet<ApiToken> ApiTokens { get; set; }
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
@@ -39,6 +39,7 @@ namespace SDNMediaModels.DBContext
         public virtual DbSet<list_AutomationPriority> list_AutomationPriority { get; set; }
         public virtual DbSet<list_AutomationStatuses> list_AutomationStatuses { get; set; }
         public virtual DbSet<list_MediaDrives> list_MediaDrives { get; set; }
+        public virtual DbSet<list_MediaSubTypes> list_MediaSubTypes { get; set; }
         public virtual DbSet<list_MediaTypes> list_MediaTypes { get; set; }
         public virtual DbSet<list_MovieGenres> list_MovieGenres { get; set; }
         public virtual DbSet<list_permissionLevels> list_permissionLevels { get; set; }

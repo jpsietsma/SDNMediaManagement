@@ -129,7 +129,16 @@
           <Property Name="pk_MediaDriveID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DriveLetter" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="fk_MediaTypeID" Type="int" Nullable="false" />
-          <Property Name="DriveSpace" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="fk_MediaSubTypeID" Type="int" />
+          <Property Name="DriveFreeSpace" Type="nvarchar" MaxLength="50" />
+          <Property Name="DriveCapacity" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="list_MediaSubTypes">
+          <Key>
+            <PropertyRef Name="pk_MediaSubTypeID" />
+          </Key>
+          <Property Name="pk_MediaSubTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MediaSubType" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="list_MediaTypes">
           <Key>
@@ -373,6 +382,18 @@
             </Principal>
             <Dependent Role="AspNetUserRoles">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_list_MediaDrives_list_MediaSubTypes">
+          <End Role="list_MediaSubTypes" Type="Self.list_MediaSubTypes" Multiplicity="0..1" />
+          <End Role="list_MediaDrives" Type="Self.list_MediaDrives" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="list_MediaSubTypes">
+              <PropertyRef Name="pk_MediaSubTypeID" />
+            </Principal>
+            <Dependent Role="list_MediaDrives">
+              <PropertyRef Name="fk_MediaSubTypeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -798,6 +819,7 @@
           <EntitySet Name="list_AutomationPriority" EntityType="Self.list_AutomationPriority" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="list_AutomationStatuses" EntityType="Self.list_AutomationStatuses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="list_MediaDrives" EntityType="Self.list_MediaDrives" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="list_MediaSubTypes" EntityType="Self.list_MediaSubTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="list_MediaTypes" EntityType="Self.list_MediaTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="list_MovieGenres" EntityType="Self.list_MovieGenres" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="list_permissionLevels" EntityType="Self.list_permissionLevels" Schema="dbo" store:Type="Tables" />
@@ -830,6 +852,10 @@
           <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_list_MediaDrives_list_MediaSubTypes" Association="Self.FK_list_MediaDrives_list_MediaSubTypes">
+            <End Role="list_MediaSubTypes" EntitySet="list_MediaSubTypes" />
+            <End Role="list_MediaDrives" EntitySet="list_MediaDrives" />
           </AssociationSet>
           <AssociationSet Name="FK_list_MediaDrives_list_MediaTypes" Association="Self.FK_list_MediaDrives_list_MediaTypes">
             <End Role="list_MediaTypes" EntitySet="list_MediaTypes" />
@@ -1099,8 +1125,19 @@
           <Property Name="pk_MediaDriveID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DriveLetter" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="fk_MediaTypeID" Type="Int32" Nullable="false" />
-          <Property Name="DriveSpace" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="fk_MediaSubTypeID" Type="Int32" />
+          <Property Name="DriveFreeSpace" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DriveCapacity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="list_MediaSubTypes" Relationship="Self.FK_list_MediaDrives_list_MediaSubTypes" FromRole="list_MediaDrives" ToRole="list_MediaSubTypes" />
           <NavigationProperty Name="list_MediaTypes" Relationship="Self.FK_list_MediaDrives_list_MediaTypes" FromRole="list_MediaDrives" ToRole="list_MediaTypes" />
+        </EntityType>
+        <EntityType Name="list_MediaSubTypes">
+          <Key>
+            <PropertyRef Name="pk_MediaSubTypeID" />
+          </Key>
+          <Property Name="pk_MediaSubTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MediaSubType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="list_MediaDrives" Relationship="Self.FK_list_MediaDrives_list_MediaSubTypes" FromRole="list_MediaSubTypes" ToRole="list_MediaDrives" />
         </EntityType>
         <EntityType Name="list_MediaTypes">
           <Key>
@@ -1534,6 +1571,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_list_MediaDrives_list_MediaSubTypes">
+          <End Role="list_MediaSubTypes" Type="Self.list_MediaSubTypes" Multiplicity="0..1" />
+          <End Role="list_MediaDrives" Type="Self.list_MediaDrives" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="list_MediaSubTypes">
+              <PropertyRef Name="pk_MediaSubTypeID" />
+            </Principal>
+            <Dependent Role="list_MediaDrives">
+              <PropertyRef Name="fk_MediaSubTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_list_MediaDrives_list_MediaTypes">
           <End Role="list_MediaTypes" Type="Self.list_MediaTypes" Multiplicity="1" />
           <End Role="list_MediaDrives" Type="Self.list_MediaDrives" Multiplicity="*" />
@@ -1754,6 +1803,7 @@
           <EntitySet Name="list_AutomationPriority" EntityType="Self.list_AutomationPriority" />
           <EntitySet Name="list_AutomationStatuses" EntityType="Self.list_AutomationStatuses" />
           <EntitySet Name="list_MediaDrives" EntityType="Self.list_MediaDrives" />
+          <EntitySet Name="list_MediaSubTypes" EntityType="Self.list_MediaSubTypes" />
           <EntitySet Name="list_MediaTypes" EntityType="Self.list_MediaTypes" />
           <EntitySet Name="list_MovieGenres" EntityType="Self.list_MovieGenres" />
           <EntitySet Name="list_permissionLevels" EntityType="Self.list_permissionLevels" />
@@ -1834,6 +1884,10 @@
           <AssociationSet Name="FK_sortItems_automationStatus_sortItems" Association="Self.FK_sortItems_automationStatus_sortItems">
             <End Role="list_AutomationStatuses" EntitySet="list_AutomationStatuses" />
             <End Role="sortItems" EntitySet="sortItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_list_MediaDrives_list_MediaSubTypes" Association="Self.FK_list_MediaDrives_list_MediaSubTypes">
+            <End Role="list_MediaSubTypes" EntitySet="list_MediaSubTypes" />
+            <End Role="list_MediaDrives" EntitySet="list_MediaDrives" />
           </AssociationSet>
           <AssociationSet Name="FK_list_MediaDrives_list_MediaTypes" Association="Self.FK_list_MediaDrives_list_MediaTypes">
             <End Role="list_MediaTypes" EntitySet="list_MediaTypes" />
@@ -2215,7 +2269,17 @@
                 <ScalarProperty Name="pk_MediaDriveID" ColumnName="pk_MediaDriveID" />
                 <ScalarProperty Name="DriveLetter" ColumnName="DriveLetter" />
                 <ScalarProperty Name="fk_MediaTypeID" ColumnName="fk_MediaTypeID" />
-                <ScalarProperty Name="DriveSpace" ColumnName="DriveSpace" />
+                <ScalarProperty Name="fk_MediaSubTypeID" ColumnName="fk_MediaSubTypeID" />
+                <ScalarProperty Name="DriveFreeSpace" ColumnName="DriveFreeSpace" />
+                <ScalarProperty Name="DriveCapacity" ColumnName="DriveCapacity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="list_MediaSubTypes">
+            <EntityTypeMapping TypeName="MediaManagerDB.list_MediaSubTypes">
+              <MappingFragment StoreEntitySet="list_MediaSubTypes">
+                <ScalarProperty Name="pk_MediaSubTypeID" ColumnName="pk_MediaSubTypeID" />
+                <ScalarProperty Name="MediaSubType" ColumnName="MediaSubType" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -17,7 +17,7 @@ $fileSize = (Get-Item -Path "S:\$torrentName").Length
 $logLine = "Download Finished: [" + (Get-Date) + "] " + $torrentID + " ---- " + $torrentName + " ---- " + $torrentPath + "-----" + $fileSize
 
 #Update sdnDownloadQueue to indicate download has finished
-$updateCompleteQuery = "UPDATE sdnDownloadQueue SET torrentStatus = 'Download Complete', DownloadFinished = '" + (Get-Date) + "', TorrentPath = '" + $torrentPath + "', fileSize = '" + $fileSize + "' WHERE pk_torrentID = '$torrentID' "
+$updateCompleteQuery = "UPDATE DownloadQueue SET torrentStatus = 'Download Complete', DownloadFinished = '" + (Get-Date) + "', TorrentPath = '" + $torrentPath + "', fileSize = '" + $fileSize + "' WHERE pk_torrentID = '$torrentID' "
 Invoke-SQLcmd -ServerInstance  $sqlServer$sqlInstance -query $updateCompleteQuery -U $sqlUser -P $sqlPass -Database sdnMediaManager -HostName $sqlServer$sqlInstance
 
 #Insert record into sortItems table

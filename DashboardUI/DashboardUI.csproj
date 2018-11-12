@@ -291,7 +291,6 @@
     <Compile Include="Controllers\MaintenanceController.cs" />
     <Compile Include="Controllers\MediaController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
-    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\SortController.cs" />
     <Compile Include="Controllers\TelevisionShowsController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
@@ -474,7 +473,6 @@
     <Content Include="Scripts\esm\popper-utils.js.map" />
     <Content Include="Views\Admin\ManageUsers.cshtml" />
     <Content Include="Views\Home\UserDashboard.cshtml" />
-    <None Include="Views\Reports\Overview.cshtml" />
     <Content Include="Views\Upload\Index.cshtml" />
     <Content Include="Views\Shared\_FooterNavBar.cshtml" />
     <Content Include="Views\Shared\_HeaderNavBar.cshtml" />

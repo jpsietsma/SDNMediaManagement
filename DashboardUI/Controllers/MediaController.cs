@@ -98,7 +98,7 @@ namespace DashboardUI.Controllers
         /// </returns>
         public ActionResult CreateShow()
         {
-            return View(new TelevisionShow { ShowAlbumArtPath = "~art", IsEnabled = true, ShowNumSeasons = 0, ShowNumEpisodes = 0, fk_MediaType = 8 });
+            return View(new TelevisionShow { pk_ShowID = 0, ShowAlbumArtPath = "~art", IsEnabled = true, ShowNumSeasons = 0, ShowNumEpisodes = 0, fk_MediaType = 8 });
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace DashboardUI.Controllers
         /// </returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateShow([Bind(Include = "ShowName,ShowDriveLetter,ShowHomePath,ShowNumSeasons,ShowNumEpisodes,ShowAlbumArtPath,IsEnabled,TvdbID,ImdbID,fk_MediaType")] TelevisionShow televisionShow)
+        public ActionResult CreateShow([Bind(Include = "pk_ShowID,ShowName,ShowDriveLetter,ShowHomePath,ShowNumSeasons,ShowNumEpisodes,ShowAlbumArtPath,IsEnabled,TvdbID,ImdbID,fk_MediaType")] TelevisionShow televisionShow)
         {
             MediaManagerDB db = new MediaManagerDB();
                         
@@ -128,7 +128,7 @@ namespace DashboardUI.Controllers
 
                 int.TryParse(db.GetShowIdByName(televisionShow.ShowName, null).ToString(), out int showID);
 
-                return RedirectToAction("SeasonInfo", "Media", db.TelevisionSeasons.Where(s => s.fk_ShowID == showID).ToList());
+                return RedirectToAction("SeasonInfo", "Media", new { id = showID });
             }
             return View(televisionShow);
         }

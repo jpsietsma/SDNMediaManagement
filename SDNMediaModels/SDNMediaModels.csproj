@@ -112,6 +112,7 @@
     <Compile Include="List\list_AutomationPriority.cs" />
     <Compile Include="List\list_AutomationStatuses.cs" />
     <Compile Include="List\list_MediaDrives.cs" />
+    <Compile Include="List\list_MediaSubTypes.cs" />
     <Compile Include="List\list_MediaTypes.cs" />
     <Compile Include="List\list_MovieGenres.cs" />
     <Compile Include="List\list_permissionLevels.cs" />
