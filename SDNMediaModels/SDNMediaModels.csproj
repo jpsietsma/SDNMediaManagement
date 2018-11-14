@@ -77,7 +77,7 @@
     <Compile Include="Account\ManageUserViewModel.cs" />
     <Compile Include="Account\RegisterViewModel.cs" />
     <Compile Include="Api\ApiToken.cs" />
-    <Compile Include="Api\EZTV\EztvResultModel.cs" />
+    <Compile Include="Api\EZTV\EztvResult.cs" />
     <Compile Include="Api\EZTV\EztvSeriesResultModel.cs" />
     <Compile Include="Api\EZTV\EztvSeriesSearchResult.cs" />
     <Compile Include="Api\EZTV\IEztvResultModel.cs" />

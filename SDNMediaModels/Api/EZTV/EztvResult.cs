@@ -1,7 +1,7 @@
 ﻿
 namespace SDNMediaModels.Api
 {
-    public class EztvResultModel : IEztvResultModel
+    public class EztvResult : IEztvResultModel
     {
         public int EztvID { get; set; }
         public string Hash { get; set; }
@@ -20,7 +20,7 @@ namespace SDNMediaModels.Api
         public int ReleaseDateEpoc { get; set; }
         public int SizeBytes { get; set; }
 
-        public EztvResultModel()
+        public EztvResult()
         {
 
         }

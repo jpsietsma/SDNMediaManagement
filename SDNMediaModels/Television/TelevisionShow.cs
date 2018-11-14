@@ -1,3 +1,4 @@
+using SDNMediaModels.Api;
 using SDNMediaModels.Feedback;
 using SDNMediaModels.Logs;
 using System;
@@ -17,6 +18,12 @@ namespace SDNMediaModels.Television
             this.TelevisionEpisodes = new HashSet<TelevisionEpisode>();
             this.TelevisionSeasons = new HashSet<TelevisionSeason>();
             this.UserRequests = new HashSet<UserRequest>();
+            this.Eztv = string.Empty;
+
+            if (!string.IsNullOrEmpty(this.ImdbID))
+            {
+
+            }            
 
         }
 
@@ -54,5 +61,10 @@ namespace SDNMediaModels.Television
         public virtual ICollection<TelevisionEpisode> TelevisionEpisodes { get; set; }
         public virtual ICollection<TelevisionSeason> TelevisionSeasons { get; set; }
         public virtual ICollection<UserRequest> UserRequests { get; set; }
+
+        public virtual string Eztv { get; set; }
+
+
+
     }
 }

@@ -7,21 +7,24 @@ using System.IO;
 using System.Text;
 using System.Linq;
 using SDNMediaModels.Television;
+using System.Net;
+using MediaMaintenanceLibrary;
 
 namespace ConsoleUI
 {
     public class Program
     {
-
+        
         public static void Main(string[] args)
-        {                               
+        {
+            TelevisionShow testShow = new TelevisionShow { ImdbID = "0096563"};
+
+            Console.WriteLine(testShow.GetEztvEpisodes());
+            Console.ReadLine();
             
         }
 
-        public static string GetEztvEpisodes(int showID)
-        {
-            return $@"https://eztv.ag/api/get-torrents?imdb_id={ showID }";
-        }
+        
 
         //Console.WriteLine(MediaConversion.GetJsonArrayImageSrc(Directory.GetFiles(@"D:\xampp\htdocs\gamescreens\minecraft", "*", SearchOption.TopDirectoryOnly), @"minecraft"));
         //Console.ReadLine();    

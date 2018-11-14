@@ -7,12 +7,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SDNMediaModels.Television;
 
 namespace MediaMaintenanceLibrary
 {
 
     /// <summary>
-    /// Provides access  to query the Eztv API
+    /// Provides access the Eztv API
     /// </summary>
     public static class EztvApiLibrary
     {
@@ -29,21 +30,75 @@ namespace MediaMaintenanceLibrary
             string finalData;
             url += $"?limit={ pageResults }&page={ page }";
 
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+            WebRequest wRequest = WebRequest.Create(url);
+            WebResponse response = wRequest.GetResponse();
+            Stream ds = response.GetResponseStream();
 
-            httpWebRequest.Method = "GET";
-            httpWebRequest.ContentType = "application/json";
-
-            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            using (StreamReader r = new StreamReader(ds))
             {
-                var result = streamReader.ReadToEnd();
-                var response = JsonConvert.DeserializeObject<Dictionary<string, string>>(result);
-                finalData = response.Values.ElementAt(0);
-
+                finalData = r.ReadToEnd();
             }
 
             return finalData;
+        }
+
+        /// <summary>
+        /// Call Eztv API for Json array of episodes for show
+        /// </summary>
+        /// <param name="showID">IMDB id of show</param>
+        /// <param name="minSeeds">optionally set minimum number of seeds for results</param>
+        /// <returns>json array of episodes for provided IMDB show id</returns>
+        public static string GetEztvEpisodes(string showID, int? minSeeds)
+        {
+            string finalJson = string.Empty;
+            string baseUrl = $@"https://eztv.ag/api/get-torrents?imdb_id={ showID }";
+
+            if (minSeeds == null)
+            {
+                WebRequest wRequest = WebRequest.Create(baseUrl);
+                WebResponse response = wRequest.GetResponse();
+                Stream ds = response.GetResponseStream();
+
+                using (StreamReader r = new StreamReader(ds))
+                {
+                    finalJson = r.ReadToEnd();
+                }
+
+            }
+
+            return finalJson;
+        }
+
+
+        /// <summary>
+        /// Call Eztv API for Json array of episodes for show with Imdb ID set
+        /// </summary>
+        /// <param name="show">Television Show model representing show to query Eztv for episodes</param>
+        /// <param name="minSeeds">string minimum number of seeds for episode to be included</param>
+        /// <returns>string of json representing all results</returns>
+        public static string GetEztvEpisodes(this TelevisionShow show, string minSeeds = null)
+        {
+            string finalJson = string.Empty;
+
+            if (!string.IsNullOrEmpty(show.ImdbID))
+            {
+                string baseUrl = $@"https://eztv.ag/api/get-torrents?imdb_id={ show.ImdbID }";
+
+                if (minSeeds == null)
+                {
+                    WebRequest wRequest = WebRequest.Create(baseUrl);
+                    WebResponse response = wRequest.GetResponse();
+                    Stream ds = response.GetResponseStream();
+
+                    using (StreamReader r = new StreamReader(ds))
+                    {
+                        finalJson = r.ReadToEnd();
+                    }
+
+                }
+            }                        
+
+            return finalJson;
         }
 
     }
