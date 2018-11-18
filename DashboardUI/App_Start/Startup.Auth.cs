@@ -30,9 +30,9 @@ namespace DashboardUI
             // consumerKey: "",
             // consumerSecret: "");
 
-            app.UseFacebookAuthentication(
-            appId: "1973659066264526",
-            appSecret: "66ac9aa0078e8674b4d5e915beea26c5");
+            //app.UseFacebookAuthentication(
+            //appId: "1973659066264526",
+            //appSecret: "66ac9aa0078e8674b4d5e915beea26c5");
 
             //app.UseGoogleAuthentication();
         }
