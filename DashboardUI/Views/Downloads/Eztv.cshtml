@@ -1,0 +1,71 @@
+﻿@model IEnumerable<SDNMediaModels.Api.EztvResult>
+
+@{
+    ViewBag.Title = "Eztv Downloads ";
+}
+
+<h2 style="text-align: center;">Eztv Torrent Downloads</h2>
+
+<table class="table table-hover table-dark table-bordered">
+    <tr style="background-color: #2e2d2d">
+        <th>
+            @Html.DisplayNameFor(model => model.title)
+        </th>
+        <th style="text-align: center;">
+            @Html.DisplayNameFor(model => model.imdb_id)
+        </th>
+        <th style="text-align: center;">
+            @Html.DisplayNameFor(model => model.season)
+        </th>
+        <th style="text-align: center;">
+            @Html.DisplayNameFor(model => model.episode)
+        </th>
+        <th style="text-align: center;">
+            @Html.DisplayNameFor(model => model.seeds)
+        </th>
+        <th style="text-align: center;">
+            @Html.DisplayNameFor(model => model.date_released_unix)
+        </th>
+        <th style="text-align: center;">
+            @Html.DisplayNameFor(model => model.size_bytes) (in MB)
+        </th>
+        <th style="text-align: center;">
+            Automation
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td style="border-collapse: collapse; border: 1px solid gray;">
+            @Html.DisplayFor(modelItem => item.title)
+        </td>
+        <td style="border-collapse: collapse; border: 1px solid gray; text-align: center;">
+            @Html.DisplayFor(modelItem => item.imdb_id)
+        </td>
+        <td style="border-collapse: collapse; border: 1px solid gray; text-align: center;">
+            @Html.DisplayFor(modelItem => item.season)
+        </td>
+        <td style="border-collapse: collapse; border: 1px solid gray; text-align: center;">
+            @Html.DisplayFor(modelItem => item.episode)
+        </td>
+        <td style="border-collapse: collapse; border: 1px solid gray; text-align: center;">
+            @Html.DisplayFor(modelItem => item.seeds)
+        </td>
+        <td style="border-collapse: collapse; border: 1px solid gray; text-align: center;">
+            @Html.DisplayFor(modelItem => item.date_released_unix)
+        </td>
+
+        @{
+            bool woo = Double.TryParse(item.size_bytes, out double size);
+         }
+
+        <td style="border-collapse: collapse; border: 1px solid gray; text-align: center;">
+            @(Math.Round(((size/1024)/1024), 2))
+        </td>
+        <td style="border-collapse: collapse; border: 1px solid gray; text-align: center;">
+            <button class="btn btn-sm btn-primary" onclick="@Url.Action("AutoEztvDownload", "download", new { url = item.torrent_url})">Download</button>
+        </td>
+    </tr>
+}
+
+</table>

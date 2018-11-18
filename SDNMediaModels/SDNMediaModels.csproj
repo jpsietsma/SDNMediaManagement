@@ -78,9 +78,11 @@
     <Compile Include="Account\RegisterViewModel.cs" />
     <Compile Include="Api\ApiToken.cs" />
     <Compile Include="Api\EZTV\EztvResult.cs" />
+    <Compile Include="Api\EZTV\EztvRootModel.cs" />
     <Compile Include="Api\EZTV\EztvSeriesResultModel.cs" />
     <Compile Include="Api\EZTV\EztvSeriesSearchResult.cs" />
-    <Compile Include="Api\EZTV\IEztvResultModel.cs" />
+    <Compile Include="Api\EZTV\IEztvResult.cs" />
+    <Compile Include="Api\EZTV\IEztvRootModel.cs" />
     <Compile Include="Api\EZTV\IEztvSeriesResultModel.cs" />
     <Compile Include="Api\EZTV\IEztvSeriesSearchResult.cs" />
     <Compile Include="Automation\IProcessQueue.cs" />

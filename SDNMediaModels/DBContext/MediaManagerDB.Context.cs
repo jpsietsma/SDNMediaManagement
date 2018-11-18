@@ -180,5 +180,7 @@ namespace SDNMediaModels.DBContext
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetUsers_Result>("GetUsers");
         }
+
+        public System.Data.Entity.DbSet<SDNMediaModels.Api.EztvResult> EztvResults { get; set; }
     }
 }

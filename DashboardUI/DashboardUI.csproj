@@ -283,6 +283,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DownloadsController.cs" />
     <Compile Include="Controllers\FeedbackController.cs" />
     <Compile Include="Controllers\AutoCompleteController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
@@ -501,6 +502,7 @@
     <Content Include="Views\TelevisionShows\Edit.cshtml" />
     <Content Include="Views\TelevisionShows\Index.cshtml" />
     <Content Include="Views\Report\DownloadDuration.cshtml" />
+    <Content Include="Views\Downloads\Eztv.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

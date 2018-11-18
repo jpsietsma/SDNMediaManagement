@@ -1,24 +1,40 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
+
 namespace SDNMediaModels.Api
 {
-    public class EztvResult : IEztvResultModel
+    public class EztvResult : IEztvResult
     {
-        public int EztvID { get; set; }
-        public string Hash { get; set; }
-        public string FileName { get; set; }
-        public string EpisodeUrl { get; set; }
-        public string TorrentUrl { get; set; }
-        public string MagnetUrl { get; set; }
-        public string Title { get; set; }
-        public int ImdbId { get; set; }
-        public int Season { get; set; }
-        public int Episode { get; set; }
-        public string SmallScreenshot { get; set; }
-        public string LargeScreenshot { get; set; }
-        public int Seeds { get; set; }
-        public int Peers { get; set; }
-        public int ReleaseDateEpoc { get; set; }
-        public int SizeBytes { get; set; }
+        public int id { get; set; }
+        public string hash { get; set; }
+        public string filename { get; set; }
+        public string episode_url { get; set; }
+        public string torrent_url { get; set; }
+        public string magnet_url { get; set; }
+
+        [Display(Name = "Download Title")]
+        public string title { get; set; }
+
+        [Display(Name = "IMDB ID")]
+        public string imdb_id { get; set; }
+
+        [Display(Name = "Show Season")]
+        public string season { get; set; }
+
+        [Display(Name = "Show Episode")]
+        public string episode { get; set; }
+        public string small_screenshot { get; set; }
+        public string large_screenshot { get; set; }
+
+        [Display(Name = "Download Seeds")]
+        public int seeds { get; set; }
+        public int peers { get; set; }
+
+        [Display(Name = "Upload Date")]
+        public int date_released_unix { get; set; }
+
+        [Display(Name = "File Size")]
+        public string size_bytes { get; set; }
 
         public EztvResult()
         {

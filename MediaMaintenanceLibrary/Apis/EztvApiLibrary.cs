@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SDNMediaModels.Api;
+using SDNMediaModels.Api.EZTV;
 using SDNMediaModels.Television;
 
 namespace MediaMaintenanceLibrary
@@ -25,9 +27,11 @@ namespace MediaMaintenanceLibrary
         /// <param name="page"># Page of download results</param>
         /// <param name="pageResults"># of downloads per page</param>
         /// <returns></returns>
-        public static string GetDownloads(string url = "https://eztv.ag/api/get-torrents", int page = 1, int pageResults = 100)
+        public static List<EztvResult> GetEztvDownloads(string url = "https://eztv.ag/api/get-torrents", int page = 1, int pageResults = 50)
         {
             string finalData;
+            List<EztvResult> finalList = new List<EztvResult>();
+
             url += $"?limit={ pageResults }&page={ page }";
 
             WebRequest wRequest = WebRequest.Create(url);
@@ -39,46 +43,27 @@ namespace MediaMaintenanceLibrary
                 finalData = r.ReadToEnd();
             }
 
-            return finalData;
-        }
+            var root = JsonConvert.DeserializeObject<EztvRootModel>(finalData);
 
-        /// <summary>
-        /// Call Eztv API for Json array of episodes for show
-        /// </summary>
-        /// <param name="showID">IMDB id of show</param>
-        /// <param name="minSeeds">optionally set minimum number of seeds for results</param>
-        /// <returns>json array of episodes for provided IMDB show id</returns>
-        public static string GetEztvEpisodes(string showID, int? minSeeds)
-        {
-            string finalJson = string.Empty;
-            string baseUrl = $@"https://eztv.ag/api/get-torrents?imdb_id={ showID }";
-
-            if (minSeeds == null)
+            foreach (EztvResult eztv in root.torrents)
             {
-                WebRequest wRequest = WebRequest.Create(baseUrl);
-                WebResponse response = wRequest.GetResponse();
-                Stream ds = response.GetResponseStream();
-
-                using (StreamReader r = new StreamReader(ds))
-                {
-                    finalJson = r.ReadToEnd();
-                }
-
+                finalList.Add(eztv);
             }
 
-            return finalJson;
+            return finalList;
         }
-
-
+        
         /// <summary>
         /// Call Eztv API for Json array of episodes for show with Imdb ID set
         /// </summary>
         /// <param name="show">Television Show model representing show to query Eztv for episodes</param>
         /// <param name="minSeeds">string minimum number of seeds for episode to be included</param>
-        /// <returns>string of json representing all results</returns>
-        public static string GetEztvEpisodes(this TelevisionShow show, string minSeeds = null)
+        /// <returns>List of EztvResult representing episodes available to download</returns>
+        public static List<EztvResult> GetEztvEpisodes(this TelevisionShow show, string minSeeds = null)
         {
             string finalJson = string.Empty;
+            List<EztvResult> finalList = new List<EztvResult>();
+
 
             if (!string.IsNullOrEmpty(show.ImdbID))
             {
@@ -95,10 +80,19 @@ namespace MediaMaintenanceLibrary
                         finalJson = r.ReadToEnd();
                     }
 
+                    var root = JsonConvert.DeserializeObject<EztvRootModel>(finalJson);
+
+                    foreach (EztvResult eztv in root.torrents)
+                    {
+                        finalList.Add(eztv);
+                    }
+
                 }
+
+                
             }                        
 
-            return finalJson;
+            return finalList;
         }
 
     }

@@ -7,6 +7,7 @@ using System.IO;
 using System.Text;
 using System.Linq;
 using SDNMediaModels.Television;
+using SDNMediaModels.Api;
 using System.Net;
 using MediaMaintenanceLibrary;
 
@@ -17,10 +18,38 @@ namespace ConsoleUI
         
         public static void Main(string[] args)
         {
-            TelevisionShow testShow = new TelevisionShow { ImdbID = "0096563"};
+            List<EztvResult> downloads = EztvApiLibrary.GetEztvDownloads(pageResults: 100);
 
-            Console.WriteLine(testShow.GetEztvEpisodes());
+            foreach (EztvResult eztv in downloads)
+            {
+                Console.WriteLine("Title: " + eztv.title);
+                Console.WriteLine("Season: " + eztv.season);
+                Console.WriteLine("Episode " + eztv.episode);
+                Console.WriteLine("Seeds: " + eztv.seeds);
+                Console.WriteLine("Download Url: " + eztv.torrent_url);
+                Console.WriteLine();
+            }
+
+            Console.WriteLine();
+
+            //TelevisionShow testShow = new TelevisionShow { ImdbID = "0096563"};
+
+            //List<EztvResult> episodes = testShow.GetEztvEpisodes();
+
+            //foreach (EztvResult eztv in episodes)
+            //{
+            //    Console.WriteLine("Title: " + eztv.title);
+            //    Console.WriteLine("Season: " + eztv.season);
+            //    Console.WriteLine("Episode: " + eztv.episode);
+            //    Console.WriteLine("Seeds: " + eztv.seeds);
+            //    Console.WriteLine("Download: " + eztv.torrent_url);
+            //    Console.WriteLine("Exists on server? " + eztv.EpisodeExists());
+            //    Console.WriteLine();
+            //}
+            
             Console.ReadLine();
+
+
             
         }
 
