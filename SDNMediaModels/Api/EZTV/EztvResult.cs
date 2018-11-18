@@ -26,7 +26,7 @@ namespace SDNMediaModels.Api
         public string small_screenshot { get; set; }
         public string large_screenshot { get; set; }
 
-        [Display(Name = "Download Seeds")]
+        [Display(Name = "DL Seeds")]
         public int seeds { get; set; }
         public int peers { get; set; }
 

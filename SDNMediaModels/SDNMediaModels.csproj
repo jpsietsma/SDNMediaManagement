@@ -85,6 +85,12 @@
     <Compile Include="Api\EZTV\IEztvRootModel.cs" />
     <Compile Include="Api\EZTV\IEztvSeriesResultModel.cs" />
     <Compile Include="Api\EZTV\IEztvSeriesSearchResult.cs" />
+    <Compile Include="Api\YIFY\YIFYData.cs" />
+    <Compile Include="Api\YIFY\YIFYDownload.cs" />
+    <Compile Include="Api\YIFY\YIFYMeta.cs" />
+    <Compile Include="Api\YIFY\YIFYMovieCast.cs" />
+    <Compile Include="Api\YIFY\YIFYMovieResult.cs" />
+    <Compile Include="Api\YIFY\YIFYRootModel.cs" />
     <Compile Include="Automation\IProcessQueue.cs" />
     <Compile Include="Automation\ITaskQueue.cs" />
     <Compile Include="Automation\ProcessQueue.cs" />

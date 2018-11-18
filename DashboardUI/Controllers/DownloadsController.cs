@@ -1,5 +1,7 @@
 ﻿using MediaMaintenanceLibrary;
+using MediaMaintenanceLibrary.Apis;
 using SDNMediaModels.Api;
+using SDNMediaModels.Api.YIFY;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,8 +34,22 @@ namespace DashboardUI.Controllers
             }
             
 
-            return View(downloads);
+            return View(downloads.OrderBy(show => show.imdb_id));
 
         }
+
+        public ActionResult Yify(int? id)
+        {
+            List<YIFYMovieResult> downloads = new List<YIFYMovieResult>();
+
+            if (!id.HasValue)
+            {
+                downloads = YifyApiLibrary.GetYIFYMovies();
+            }
+
+            return View(downloads);
+        }
+
+
     }
 }

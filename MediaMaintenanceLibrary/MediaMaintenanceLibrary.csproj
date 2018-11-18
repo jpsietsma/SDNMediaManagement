@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Apis\EztvApiLibrary.cs" />
+    <Compile Include="Apis\YifyApiLibrary.cs" />
     <Compile Include="Calculations.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="DataAccess.cs" />
