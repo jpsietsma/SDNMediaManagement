@@ -78,6 +78,7 @@
     <Compile Include="Apis\TvdbApiLibrary.cs" />
     <Compile Include="SecurityAuthorization.cs" />
     <Compile Include="SortProcessing\SortProcessing.cs" />
+    <Compile Include="TvShows\ShowProcessing.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

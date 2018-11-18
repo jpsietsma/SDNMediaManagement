@@ -502,7 +502,7 @@
     <Content Include="Views\TelevisionShows\Edit.cshtml" />
     <Content Include="Views\TelevisionShows\Index.cshtml" />
     <Content Include="Views\Report\DownloadDuration.cshtml" />
-    <Content Include="Views\Downloads\Eztv.cshtml" />
+    <None Include="Views\Downloads\Eztv.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

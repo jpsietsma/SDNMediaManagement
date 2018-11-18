@@ -80,7 +80,16 @@ namespace SDNMediaModels.DBContext
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActivateShow", showIDParameter);
         }
-    
+
+        public virtual int DeactivateShow(Nullable<int> showID)
+        {
+            var showIDParameter = showID.HasValue ?
+                new ObjectParameter("showID", showID) :
+                new ObjectParameter("showID", typeof(int));
+
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeactivateShow", showIDParameter);
+        }
+
         public virtual ObjectResult<string> BuildEpisodeStreamingUrl(string fileName, string showName, string showFile, string showSeason)
         {
             var fileNameParameter = fileName != null ?

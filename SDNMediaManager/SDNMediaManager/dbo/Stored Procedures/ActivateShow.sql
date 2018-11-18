@@ -5,7 +5,7 @@ CREATE PROCEDURE [dbo].[ActivateShow]
 	@showID INT
 AS
 BEGIN
-	SET NOCOUNT ON;
+	SET NOCOUNT OFF;
 
     UPDATE TelevisionShows SET IsEnabled = '1' WHERE pk_ShowID = @showID
 END
