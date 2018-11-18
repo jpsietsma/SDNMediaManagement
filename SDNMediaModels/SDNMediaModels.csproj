@@ -149,6 +149,7 @@
     <Compile Include="Television\TelevisionEpisode.cs" />
     <Compile Include="Television\TelevisionSeason.cs" />
     <Compile Include="Television\TelevisionShow.cs" />
+    <Compile Include="UI\AutocompleteResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -169,29 +169,33 @@
 
                 var shows = shows_db.TelevisionShows.Where(y => y.IsEnabled).OrderBy(x => x.ShowName);
 
-                List<string>
-                    shows_auto = new List<string>
-                        ();
+
+                List<SDNMediaModels.UI.AutocompleteResult> shows_models = new List<SDNMediaModels.UI.AutocompleteResult>();
+
+
+                List<string> shows_auto = new List<string>();
 
                 foreach (SDNMediaModels.Television.TelevisionShow show in shows)
                 {
-                    shows_auto.Add(show.ShowName);
+                    //shows_auto.Add(show.ShowName);
+                    shows_models.Add(new SDNMediaModels.UI.AutocompleteResult(show.ShowName, show.ShowNumSeasons.ToString(), show.ShowNumEpisodes.ToString()));
                 }
 
 
                 @(Html.Kendo().AutoComplete()
                                                                                 .Name("autocomplete_shows")
                                                                                 .Filter("contains")
+                                                                                .DataTextField("ShowName")
                                                                                 .MinLength(2)
                                                                                 .HtmlAttributes(new { @style = "width: 300px; margin-right: 5px;" })
                                                                                 .AutoWidth(true)
                                                                                 .Placeholder("Search Shows...")
-                                                                                .BindTo(shows_auto)
+                                                                                .BindTo(shows_models)
                                                                                 .Height(400)
                                                                                 .Template("<span class=\"k-state-default\" style=\"background-image: url(" + Url.Content("~/Content/web/Customers/") +
                                                                                           "#:data.CustomerID#.jpg" +
                                                                                           ");\" ></span>" +
-                                                                                          "<span class=\"k-state-default\"><h5><i class='fas fa-tv'> </i>#: data #</h5><p>#: data.ShowNumSeasons # - Seasons / #: data.ShowNumEpisodes # - Episodes</p></span>")
+                                                                                          "<span class=\"k-state-default\"><h5><i class='fas fa-tv' style='height: 30px; width: 30px;'> </i>#: data.ShowName #</h5><p>#: data.ShowNumSeasons # - Seasons / #: data.ShowNumEpisodes # - Episodes</p></span>")
                                                                                 .FooterTemplate("Total <strong>#: instance.dataSource.total() #</strong> items found")
                 );
 
