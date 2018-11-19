@@ -13,20 +13,27 @@
         <div class="col-md-10">     
           @(Html.Kendo().Chart<SDNMediaModels.Feedback.DownloadQueue>()
               .Name("chart")
+              .ChartArea( chartarea => chartarea.Background("#2e2d2d")
+                                                .Height(780)
+                                                .Border(1, "white", ChartDashType.Solid)                                                
+              )
+              .Tooltip(tooltip => tooltip.Template("Fast Downloads").Opacity(0.5))
               .Legend(legend => legend.Visible(false))              
               .Title("File Download Duration - Last 24 Hours")
-              .HtmlAttributes(new { @style = "height: 780px; font-size: 20px; font-weight: bold; background-color: #2b2a2a" })
+              .HtmlAttributes(new { @style = "font-size: 20px; font-weight: bold;" })
               .Tooltip(tooltip => tooltip.Visible(true))
               .DataSource(ds => ds.Read(read => read.Action("DownloadQueues_Read", "Report")))
               .Series(series =>
               {
-                  series.Column(a => a.DownloadDuration).Color("Orange").Tooltip(t => t.Visible(true).Template(@"#= dataItem.TorrentName #").Opacity(1));
+                  series.Column(a => a.DownloadDuration).Color("Teal").Tooltip(t => t.Visible(true).Template(@"<b>File Name:</b> #= dataItem.TorrentName#<br><b>File Size:</b> #= category # mb<br><b> Download Started:</b> #= dataItem.DownloadStarted #<br><b>Download Finished:</b> #= dataItem.DownloadFinished #<br><b>Download Status:</b> #= dataItem.TorrentStatus #").Opacity(1));
               })
               .CategoryAxis(axis => axis
-                                        .Categories(model => model.TorrentName)
+                                        .Categories(model => model.fileSize)
                                         .MajorGridLines(lines => lines.Visible(true))
                                         .Title("Downloaded Media Files")
                                         .Labels(labels => labels.Visible(false))
+                                        .AxisCrossingValue(0, 100)
+                                        .Color("#bbbbbb")
                                    )
               .ValueAxis(axis => axis.Numeric()
                                 .Min(0)
@@ -43,11 +50,21 @@
                                     bands.Add().From(40.25).To(100000).Color("#700").Opacity(0.3);
 
 
-                                }
-                                )
-              .MinorGridLines(lines => lines.Visible(true).DashType(ChartDashType.Solid))
-              .MinorUnit(1.00).Visible(true)
+                                })
+                                .MinorGridLines(lines => lines.Visible(false).DashType(ChartDashType.Solid).Color("#bbbbbb"))
+                                .MinorUnit(1.00).Visible(true)
+                                .Color("#bbbbbb")
 
+              )
+              .ValueAxis(axis => axis.Numeric()
+                                     .Min(0)
+                                     .Max(12.00)
+                                     .Title(title => title.Text("Average Download Speed (mb/s)").Rotation(90))
+                                     .Color("#bbbbbb")
+                                     .MinorUnit(0.5).Visible(true)
+                                     )
+
+                                     
               )
 
            )

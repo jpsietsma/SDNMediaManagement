@@ -12,27 +12,27 @@ $sqlInstance = "\SQLEXPRESS"
 
 $i = 0
 $ep = 0
+
+#foreach media drive
 foreach($drive in $liveMediaDrives){
 
+    #foreach show
     foreach($folder in (Get-ChildItem -LiteralPath $drive)){
 
-        if($folder.Name -ne "Cops"){
-
             $ShowName = $folder.Name
-            $ShowHomePath = $folder.FullName
-            $ShowDriveLetter = $folder.FullName[0]
-            $IsEnabled = 1
+            $ShowID = ""
 
-            #foreach episode count
+            $Query
+
+            #foreach season in show
             foreach($season in (Get-ChildItem -LiteralPath $folder.FullName)){
 
+                #foreach episode in season
                 foreach($episode in (Get-ChildItem -LiteralPath $season.FullName -File)){
 
                     $ep = $ep + 1
 
                 }
-
-            }
 
             $ShowNumEpisodes = $ep
             $ShowNumSeasons = (Get-ChildItem -LiteralPath $folder.FullName).Count
@@ -41,8 +41,8 @@ foreach($drive in $liveMediaDrives){
             $ShowHomePath = $ShowHomePath.Replace("'", "''")
 
             #Insert record into sdnTelevisionShows table
-            $insertShowQuery = "INSERT INTO sdnTelevisionShows (ShowName, ShowDriveLetter, ShowHomePath, ShowNumSeasons, ShowNumEpisodes, ShowAlbumArtPath, IsEnabled) VALUES('$($ShowName)', '$ShowDriveLetter', '$($ShowHomePath)', '$ShowNumSeasons', '$ShowNumEpisodes', '$ShowAlbumArtPath', '$IsEnabled')"
-            Invoke-SQLcmd -ServerInstance  $sqlServer$sqlInstance -query $insertShowQuery -U $sqlUser -P $sqlPass -Database sdnMediaManager -HostName $sqlServer$sqlInstance
+            #$insertShowQuery = "INSERT INTO sdnTelevisionShows (ShowName, ShowDriveLetter, ShowHomePath, ShowNumSeasons, ShowNumEpisodes, ShowAlbumArtPath, IsEnabled) VALUES('$($ShowName)', '$ShowDriveLetter', '$($ShowHomePath)', '$ShowNumSeasons', '$ShowNumEpisodes', '$ShowAlbumArtPath', '$IsEnabled')"
+            #Invoke-SQLcmd -ServerInstance  $sqlServer$sqlInstance -query $insertShowQuery -U $sqlUser -P $sqlPass -Database sdnMediaManager -HostName $sqlServer$sqlInstance
 
             #reset count for next iteration
             $ep = 0
