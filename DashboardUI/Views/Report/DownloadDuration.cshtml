@@ -10,25 +10,45 @@
 
         </div>
 
-        <div class="col-md-10">
-              @{ SDNMediaModels.DBContext.MediaManagerDB db = new SDNMediaModels.DBContext.MediaManagerDB();
-                  
-                  }       
+        <div class="col-md-10">     
           @(Html.Kendo().Chart<SDNMediaModels.Feedback.DownloadQueue>()
               .Name("chart")
-              .HtmlAttributes(new { @style = "height: 800px; font-size: 20px; font-weight: bold;" })
+              .Legend(legend => legend.Visible(false))              
               .Title("File Download Duration - Last 24 Hours")
-              .Legend(legend => legend.Position(ChartLegendPosition.Bottom))
+              .HtmlAttributes(new { @style = "height: 780px; font-size: 20px; font-weight: bold; background-color: #2b2a2a" })
               .Tooltip(tooltip => tooltip.Visible(true))
               .DataSource(ds => ds.Read(read => read.Action("DownloadQueues_Read", "Report")))
               .Series(series =>
               {
-                  series.Bar(a => a.DownloadDuration).Name("Downloaded Duration (in Minutes)").Color("Green").Tooltip(t => t.Visible(true).Format("Duration: {0} minutes"));
+                  series.Column(a => a.DownloadDuration).Color("Orange").Tooltip(t => t.Visible(true).Template(@"#= dataItem.TorrentName #").Opacity(1));
               })
               .CategoryAxis(axis => axis
                                         .Categories(model => model.TorrentName)
                                         .MajorGridLines(lines => lines.Visible(true))
+                                        .Title("Downloaded Media Files")
+                                        .Labels(labels => labels.Visible(false))
                                    )
+              .ValueAxis(axis => axis.Numeric()
+                                .Min(0)
+                                .Max(45)
+                                .Line(line => line.Visible(false))
+                                .Title(@"Total Duration (Minutes)")
+                                .PlotBands(bands => {
+                                    bands.Add().From(00).To(10).Color("#0c0").Opacity(0.1);
+                                        bands.Add().From(10).To(10.25).Color("#fa3").Opacity(0.25);
+                                    bands.Add().From(10.25).To(30).Color("#fa3").Opacity(0.1);
+                                        bands.Add().From(30).To(30.25).Color("#d00").Opacity(0.25);
+                                    bands.Add().From(30.25).To(40).Color("#d00").Opacity(0.1);
+                                        bands.Add().From(40).To(40.25).Color("#900").Opacity(0.4);
+                                    bands.Add().From(40.25).To(100000).Color("#700").Opacity(0.3);
+
+
+                                }
+                                )
+              .MinorGridLines(lines => lines.Visible(true).DashType(ChartDashType.Solid))
+              .MinorUnit(1.00).Visible(true)
+
+              )
 
            )
 
