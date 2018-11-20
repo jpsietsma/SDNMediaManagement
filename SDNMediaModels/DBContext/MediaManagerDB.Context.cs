@@ -53,7 +53,8 @@ namespace SDNMediaModels.DBContext
         public virtual DbSet<TelevisionSeason> TelevisionSeasons { get; set; }
         public virtual DbSet<TelevisionShow> TelevisionShows { get; set; }
         public virtual DbSet<UserRequest> UserRequests { get; set; }
-    
+        public virtual DbSet<EztvResult> EztvResults { get; set; }
+
         public virtual int ActivateEpisode(Nullable<int> episodeID)
         {
             var episodeIDParameter = episodeID.HasValue ?
@@ -190,6 +191,6 @@ namespace SDNMediaModels.DBContext
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetUsers_Result>("GetUsers");
         }
 
-        public System.Data.Entity.DbSet<SDNMediaModels.Api.EztvResult> EztvResults { get; set; }
+        
     }
 }

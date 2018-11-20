@@ -75,5 +75,20 @@ namespace DashboardUI.Controllers
             db.Dispose();
             base.Dispose(disposing);
         }
+
+        public ActionResult StorageSpace(int? id)
+        {
+            if (!id.HasValue)
+            {
+                return View();
+            }
+            else
+            {
+                return View(db.list_MediaDrives);
+            }
+
+        }
+
+
     }
 }

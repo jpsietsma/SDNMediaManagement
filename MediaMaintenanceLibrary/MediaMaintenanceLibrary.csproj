@@ -69,9 +69,11 @@
   <ItemGroup>
     <Compile Include="Apis\EztvApiLibrary.cs" />
     <Compile Include="Apis\YifyApiLibrary.cs" />
+    <Compile Include="Automation\AutoSortProcessing.cs" />
     <Compile Include="Calculations.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="DataAccess.cs" />
+    <Compile Include="LogUIException.cs" />
     <Compile Include="MediaConversion.cs" />
     <Compile Include="MediaProcessingLibrary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -79,6 +81,7 @@
     <Compile Include="SecurityAuthorization.cs" />
     <Compile Include="SortProcessing\SortProcessing.cs" />
     <Compile Include="TvShows\ShowProcessing.cs" />
+    <Compile Include="UI\Notifications\SDNErrorWarnings.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -102,6 +105,9 @@
       <Project>{d0d36fd0-616d-4244-9bcd-75f934acea5c}</Project>
       <Name>SDNMediaModels</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Logging\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

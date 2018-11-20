@@ -69,12 +69,22 @@ namespace DashboardUI.Controllers
         }
 
         //Show view to create new season
-        public ActionResult AddSeason(int id)
+        public ActionResult AddSeason(int? id)
         {
-            MediaManagerDB shows_db = new MediaManagerDB();
-            TelevisionShow show = shows_db.TelevisionShows.Where(showDetails => showDetails.pk_ShowID == id).FirstOrDefault();
-
-            return View(show);
+            using (MediaManagerDB shows_db = new MediaManagerDB())
+            {
+                if (id.HasValue)
+                {
+                    TelevisionShow shows = shows_db.TelevisionShows.Where(showDetails => showDetails.pk_ShowID == id).FirstOrDefault();
+                    return View(shows);
+                }
+                else
+                {
+                    return View(new TelevisionShow { pk_ShowID = 0, ShowName = null, ShowHomePath = null });
+                }              
+                                
+            }
+                                    
         }
 
         //Add new season model created and save changes to database, redirect to seasons listing of parent show

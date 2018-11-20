@@ -41,8 +41,7 @@ namespace SDNMediaModels.Television
 
         [Display(Name = "# of Episodes")]
         public Nullable<int> ShowNumEpisodes { get; set; }
-
-
+        
         public string ShowAlbumArtPath { get; set; }
 
         [Display(Name = "Show Enabled?")]
@@ -53,9 +52,18 @@ namespace SDNMediaModels.Television
 
         [Display(Name = "IMDB ID")]
         public string ImdbID { get; set; }
-
-
+        
         public Nullable<int> fk_MediaType { get; set; }
+
+        public bool Empty
+        {
+            get
+            {
+                return (pk_ShowID == 0 &&
+                        string.IsNullOrWhiteSpace(ShowName) &&
+                        string.IsNullOrWhiteSpace(ShowHomePath));
+            }
+        }
 
         public virtual ICollection<PlaybackHistory> PlaybackHistories { get; set; }
         public virtual ICollection<TelevisionEpisode> TelevisionEpisodes { get; set; }

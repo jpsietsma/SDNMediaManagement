@@ -12,7 +12,7 @@ namespace SDNMediaModels.Television
         ICollection<PlaybackHistory> PlaybackHistories { get; set; }
         string SeasonAlbumArtPath { get; set; }
         string SeasonHomePath { get; set; }
-        string SeasonName { get; set; }
+        string SeasonName { get; }
         int SeasonNumEpisodes { get; set; }
         ICollection<TelevisionEpisode> TelevisionEpisodes { get; set; }
         TelevisionShow TelevisionShow { get; set; }
