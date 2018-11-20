@@ -72,6 +72,7 @@
     <Compile Include="Automation\AutoSortProcessing.cs" />
     <Compile Include="Calculations.cs" />
     <Compile Include="Configuration.cs" />
+    <Compile Include="Config\Configuration.cs" />
     <Compile Include="DataAccess.cs" />
     <Compile Include="LogUIException.cs" />
     <Compile Include="MediaConversion.cs" />
@@ -98,6 +99,7 @@
     <None Include="Scripts\powershell\SanitizeSortTitle.ps1" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Config\regen_usings_dbcontext_MediaManagerDB.txt" />
     <Content Include="Scripts\exe\aria2c.exe" />
   </ItemGroup>
   <ItemGroup>
