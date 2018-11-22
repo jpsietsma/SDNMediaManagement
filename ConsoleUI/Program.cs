@@ -18,19 +18,34 @@ namespace ConsoleUI
         
         public static void Main(string[] args)
         {
-            List<EztvResult> downloads = EztvApiLibrary.GetEztvDownloads(pageResults: 100);
+            //bool DropTorrentFile()
+            //{
+            //    bool finalStatus()
+            //    {
 
-            foreach (EztvResult eztv in downloads)
-            {
-                Console.WriteLine("Title: " + eztv.title);
-                Console.WriteLine("Season: " + eztv.season);
-                Console.WriteLine("Episode " + eztv.episode);
-                Console.WriteLine("Seeds: " + eztv.seeds);
-                Console.WriteLine("Download Url: " + eztv.torrent_url);
-                Console.WriteLine();
-            }
+            //    }
 
-            Console.WriteLine();
+            //    using (var client = new WebClient())
+            //    {
+            //        client.DownloadFile(urToFile, fileSavePath);
+            //    }
+
+            //}
+
+            
+            //List<EztvResult> downloads = EztvApiLibrary.GetEztvDownloads(pageResults: 100);
+
+            //foreach (EztvResult eztv in downloads)
+            //{
+            //    Console.WriteLine("Title: " + eztv.title);
+            //    Console.WriteLine("Season: " + eztv.season);
+            //    Console.WriteLine("Episode " + eztv.episode);
+            //    Console.WriteLine("Seeds: " + eztv.seeds);
+            //    Console.WriteLine("Download Url: " + eztv.torrent_url);
+            //    Console.WriteLine();
+            //}
+
+            //Console.WriteLine();
 
             //TelevisionShow testShow = new TelevisionShow { ImdbID = "0096563"};
 
@@ -46,7 +61,7 @@ namespace ConsoleUI
             //    Console.WriteLine("Exists on server? " + eztv.EpisodeExists());
             //    Console.WriteLine();
             //}
-            
+
             Console.ReadLine();
 
 

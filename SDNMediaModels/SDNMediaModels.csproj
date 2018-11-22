@@ -132,6 +132,7 @@
     <Compile Include="Logs\PlaybackHistory.cs" />
     <Compile Include="Movies\IMovie.cs" />
     <Compile Include="Movies\Movie.cs" />
+    <Compile Include="Permission\SDNPermissionLevel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sort\IsortItem.cs" />
     <Compile Include="Sort\sortItem.cs" />

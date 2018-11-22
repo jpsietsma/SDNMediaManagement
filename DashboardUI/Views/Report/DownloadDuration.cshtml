@@ -37,22 +37,25 @@
                                    )
               .ValueAxis(axis => axis.Numeric()
                                 .Min(0)
-                                .Max(60)
+                                .Max(80)
                                 .Line(line => line.Visible(false))
                                 .Title(@"Total Duration (Minutes)")
                                 .PlotBands(bands => {
-                                    bands.Add().From(00).To(10).Color("#0c0").Opacity(0.1);
-                                        bands.Add().From(10).To(10.25).Color("#fa3").Opacity(0.25);
-                                    bands.Add().From(10.25).To(30).Color("#fa3").Opacity(0.1);
-                                        bands.Add().From(30).To(30.25).Color("#d00").Opacity(0.25);
-                                    bands.Add().From(30.25).To(40).Color("#d00").Opacity(0.1);
-                                        bands.Add().From(40).To(40.25).Color("#900").Opacity(0.4);
-                                    bands.Add().From(40.25).To(100000).Color("#700").Opacity(0.3);
+                                    bands.Add().From(00.00).To(19.75).Color("#0c0").Opacity(0.10);
+                                        bands.Add().From(19.75).To(20.00).Color("#0c0").Opacity(0.25);
+                                        bands.Add().From(20.00).To(20.25).Color("#fa3").Opacity(0.25);
+                                    bands.Add().From(20.25).To(59.75).Color("#fa3").Opacity(0.10);
+                                        bands.Add().From(59.75).To(60.00).Color("#fa3").Opacity(0.25);
+                                        bands.Add().From(60.00).To(60.25).Color("#d00").Opacity(0.25);
+                                    bands.Add().From(60.25).To(74.75).Color("#d00").Opacity(0.10);
+                                        bands.Add().From(74.75).To(75.00).Color("#d00").Opacity(0.25);
+                                        bands.Add().From(75.00).To(80.25).Color("#f00").Opacity(0.25);
+                                    bands.Add().From(80.25).To(120).Color("#f20").Opacity(0.10);
 
 
                                 })
-                                .MinorGridLines(lines => lines.Visible(false).DashType(ChartDashType.Solid).Color("#bbbbbb"))
-                                .MinorUnit(1.00).Visible(true)
+                                .MinorGridLines(lines => lines.Visible(false).DashType(ChartDashType.Dash))
+                                .MajorUnit(10.00).Visible(true)
                                 .Color("#bbbbbb")
 
               )
@@ -61,13 +64,12 @@
                                      .Max(12.00)
                                      .Title(title => title.Text("Average Download Speed (mb/s)").Rotation(90))
                                      .Color("#bbbbbb")
-                                     .MinorUnit(0.5).Visible(true)
+                                     .MajorUnit(1).Visible(true)
+                                     .Reverse(true)
                                      )
 
                                      
               )
-
-           )
 
         </div>
 

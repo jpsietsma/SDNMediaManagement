@@ -336,5 +336,9 @@
   <ItemGroup>
     <None Include="Assemblies\Z.Expressions.Compiler.dll" />
     <None Include="Assemblies\Z.Expressions.SqlServer.Eval.dll" />
+    <None Include="NYPLEXSERV-SDN.publish.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="DefaultUsersPermissionsRoles.PostDeployment.sql" />
   </ItemGroup>
 </Project>
