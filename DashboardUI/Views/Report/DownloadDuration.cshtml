@@ -25,7 +25,25 @@
               .DataSource(ds => ds.Read(read => read.Action("DownloadQueues_Read", "Report")))
               .Series(series =>
               {
-                  series.Column(a => a.DownloadDuration).Color("Teal").Tooltip(t => t.Visible(true).Template(@"<b>File Name:</b> #= dataItem.TorrentName#<br><b>File Size:</b> #= category # mb<br><b> Download Started:</b> #= dataItem.DownloadStarted #<br><b>Download Finished:</b> #= dataItem.DownloadFinished #<br><b>Download Status:</b> #= dataItem.TorrentStatus #").Opacity(1));
+                  series.Column(a => a.DownloadDuration).Color("black").Tooltip(t => t.Visible(true).Color("black").Template(@"
+                                                                                                                               <div style='color: white;'>
+                                                                                                                                   <b style='float:left; text-decoration: underline;'>File Name:</b><br>
+                                                                                                                                        <span style='float:left; font-size: 12px;'> #= dataItem.TorrentName #</span><br>
+                                                                                                                                   <b style='float:left; text-decoration: underline;'>File Size:</b><br>
+                                                                                                                                        <span style='float:left; font-size: 12px;'> #= category # mb</span> <br>
+                                                                                                                                   <b style='float:left; text-decoration: underline;'>Download Duration:</b><br>
+                                                                                                                                        <span style='float:left; font-size: 12px;'> #= dataItem.DownloadDuration # minutes</span> <br>
+                                                                                                                                   <b style='float:left; text-decoration: underline;'>Average Download Speed:</b><br>
+                                                                                                                                        <span style='float:left; font-size: 12px;'> 10 mb/s</span> <br>
+                                                                                                                                   <b style='float:left; text-decoration: underline;'>Download Started:</b><br> 
+                                                                                                                                        <span style='float:left; font-size: 12px;'> #= dataItem.DownloadStarted #</span><br>
+                                                                                                                                   <b style='float:left; text-decoration: underline;'>Download Finished:</b><br> 
+                                                                                                                                        <span style='float:left; font-size: 12px;'> #= dataItem.DownloadFinished #</span><br>
+                                                                                                                                   <b style='float:left; text-decoration: underline;'>Download Status:</b><br>
+                                                                                                                                        <span style='float:left; font-size: 12px;'> #= dataItem.TorrentStatus #</span>
+                                                                                                                               </div>
+                                                                                                                              ")
+                                                                                                    .Opacity(0.85));
               })
               .CategoryAxis(axis => axis
                                         .Categories(model => model.fileSize)
@@ -59,7 +77,7 @@
                                 .Color("#bbbbbb")
 
               )
-              .ValueAxis(axis => axis.Numeric()
+              .ValueAxis(axis => axis.Numeric("mbps")
                                      .Min(0)
                                      .Max(12.00)
                                      .Title(title => title.Text("Average Download Speed (mb/s)").Rotation(90))

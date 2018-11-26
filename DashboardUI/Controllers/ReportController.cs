@@ -27,13 +27,21 @@ namespace DashboardUI.Controllers
             var dls = db.DownloadQueues.Where(d => d.DownloadDuration != null).ToList<DownloadQueue>();
             List<DownloadQueue> keep = new List<DownloadQueue>(dls);
 
+            DateTime started;
+            DateTime finished;
+            DateTime.TryParse("1970-12-01 00:00:00", out started);
+            DateTime.TryParse("1970-12-01 00:00:00", out finished);
+
+            int day = 0;
+
             foreach (var dl in dls)
             {
-                DateTime.TryParse(dl.DownloadStarted.ToString(), out DateTime started);
-                DateTime.TryParse(dl.DownloadFinished.ToString(), out DateTime finished);
-                     int.TryParse(DateTime.Now.ToString("dd"), out int day);
+                DateTime.TryParse(dl.DownloadStarted.ToString(), out started);
+                DateTime.TryParse(dl.DownloadFinished.ToString(), out finished);
 
-                if (!started.ToString("yyyy-MM-dd").Contains(DateTime.Today.ToString("yyyy")))
+                int.TryParse(DateTime.Now.ToString("dd"), out day);
+
+                if (!finished.ToString("yyyy-MM-dd").Contains(DateTime.Today.ToString("yyyy")))
                 {
 
                     //if download is not from this year, remove it
@@ -41,7 +49,7 @@ namespace DashboardUI.Controllers
                     
                 }
 
-                if (!started.ToString("yyyy-MM-dd").Contains(DateTime.Today.ToString("yyyy-MM")))
+                if (!finished.ToString("yyyy-MM-dd").Contains(DateTime.Today.ToString("yyyy-MM")))
                 {
 
                     //if download is not from this month, remove it
@@ -49,7 +57,7 @@ namespace DashboardUI.Controllers
 
                 }
 
-                if ((!started.ToString("yyyy-MM-dd").Contains(DateTime.Today.ToString($"yyyy-MM-dd"))))
+                if ((!finished.ToString("yyyy-MM-dd").Contains(DateTime.Today.ToString($"yyyy-MM-dd"))))
                 {
 
                     //if download is not from today or yesterday, remove it

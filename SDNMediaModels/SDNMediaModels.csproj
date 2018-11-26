@@ -29,6 +29,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\SDNMediaModels.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -77,6 +78,7 @@
     <Compile Include="Account\ManageUserViewModel.cs" />
     <Compile Include="Account\RegisterViewModel.cs" />
     <Compile Include="Api\ApiToken.cs" />
+    <Compile Include="Api\Deluge\DelugeDownload.cs" />
     <Compile Include="Api\EZTV\EztvResult.cs" />
     <Compile Include="Api\EZTV\EztvRootModel.cs" />
     <Compile Include="Api\EZTV\EztvSeriesResultModel.cs" />

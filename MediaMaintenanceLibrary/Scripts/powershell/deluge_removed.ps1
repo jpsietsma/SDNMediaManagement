@@ -8,8 +8,8 @@ $sqlInstance = "\SQLEXPRESS"
 
 $logLine = "Torrent Removed: [" + (Get-Date) + "] " + $torrentID + " ---- " + $torrentName + " ---- " + $torrentPath
 
-$updateRemovedQuery = "UPDATE sdnDownloadQueue SET TorrentStatus = 'Moved/Removed' WHERE pk_torrentID = '$torrentID' "
-Invoke-SQLcmd -ServerInstance  $sqlServer$sqlInstance -query $updateRemovedQuery -U $sqlUser -P $sqlPass -Database sdnMediaManager -HostName $sqlServer$sqlInstance
+$removeQuery = "DELETE FROM DownloadQueue WHERE TorrentName = '$torrentName' "
+Invoke-SQLcmd -ServerInstance  $sqlServer$sqlInstance -query $removeQuery -U $sqlUser -P $sqlPass -Database sdnMediaManager -HostName $sqlServer$sqlInstance
 
-$logLine >> C:\~sdnAutologs\deluge_log.txt
+$logLine >> deluge_log.txt
 

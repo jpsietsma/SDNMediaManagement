@@ -78,8 +78,8 @@
                 <td style="border-collapse: collapse; border: 1px solid gray; text-align: center;">
 
                     <button class="btn-xs btn-primary" onclick="@Url.Action("AutoEztvDownload", "download", new { url = item.torrent_url})">Download</button>
-                    <button class="btn-xs btn-info" onclick="@Url.Action("AutoEztvQueueDownload", "download", new { url = item.torrent_url})">Queue</button>
-                    <button class="btn-xs btn-success" onclick="@Url.Action("AutoEztvTrackShow", "download", new { url = item.torrent_url})">Track</button>
+                    <button class="btn-xs btn-outline-info" onclick="@Url.Action("AutoEztvQueueDownload", "download", new { url = item.torrent_url})">Queue</button>
+                    <button class="btn-xs btn-outline-success" onclick="@Url.Action("AutoEztvTrackShow", "download", new { url = item.torrent_url})">Track</button>
                 </td>
             </tr>
         }
