@@ -73,6 +73,11 @@ namespace SDNMediaModels.DBContext
         public virtual DbSet<TrackedShow> TrackedShows { get; set; }
         public virtual DbSet<vw_UserAccountOverview> vw_UserAccountOverview { get; set; }
     
+        /// <summary>
+        /// Enable episode in user interface
+        /// </summary>
+        /// <param name="episodeID">pk_EpisodeID of episode to activate</param>
+        /// <returns></returns>
         public virtual int ActivateEpisode(Nullable<int> episodeID)
         {
             var episodeIDParameter = episodeID.HasValue ?
@@ -82,6 +87,11 @@ namespace SDNMediaModels.DBContext
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActivateEpisode", episodeIDParameter);
         }
     
+        /// <summary>
+        /// Activate season in user interface
+        /// </summary>
+        /// <param name="seasonID">pk_SeasonID of season to activate</param>
+        /// <returns></returns>
         public virtual int ActivateSeason(Nullable<int> seasonID)
         {
             var seasonIDParameter = seasonID.HasValue ?
@@ -91,6 +101,11 @@ namespace SDNMediaModels.DBContext
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActivateSeason", seasonIDParameter);
         }
     
+        /// <summary>
+        /// Activate Television show in user interface
+        /// </summary>
+        /// <param name="showID">pk_ShowID of show to activate</param>
+        /// <returns></returns>
         public virtual int ActivateShow(Nullable<int> showID)
         {
             var showIDParameter = showID.HasValue ?
@@ -100,6 +115,14 @@ namespace SDNMediaModels.DBContext
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActivateShow", showIDParameter);
         }
     
+        /// <summary>
+        /// Build file source url to location of file to stream
+        /// </summary>
+        /// <param name="fileName">Display name of file to stream</param>
+        /// <param name="showName">Show name of file to stream</param>
+        /// <param name="showFile">File Name of episode to stream</param>
+        /// <param name="showSeason">Seasont of file to stream</param>
+        /// <returns>string representing url src of file to stream in HTML5 Media player</returns>
         public virtual ObjectResult<string> BuildEpisodeStreamingUrl(string fileName, string showName, string showFile, string showSeason)
         {
             var fileNameParameter = fileName != null ?
@@ -121,6 +144,11 @@ namespace SDNMediaModels.DBContext
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("BuildEpisodeStreamingUrl", fileNameParameter, showNameParameter, showFileParameter, showSeasonParameter);
         }
     
+        /// <summary>
+        /// Deactivate Television Show in user interface
+        /// </summary>
+        /// <param name="showID">pk_ShowId of show to deactivate in user interface</param>
+        /// <returns></returns>
         public virtual int DeactivateShow(Nullable<int> showID)
         {
             var showIDParameter = showID.HasValue ?
@@ -130,16 +158,29 @@ namespace SDNMediaModels.DBContext
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeactivateShow", showIDParameter);
         }
     
+        /// <summary>
+        /// Get all shows in SDN Media Manager system
+        /// </summary>
+        /// <returns></returns>
         public virtual ObjectResult<GetAllShows_Result> GetAllShows()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllShows_Result>("GetAllShows");
         }
     
+        /// <summary>
+        /// Get all downloads from current day
+        /// </summary>
+        /// <returns></returns>
         public virtual ObjectResult<GetDailyDownloads_Result> GetDailyDownloads()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetDailyDownloads_Result>("GetDailyDownloads");
         }
     
+        /// <summary>
+        /// Transform number of minutes into days/hours/minutes format
+        /// </summary>
+        /// <param name="mins">Total duration in minutes</param>
+        /// <returns></returns>
         public virtual ObjectResult<string> GetDisplayDuration(Nullable<int> mins)
         {
             var minsParameter = mins.HasValue ?
@@ -149,16 +190,29 @@ namespace SDNMediaModels.DBContext
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GetDisplayDuration", minsParameter);
         }
     
+        /// <summary>
+        /// Get all movies in SDN Media Manager system
+        /// </summary>
+        /// <returns></returns>
         public virtual ObjectResult<GetMovies_Result> GetMovies()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetMovies_Result>("GetMovies");
         }
     
+        /// <summary>
+        /// Get Sort items which have not been classified to a show
+        /// </summary>
+        /// <returns></returns>
         public virtual ObjectResult<GetOrphanSortItems_Result> GetOrphanSortItems()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetOrphanSortItems_Result>("GetOrphanSortItems");
         }
     
+        /// <summary>
+        /// Get all episodes belonging to a show
+        /// </summary>
+        /// <param name="showID">pk_ShowID of show to get children episodes</param>
+        /// <returns></returns>
         public virtual ObjectResult<GetShowEpisodes_Result> GetShowEpisodes(Nullable<int> showID)
         {
             var showIDParameter = showID.HasValue ?
@@ -168,6 +222,11 @@ namespace SDNMediaModels.DBContext
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetShowEpisodes_Result>("GetShowEpisodes", showIDParameter);
         }
     
+        /// <summary>
+        /// Get all episodes of a particular season
+        /// </summary>
+        /// <param name="seasonID">pk_SeasonID of season to get children episodes</param>
+        /// <returns></returns>
         public virtual ObjectResult<GetShowEpisodesBySeason_Result> GetShowEpisodesBySeason(Nullable<int> seasonID)
         {
             var seasonIDParameter = seasonID.HasValue ?
@@ -177,6 +236,12 @@ namespace SDNMediaModels.DBContext
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetShowEpisodesBySeason_Result>("GetShowEpisodesBySeason", seasonIDParameter);
         }
     
+        /// <summary>
+        /// Get Show Id by name
+        /// </summary>
+        /// <param name="showName">Show Name</param>
+        /// <param name="showID">pk_ShowID of show</param>
+        /// <returns></returns>
         public virtual ObjectResult<Nullable<int>> GetShowIdByName(string showName, Nullable<int> showID)
         {
             var showNameParameter = showName != null ?
@@ -190,6 +255,11 @@ namespace SDNMediaModels.DBContext
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("GetShowIdByName", showNameParameter, showIDParameter);
         }
     
+        /// <summary>
+        /// Get all seasons belonging to a particular show
+        /// </summary>
+        /// <param name="showID">pk_ShowID of show to get children seasons</param>
+        /// <returns></returns>
         public virtual ObjectResult<GetShowSeasons_Result> GetShowSeasons(Nullable<int> showID)
         {
             var showIDParameter = showID.HasValue ?
@@ -199,16 +269,30 @@ namespace SDNMediaModels.DBContext
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetShowSeasons_Result>("GetShowSeasons", showIDParameter);
         }
     
+        /// <summary>
+        /// Get all sort items in SDN Media Manager system
+        /// </summary>
+        /// <returns></returns>
         public virtual ObjectResult<GetSortItems_Result> GetSortItems()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetSortItems_Result>("GetSortItems");
         }
     
+        /// <summary>
+        /// Get all SDN Media Manager system users
+        /// </summary>
+        /// <returns></returns>
         public virtual ObjectResult<GetUsers_Result> GetUsers()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetUsers_Result>("GetUsers");
         }
     
+        /// <summary>
+        /// Grant a particular user role to a system user
+        /// </summary>
+        /// <param name="userName">User name of account to receive role</param>
+        /// <param name="userRole">User role to add to account</param>
+        /// <returns></returns>
         public virtual int GrantUserSDNRole(string userName, string userRole)
         {
             var userNameParameter = userName != null ?
@@ -222,6 +306,12 @@ namespace SDNMediaModels.DBContext
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("GrantUserSDNRole", userNameParameter, userRoleParameter);
         }
     
+        /// <summary>
+        /// Revoke a particular user role from a system user
+        /// </summary>
+        /// <param name="userName">User Account to revoke from role</param>
+        /// <param name="userRole">Role to revoke</param>
+        /// <returns></returns>
         public virtual int RevokeUserSDNRole(string userName, string userRole)
         {
             var userNameParameter = userName != null ?
