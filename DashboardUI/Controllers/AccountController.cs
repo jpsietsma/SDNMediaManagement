@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using SDNMediaModels.Account;
+using SDNMediaModels.DBContext;
 
 namespace DashboardUI.Controllers
 {

@@ -107,6 +107,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MediaManagerDB.edmx</DependentUpon>
     </Compile>
+    <Compile Include="DBViews\vw_UserAccountOverview.cs" />
     <Compile Include="Download\DownloadQueue.cs" />
     <Compile Include="Download\IDownloadQueue.cs" />
     <Compile Include="enums\AutomationStatusOptions.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="enums\ShowAiringStatus.cs" />
     <Compile Include="Exceptions\UnsanitizedLibraryFileException.cs" />
     <Compile Include="Feedback\IUserRequest.cs" />
+    <Compile Include="Feedback\TrackedShow.cs" />
     <Compile Include="Feedback\UserRequest.cs" />
     <Compile Include="List\list_AutomationActions.cs" />
     <Compile Include="List\list_AutomationPriority.cs" />

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MediaManagerDB.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MediaManagerDB.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ApiTokens">
           <Key>
             <PropertyRef Name="pk_tokenID" />
@@ -295,6 +295,14 @@
           <Property Name="ImdbID" Type="nvarchar" MaxLength="50" />
           <Property Name="fk_MediaType" Type="int" />
         </EntityType>
+        <EntityType Name="TrackedShows">
+          <Key>
+            <PropertyRef Name="pk_trackingID" />
+          </Key>
+          <Property Name="pk_trackingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fk_userID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="fk_showID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="UserRequests">
           <Key>
             <PropertyRef Name="pk_RequestID" />
@@ -316,6 +324,16 @@
           <Property Name="fk_SeasonID" Type="int" />
           <Property Name="fk_UserID" Type="nvarchar" MaxLength="128" />
           <Property Name="fk_AutomationStatus" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'sdnMediaManager.dbo.vw_UserAccountOverview' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_UserAccountOverview">
+          <Key>
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" />
         </EntityType>
         <Association Name="FK_AspNetRoles_list_permissionLevels">
           <End Role="list_permissionLevels" Type="Self.list_permissionLevels" Multiplicity="1" />
@@ -769,6 +787,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TrackedShows_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="TrackedShows" Type="Self.TrackedShows" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TrackedShows">
+              <PropertyRef Name="fk_userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrackedShows_TelevisionShows">
+          <End Role="TelevisionShows" Type="Self.TelevisionShows" Multiplicity="1" />
+          <End Role="TrackedShows" Type="Self.TrackedShows" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TelevisionShows">
+              <PropertyRef Name="pk_ShowID" />
+            </Principal>
+            <Dependent Role="TrackedShows">
+              <PropertyRef Name="fk_showID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="ActivateEpisode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="episodeID" Type="int" Mode="In" />
         </Function>
@@ -783,6 +825,9 @@
           <Parameter Name="showName" Type="nvarchar" Mode="In" />
           <Parameter Name="showFile" Type="nvarchar" Mode="In" />
           <Parameter Name="showSeason" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="DeactivateShow" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="showID" Type="int" Mode="In" />
         </Function>
         <Function Name="GetAllShows" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetDailyDownloads" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -806,6 +851,14 @@
         </Function>
         <Function Name="GetSortItems" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GrantUserSDNRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userName" Type="nvarchar" Mode="In" />
+          <Parameter Name="userRole" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="RevokeUserSDNRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userName" Type="nvarchar" Mode="In" />
+          <Parameter Name="userRole" Type="nvarchar" Mode="In" />
+        </Function>
         <EntityContainer Name="MediaManagerDBStoreContainer">
           <EntitySet Name="ApiTokens" EntityType="Self.ApiTokens" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -832,7 +885,15 @@
           <EntitySet Name="TelevisionEpisodes" EntityType="Self.TelevisionEpisodes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TelevisionSeasons" EntityType="Self.TelevisionSeasons" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TelevisionShows" EntityType="Self.TelevisionShows" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrackedShows" EntityType="Self.TrackedShows" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRequests" EntityType="Self.UserRequests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vw_UserAccountOverview" EntityType="Self.vw_UserAccountOverview" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_UserAccountOverview].[UserName] AS [UserName], 
+    [vw_UserAccountOverview].[Email] AS [Email], 
+    [vw_UserAccountOverview].[Name] AS [Name]
+    FROM [dbo].[vw_UserAccountOverview] AS [vw_UserAccountOverview]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_AspNetRoles_list_permissionLevels" Association="Self.FK_AspNetRoles_list_permissionLevels">
             <End Role="list_permissionLevels" EntitySet="list_permissionLevels" />
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
@@ -981,9 +1042,16 @@
             <End Role="DownloadQueue" EntitySet="DownloadQueue" />
             <End Role="sortItems" EntitySet="sortItems" />
           </AssociationSet>
+          <AssociationSet Name="FK_TrackedShows_AspNetUsers" Association="Self.FK_TrackedShows_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="TrackedShows" EntitySet="TrackedShows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrackedShows_TelevisionShows" Association="Self.FK_TrackedShows_TelevisionShows">
+            <End Role="TelevisionShows" EntitySet="TelevisionShows" />
+            <End Role="TrackedShows" EntitySet="TrackedShows" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MediaManagerDB" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1059,6 +1127,7 @@
           <NavigationProperty Name="UserRequests" Relationship="Self.FK_sdnRequestedMedia_AspNetUsers" FromRole="AspNetUsers" ToRole="UserRequests" />
           <NavigationProperty Name="TaskQueues" Relationship="Self.FK_sdnTaskQueue_sdnTaskOwner" FromRole="AspNetUsers" ToRole="TaskQueue" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+          <NavigationProperty Name="TrackedShows" Relationship="MediaManagerDB.FK_TrackedShows_AspNetUsers" FromRole="AspNetUser" ToRole="TrackedShow" />
         </EntityType>
         <EntityType Name="DownloadQueue">
           <Key>
@@ -1178,7 +1247,7 @@
           <Property Name="fk_TaskPriority" Type="Int32" Nullable="false" />
           <NavigationProperty Name="list_AutomationPriority" Relationship="Self.FK_list_TaskTypes_list_TaskTypes" FromRole="list_TaskTypes" ToRole="list_AutomationPriority" />
         </EntityType>
-        <EntityType Name="Movie">
+        <EntityType Name="Movy">
           <Key>
             <PropertyRef Name="pk_MovieID" />
           </Key>
@@ -1335,6 +1404,7 @@
           <NavigationProperty Name="TelevisionEpisodes" Relationship="Self.FK_sdnTelevisionEpisodes_ShowID_sdnTelevisionShows" FromRole="TelevisionShows" ToRole="TelevisionEpisodes" />
           <NavigationProperty Name="TelevisionSeasons" Relationship="Self.FK_sdnTelevisionSeasons_ShowID_sdnTelevisionShows" FromRole="TelevisionShows" ToRole="TelevisionSeasons" />
           <NavigationProperty Name="UserRequests" Relationship="Self.FK_sdnRequestedMedia_sdnTelevisionShows" FromRole="TelevisionShows" ToRole="UserRequests" />
+          <NavigationProperty Name="TrackedShows" Relationship="MediaManagerDB.FK_TrackedShows_TelevisionShows" FromRole="TelevisionShow" ToRole="TrackedShow" />
         </EntityType>
         <EntityType Name="UserRequest">
           <Key>
@@ -1597,7 +1667,7 @@
         </Association>
         <Association Name="FK_sdnMovies_list_MediaTypes">
           <End Role="list_MediaTypes" Type="Self.list_MediaTypes" Multiplicity="1" />
-          <End Role="Movies" Type="Self.Movie" Multiplicity="*" />
+          <End Role="Movies" Type="Self.Movy" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="list_MediaTypes">
               <PropertyRef Name="pk_MediaTypeID" />
@@ -1633,7 +1703,7 @@
         </Association>
         <Association Name="FK_sdnMovies_list_MovieGenres">
           <End Role="list_MovieGenres" Type="Self.list_MovieGenres" Multiplicity="1" />
-          <End Role="Movies" Type="Self.Movie" Multiplicity="*" />
+          <End Role="Movies" Type="Self.Movy" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="list_MovieGenres">
               <PropertyRef Name="pk_GenreID" />
@@ -1645,7 +1715,7 @@
         </Association>
         <Association Name="FK_sdnMovies_sortItems">
           <End Role="sortItems" Type="Self.sortItem" Multiplicity="0..1" />
-          <End Role="Movies" Type="Self.Movie" Multiplicity="*" />
+          <End Role="Movies" Type="Self.Movy" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="sortItems">
               <PropertyRef Name="pk_MediaID" />
@@ -1808,7 +1878,7 @@
           <EntitySet Name="list_MovieGenres" EntityType="Self.list_MovieGenres" />
           <EntitySet Name="list_permissionLevels" EntityType="Self.list_permissionLevels" />
           <EntitySet Name="list_TaskTypes" EntityType="Self.list_TaskTypes" />
-          <EntitySet Name="Movies" EntityType="Self.Movie" />
+          <EntitySet Name="Movies" EntityType="Self.Movy" />
           <EntitySet Name="PlaybackHistories" EntityType="Self.PlaybackHistory" />
           <EntitySet Name="ProcessQueues" EntityType="Self.ProcessQueue" />
           <EntitySet Name="sortItems" EntityType="Self.sortItem" />
@@ -1962,13 +2032,13 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
           <FunctionImport Name="ActivateEpisode">
-            <Parameter Name="episodeID" Mode="In" Type="Int32" />
+          <Parameter Name="episodeID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="ActivateSeason">
-            <Parameter Name="seasonID" Mode="In" Type="Int32" />
+          <Parameter Name="seasonID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="ActivateShow">
-            <Parameter Name="showID" Mode="In" Type="Int32" />
+          <Parameter Name="showID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="BuildEpisodeStreamingUrl" ReturnType="Collection(String)">
             <Parameter Name="fileName" Mode="In" Type="String" />
@@ -1976,28 +2046,49 @@
             <Parameter Name="showFile" Mode="In" Type="String" />
             <Parameter Name="showSeason" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="DeactivateShow">
+          <Parameter Name="showID" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="GetAllShows" ReturnType="Collection(MediaManagerDB.GetAllShows_Result)" />
           <FunctionImport Name="GetDailyDownloads" ReturnType="Collection(MediaManagerDB.GetDailyDownloads_Result)" />
           <FunctionImport Name="GetDisplayDuration" ReturnType="Collection(String)">
-            <Parameter Name="mins" Mode="In" Type="Int32" />
+          <Parameter Name="mins" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetMovies" ReturnType="Collection(MediaManagerDB.GetMovies_Result)" />
           <FunctionImport Name="GetOrphanSortItems" ReturnType="Collection(MediaManagerDB.GetOrphanSortItems_Result)" />
           <FunctionImport Name="GetShowEpisodes" ReturnType="Collection(MediaManagerDB.GetShowEpisodes_Result)">
-            <Parameter Name="showID" Mode="In" Type="Int32" />
+          <Parameter Name="showID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetShowEpisodesBySeason" ReturnType="Collection(MediaManagerDB.GetShowEpisodesBySeason_Result)">
-            <Parameter Name="seasonID" Mode="In" Type="Int32" />
+          <Parameter Name="seasonID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetShowIdByName" ReturnType="Collection(Int32)">
             <Parameter Name="ShowName" Mode="In" Type="String" />
             <Parameter Name="ShowID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetShowSeasons" ReturnType="Collection(MediaManagerDB.GetShowSeasons_Result)">
-            <Parameter Name="showID" Mode="In" Type="Int32" />
+          <Parameter Name="showID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetSortItems" ReturnType="Collection(MediaManagerDB.GetSortItems_Result)" />
           <FunctionImport Name="GetUsers" ReturnType="Collection(MediaManagerDB.GetUsers_Result)" />
+          <FunctionImport Name="GrantUserSDNRole">
+            <Parameter Name="userName" Mode="In" Type="String" />
+            <Parameter Name="userRole" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="RevokeUserSDNRole">
+            <Parameter Name="userName" Mode="In" Type="String" />
+            <Parameter Name="userRole" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="TrackedShows" EntityType="MediaManagerDB.TrackedShow" />
+          <EntitySet Name="vw_UserAccountOverview" EntityType="MediaManagerDB.vw_UserAccountOverview" />
+          <AssociationSet Name="FK_TrackedShows_AspNetUsers" Association="MediaManagerDB.FK_TrackedShows_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="TrackedShow" EntitySet="TrackedShows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrackedShows_TelevisionShows" Association="MediaManagerDB.FK_TrackedShows_TelevisionShows">
+            <End Role="TelevisionShow" EntitySet="TelevisionShows" />
+            <End Role="TrackedShow" EntitySet="TrackedShows" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="GetAllShows_Result">
           <Property Type="Int32" Name="pk_ShowID" Nullable="false" />
@@ -2140,6 +2231,48 @@
           <Property Type="String" Name="AddressZipcode" Nullable="true" MaxLength="5" />
           <Property Type="Int32" Name="AllowAccess" Nullable="false" />
         </ComplexType>
+        <EntityType Name="TrackedShow">
+          <Key>
+            <PropertyRef Name="pk_trackingID" />
+          </Key>
+          <Property Name="pk_trackingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fk_userID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="fk_showID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="MediaManagerDB.FK_TrackedShows_AspNetUsers" FromRole="TrackedShow" ToRole="AspNetUser" />
+          <NavigationProperty Name="TelevisionShow" Relationship="MediaManagerDB.FK_TrackedShows_TelevisionShows" FromRole="TrackedShow" ToRole="TelevisionShow" />
+        </EntityType>
+        <EntityType Name="vw_UserAccountOverview">
+          <Key>
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_TrackedShows_AspNetUsers">
+          <End Type="MediaManagerDB.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="MediaManagerDB.TrackedShow" Role="TrackedShow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TrackedShow">
+              <PropertyRef Name="fk_userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrackedShows_TelevisionShows">
+          <End Type="MediaManagerDB.TelevisionShow" Role="TelevisionShow" Multiplicity="1" />
+          <End Type="MediaManagerDB.TrackedShow" Role="TrackedShow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TelevisionShow">
+              <PropertyRef Name="pk_ShowID" />
+            </Principal>
+            <Dependent Role="TrackedShow">
+              <PropertyRef Name="fk_showID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2320,7 +2453,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Movies">
-            <EntityTypeMapping TypeName="MediaManagerDB.Movie">
+            <EntityTypeMapping TypeName="MediaManagerDB.Movy">
               <MappingFragment StoreEntitySet="Movies">
                 <ScalarProperty Name="pk_MovieID" ColumnName="pk_MovieID" />
                 <ScalarProperty Name="MovieTitle" ColumnName="MovieTitle" />
@@ -2485,6 +2618,7 @@
           <FunctionImportMapping FunctionImportName="ActivateSeason" FunctionName="MediaManagerDB.Store.ActivateSeason" />
           <FunctionImportMapping FunctionImportName="ActivateShow" FunctionName="MediaManagerDB.Store.ActivateShow" />
           <FunctionImportMapping FunctionImportName="BuildEpisodeStreamingUrl" FunctionName="MediaManagerDB.Store.BuildEpisodeStreamingUrl" />
+          <FunctionImportMapping FunctionImportName="DeactivateShow" FunctionName="MediaManagerDB.Store.DeactivateShow" />
           <FunctionImportMapping FunctionImportName="GetAllShows" FunctionName="MediaManagerDB.Store.GetAllShows">
             <ResultMapping>
               <ComplexTypeMapping TypeName="MediaManagerDB.GetAllShows_Result">
@@ -2664,6 +2798,26 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GrantUserSDNRole" FunctionName="MediaManagerDB.Store.GrantUserSDNRole" />
+          <FunctionImportMapping FunctionImportName="RevokeUserSDNRole" FunctionName="MediaManagerDB.Store.RevokeUserSDNRole" />
+          <EntitySetMapping Name="TrackedShows">
+            <EntityTypeMapping TypeName="MediaManagerDB.TrackedShow">
+              <MappingFragment StoreEntitySet="TrackedShows">
+                <ScalarProperty Name="fk_showID" ColumnName="fk_showID" />
+                <ScalarProperty Name="fk_userID" ColumnName="fk_userID" />
+                <ScalarProperty Name="pk_trackingID" ColumnName="pk_trackingID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_UserAccountOverview">
+            <EntityTypeMapping TypeName="MediaManagerDB.vw_UserAccountOverview">
+              <MappingFragment StoreEntitySet="vw_UserAccountOverview">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
