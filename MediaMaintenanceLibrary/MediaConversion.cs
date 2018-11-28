@@ -64,15 +64,15 @@ namespace MediaMaintenanceLibrary
         /// <summary>
         /// Return or build source url for streaming content
         /// </summary>
-        /// <param name="movie">TelevisionEpisode to build streaming url</param>
+        /// <param name="Movie">TelevisionEpisode to build streaming url</param>
         /// <returns>string url to pass to web media streaming</returns>
-        public static string BuildStreamingUrl(Movie movie)
+        public static string BuildStreamingUrl(Movie Movie)
         {
 
-                string baseUrl = @"http://www.jimmysietsma.com/media/movie";
-                char movieDrive = movie.FilePath[0];
-                string movieGenre = movie.FilePath.Split('\\')[2];
-                string movieTitle = movie.FileName;
+                string baseUrl = @"http://www.jimmysietsma.com/media/Movie";
+                char movieDrive = Movie.FilePath[0];
+                string movieGenre = Movie.FilePath.Split('\\')[2];
+                string movieTitle = Movie.FileName;
 
                 return $"{ baseUrl }/{ movieDrive }/Movies/{ movieGenre }/{ movieTitle }";
                         
@@ -132,10 +132,10 @@ namespace MediaMaintenanceLibrary
         {
             List<string> finalUrls = new List<string>();
 
-            foreach (Movie movie in Movys)
+            foreach (Movie Movie in Movys)
             {
 
-                finalUrls.Add(BuildStreamingUrl(movie));
+                finalUrls.Add(BuildStreamingUrl(Movie));
 
             }
 

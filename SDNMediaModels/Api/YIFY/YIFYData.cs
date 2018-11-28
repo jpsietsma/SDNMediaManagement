@@ -8,6 +8,6 @@ namespace SDNMediaModels.Api.YIFY
 {
     public class YIFYData
     {
-        public YIFYMovieResult movie { get; set; }
+        public YIFYMovieResult Movie { get; set; }
     }
 }

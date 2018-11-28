@@ -1247,7 +1247,7 @@ warning 6002: The table/view 'sdnMediaManager.dbo.vw_UserAccountOverview' does n
           <Property Name="fk_TaskPriority" Type="Int32" Nullable="false" />
           <NavigationProperty Name="list_AutomationPriority" Relationship="Self.FK_list_TaskTypes_list_TaskTypes" FromRole="list_TaskTypes" ToRole="list_AutomationPriority" />
         </EntityType>
-        <EntityType Name="Movy">
+        <EntityType Name="Movie">
           <Key>
             <PropertyRef Name="pk_MovieID" />
           </Key>
@@ -1667,7 +1667,7 @@ warning 6002: The table/view 'sdnMediaManager.dbo.vw_UserAccountOverview' does n
         </Association>
         <Association Name="FK_sdnMovies_list_MediaTypes">
           <End Role="list_MediaTypes" Type="Self.list_MediaTypes" Multiplicity="1" />
-          <End Role="Movies" Type="Self.Movy" Multiplicity="*" />
+          <End Role="Movies" Type="Self.Movie" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="list_MediaTypes">
               <PropertyRef Name="pk_MediaTypeID" />
@@ -1703,7 +1703,7 @@ warning 6002: The table/view 'sdnMediaManager.dbo.vw_UserAccountOverview' does n
         </Association>
         <Association Name="FK_sdnMovies_list_MovieGenres">
           <End Role="list_MovieGenres" Type="Self.list_MovieGenres" Multiplicity="1" />
-          <End Role="Movies" Type="Self.Movy" Multiplicity="*" />
+          <End Role="Movies" Type="Self.Movie" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="list_MovieGenres">
               <PropertyRef Name="pk_GenreID" />
@@ -1715,7 +1715,7 @@ warning 6002: The table/view 'sdnMediaManager.dbo.vw_UserAccountOverview' does n
         </Association>
         <Association Name="FK_sdnMovies_sortItems">
           <End Role="sortItems" Type="Self.sortItem" Multiplicity="0..1" />
-          <End Role="Movies" Type="Self.Movy" Multiplicity="*" />
+          <End Role="Movies" Type="Self.Movie" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="sortItems">
               <PropertyRef Name="pk_MediaID" />
@@ -1878,7 +1878,7 @@ warning 6002: The table/view 'sdnMediaManager.dbo.vw_UserAccountOverview' does n
           <EntitySet Name="list_MovieGenres" EntityType="Self.list_MovieGenres" />
           <EntitySet Name="list_permissionLevels" EntityType="Self.list_permissionLevels" />
           <EntitySet Name="list_TaskTypes" EntityType="Self.list_TaskTypes" />
-          <EntitySet Name="Movies" EntityType="Self.Movy" />
+          <EntitySet Name="Movies" EntityType="Self.Movie" />
           <EntitySet Name="PlaybackHistories" EntityType="Self.PlaybackHistory" />
           <EntitySet Name="ProcessQueues" EntityType="Self.ProcessQueue" />
           <EntitySet Name="sortItems" EntityType="Self.sortItem" />
@@ -2453,7 +2453,7 @@ warning 6002: The table/view 'sdnMediaManager.dbo.vw_UserAccountOverview' does n
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Movies">
-            <EntityTypeMapping TypeName="MediaManagerDB.Movy">
+            <EntityTypeMapping TypeName="MediaManagerDB.Movie">
               <MappingFragment StoreEntitySet="Movies">
                 <ScalarProperty Name="pk_MovieID" ColumnName="pk_MovieID" />
                 <ScalarProperty Name="MovieTitle" ColumnName="MovieTitle" />

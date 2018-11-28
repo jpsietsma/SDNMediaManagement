@@ -129,6 +129,11 @@ namespace SDNMediaModels.Television
         public virtual ICollection<UserRequest> UserRequests { get; set; }
 
         /// <summary>
+        /// Tracked shows
+        /// </summary>
+        public virtual ICollection<TrackedShow> TrackedShows { get; set; }
+
+        /// <summary>
         /// Eztv downloads for show
         /// </summary>
         public virtual string Eztv { get; set; }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SDNMediaModels.Sort;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,10 +17,12 @@ namespace MediaMaintenanceLibrary.Automation
         /// <summary>
         /// Determine if the episode file name is sanitized according to SDN Media library format
         /// </summary>
-        /// <returns>True is file passes sanitization check</returns>
-        public static bool IsTitleSanitized()
+        /// <returns>True if file passes sanitization check</returns>
+        public static bool IsTitleSanitized(sortItem model)
         {
             bool finalSaniStatus = false;
+
+
 
             return finalSaniStatus;
         }

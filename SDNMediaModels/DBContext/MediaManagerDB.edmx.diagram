@@ -21,7 +21,7 @@
         <EntityTypeShape EntityType="MediaManagerDB.list_MovieGenres" Width="1.5" PointX="6" PointY="7.5" IsExpanded="true" />
         <EntityTypeShape EntityType="MediaManagerDB.list_permissionLevels" Width="1.5" PointX="0.75" PointY="14" IsExpanded="true" />
         <EntityTypeShape EntityType="MediaManagerDB.list_TaskTypes" Width="1.5" PointX="10.5" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MediaManagerDB.Movy" Width="1.5" PointX="8.25" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MediaManagerDB.Movie" Width="1.5" PointX="8.25" PointY="19.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MediaManagerDB.PlaybackHistory" Width="1.5" PointX="10.5" PointY="13.375" IsExpanded="true" />
         <EntityTypeShape EntityType="MediaManagerDB.ProcessQueue" Width="1.5" PointX="10.5" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="MediaManagerDB.sortItem" Width="1.5" PointX="6" PointY="23" IsExpanded="true" />

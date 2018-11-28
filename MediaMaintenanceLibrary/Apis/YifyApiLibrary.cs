@@ -10,7 +10,7 @@ namespace MediaMaintenanceLibrary.Apis
 {
 
     /// <summary>
-    /// Class to access movie info via the YIFY (YTS.AM) API
+    /// Class to access Movie info via the YIFY (YTS.AM) API
     /// </summary>
     public static class YifyApiLibrary
     {
@@ -21,7 +21,7 @@ namespace MediaMaintenanceLibrary.Apis
         public static string movieListUrl = @"https://yts.am/api/v2/list_movies.json";
 
         /// <summary>
-        /// Base URL for getting movie details
+        /// Base URL for getting Movie details
         /// </summary>
         public static string movieDetailsUrl = @"https://yts.am/api/v2/movie_details.json";
 
@@ -31,7 +31,7 @@ namespace MediaMaintenanceLibrary.Apis
         /// <param name="movieID">YIFY Movie ID</param>
         /// <param name="withImages">bool include images in request response</param>
         /// <param name="withCast">bool include cast info in request response</param>
-        /// <returns>Json response to request for movie details</returns>
+        /// <returns>Json response to request for Movie details</returns>
         public static string GetYIFYDetails(int movieID, bool withImages = true, bool withCast = true)
         {
             string finalJson = string.Empty;
@@ -49,7 +49,7 @@ namespace MediaMaintenanceLibrary.Apis
         /// <param name="model">YIFYMovieResult model to get details</param>
         /// <param name="withImages">bool include images in request response</param>
         /// <param name="withCast">bool include cast info in request response</param>
-        /// <returns>Json response to request for movie details</returns>
+        /// <returns>Json response to request for Movie details</returns>
         public static string GetYIFYDetails(this YIFYMovieResult model, bool withImages = true, bool withCast = true)
         {
             string finalJson = string.Empty;

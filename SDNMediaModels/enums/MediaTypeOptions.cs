@@ -24,7 +24,7 @@ namespace SDNMediaModels.enums
             /// <summary>
             /// Type of: Movie item, finalized
             /// </summary>
-            MOVIE,
+            Movie,
 
             /// <summary>
             /// Type of: Software, program, etc.

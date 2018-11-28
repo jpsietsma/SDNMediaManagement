@@ -11,6 +11,7 @@ namespace SDNMediaModels.Api.Deluge
     /// </summary>
     public class DelugeDownloadRoot
     {
+
         /// <summary>
         /// request result id (not used)
         /// </summary>
@@ -25,6 +26,7 @@ namespace SDNMediaModels.Api.Deluge
         /// Error from request if unsuccessful
         /// </summary>
         public object error { get; set; }
+
     }
 
     /// <summary>
@@ -36,6 +38,7 @@ namespace SDNMediaModels.Api.Deluge
         /// Response result list of torrent(s)
         /// </summary>
         public List<DelugeDownload> torrents { get; set; }
+
     }
 
     /// <summary>
@@ -62,6 +65,7 @@ namespace SDNMediaModels.Api.Deluge
         /// Save path associated with torrent download
         /// </summary>
         public string save_path { get; set; }
+
     }
 
 }

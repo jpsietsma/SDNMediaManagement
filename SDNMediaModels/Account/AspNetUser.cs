@@ -51,6 +51,7 @@ namespace SDNMediaModels.Account
         public virtual ICollection<UserRequest> UserRequests { get; set; }        
         public virtual ICollection<TaskQueue> TaskQueues { get; set; }        
         public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
+        public virtual ICollection<TrackedShow> TrackedShows { get; set; }
 		
     }
 }

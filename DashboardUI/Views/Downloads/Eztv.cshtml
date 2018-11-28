@@ -1,8 +1,6 @@
 ﻿@model IEnumerable<SDNMediaModels.Api.EztvResult>
 
 @{
-                /**/
-
                 ViewBag.Title = "Eztv Downloads ";
 }
 
@@ -36,53 +34,57 @@
         </th>
     </tr>
 
-    @foreach (var item in Model)
+    @using (Html.BeginForm())
     {
-        int.TryParse(item.season, out int seasonNum);
+        @Html.AntiForgeryToken()
 
-        if (seasonNum != 0)
+        foreach (var item in Model)
         {
-            <tr>
-                <td style="border-collapse: collapse; border: 1px solid gray;">
-                    @Html.DisplayFor(modelItem => item.title)
-                </td>
-                <td style="border-collapse: collapse; border: 1px solid gray; text-align: center;">
-                    @Html.DisplayFor(modelItem => item.imdb_id)
-                </td>
-                <td style="border-collapse: collapse; border: 1px solid gray; text-align: center;">
-                    @Html.DisplayFor(modelItem => item.season)
-                </td>
-                <td style="border-collapse: collapse; border: 1px solid gray; text-align: center;">
-                    @Html.DisplayFor(modelItem => item.episode)
-                </td>
-                <td style="border-collapse: collapse; border: 1px solid gray; text-align: center;">
-                    @Html.DisplayFor(modelItem => item.seeds)
-                </td>
-                <td style="border-collapse: collapse; border: 1px solid gray; text-align: center;">
-                    @{
-                        var displayTime = DateTimeOffset.FromUnixTimeSeconds(item.date_released_unix).DateTime.ToString("MMMM dd, yyyy HH:mm:ss");
+            int.TryParse(item.season, out int seasonNum);
 
+            if (seasonNum != 0)
+            {
+                <tr>
+                    <td style="border-collapse: collapse; border: 1px solid gray;">
+                        @Html.DisplayFor(modelItem => item.title)
+                    </td>
+                    <td style="border-collapse: collapse; border: 1px solid gray; text-align: center;">
+                        @Html.DisplayFor(modelItem => item.imdb_id)
+                    </td>
+                    <td style="border-collapse: collapse; border: 1px solid gray; text-align: center;">
+                        @Html.DisplayFor(modelItem => item.season)
+                    </td>
+                    <td style="border-collapse: collapse; border: 1px solid gray; text-align: center;">
+                        @Html.DisplayFor(modelItem => item.episode)
+                    </td>
+                    <td style="border-collapse: collapse; border: 1px solid gray; text-align: center;">
+                        @Html.DisplayFor(modelItem => item.seeds)
+                    </td>
+                    <td style="border-collapse: collapse; border: 1px solid gray; text-align: center;">
+                        @{
+                            var displayTime = DateTimeOffset.FromUnixTimeSeconds(item.date_released_unix).DateTime.ToString("MMMM dd, yyyy HH:mm:ss");
+
+                        }
+
+                        @Html.DisplayFor(modelItem => displayTime)
+                    </td>
+
+                    @{
+                        bool woo = Double.TryParse(item.size_bytes, out double size);
                     }
 
-                    @Html.DisplayFor(modelItem => displayTime)
-                </td>
+                    <td style="border-collapse: collapse; border: 1px solid gray; text-align: center;">
+                        @(Math.Round(((size / 1024) / 1024), 2))
+                    </td>
 
-                @{
-                    bool woo = Double.TryParse(item.size_bytes, out double size);
-                }
+                    <td style="border-collapse: collapse; border: 1px solid gray; text-align: center;">
 
-                <td style="border-collapse: collapse; border: 1px solid gray; text-align: center;">
-                    @(Math.Round(((size / 1024) / 1024), 2))
-                </td>
-
-                <td style="border-collapse: collapse; border: 1px solid gray; text-align: center;">
-
-                    <button class="btn-xs btn-primary" onclick="@Url.Action("AutoEztvDownload", "download", new { url = item.torrent_url})">Download</button>
-                    <button class="btn-xs btn-outline-info" onclick="@Url.Action("AutoEztvQueueDownload", "download", new { url = item.torrent_url})">Queue</button>
-                    <button class="btn-xs btn-outline-success" onclick="@Url.Action("AutoEztvTrackShow", "download", new { url = item.torrent_url})">Track</button>
-                </td>
-            </tr>
+                        <button class="btn-xs btn-primary" onclick="@Url.Action("AutoEztvDownload", "download", new { url = item.torrent_url})">Download</button>
+                        <button class="btn-xs btn-outline-info" onclick="@Url.Action("AutoEztvQueueDownload", "download", new { url = item.torrent_url})">Queue</button>
+                        <button class="btn-xs btn-outline-success" onclick="@Url.Action("AutoEztvTrackShow", "download", new { url = item.torrent_url})">Track</button>
+                    </td>
+                </tr>
+            }
         }
-    }
-
-</table>
+}
+    </table>
