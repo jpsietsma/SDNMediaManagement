@@ -1,4 +1,5 @@
-﻿using MediaMaintenanceLibrary;
+﻿using DashboardUI.Models;
+using MediaMaintenanceLibrary;
 using MediaMaintenanceLibrary.Apis;
 using SDNMediaModels.Api;
 using SDNMediaModels.Api.YIFY;
@@ -50,6 +51,24 @@ namespace DashboardUI.Controllers
             return View(downloads);
         }
 
+        [HttpPost]
+        public ActionResult AutoEztvQueueDownload(FormCollection collection)
+        {
+            string displayMethod = string.Empty;
+            ViewBag.DownloadMethod = "Queue Download";
+
+            //ViewBag.DownloadActionStatus = "successful";
+            ViewBag.DownloadActionStatus = "unsuccessful";
+
+            ViewBag.DownloadFileName = collection["downloadFileName"];
+
+            //Set the download id of the added file to pass id to check status link in alert
+            ViewBag.DownloadQueueId = null;
+
+            List<EztvResult> results = EztvApiLibrary.GetEztvDownloads();
+
+            return View("Eztv", results);
+        }
 
     }
 }
