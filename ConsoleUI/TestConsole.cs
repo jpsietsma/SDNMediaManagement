@@ -13,11 +13,27 @@ using MediaMaintenanceLibrary;
 
 namespace ConsoleUI
 {
-    public class Program
+    public class TestConsole
     {
         
         public static void Main(string[] args)
         {
+            DriveInfo[] drives = DriveInfo.GetDrives();
+
+            foreach (DriveInfo drive in drives)
+            {
+                if (drive.IsReady)
+                {
+                    Console.WriteLine("Drive: " + drive.Name);
+                    Console.WriteLine("Total Space: " + drive.TotalSize);
+                    Console.WriteLine("Free Space: " + drive.AvailableFreeSpace);
+                    Console.WriteLine();
+                }               
+
+            }
+
+            Console.ReadLine();
+
             //bool DropTorrentFile()
             //{
             //    bool finalStatus()
@@ -32,7 +48,7 @@ namespace ConsoleUI
 
             //}
 
-            
+
             //List<EztvResult> downloads = EztvApiLibrary.GetEztvDownloads(pageResults: 100);
 
             //foreach (EztvResult eztv in downloads)

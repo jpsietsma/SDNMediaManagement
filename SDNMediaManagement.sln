@@ -13,6 +13,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDNMediaModels", "SDNMediaM
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "MediaManagerDB", "MediaManagerDB\MediaManagerDB.sqlproj", "{9C2125FE-2377-43BF-BC8A-68E565DDDAED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "svc_SortWatchdog", "SortWatchdog\svc_SortWatchdog.csproj", "{451119DE-9865-4968-A941-667579AE8063}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "svc_LibraryWatchdog", "LibraryWatchdog\svc_LibraryWatchdog.csproj", "{45F366CC-1488-47D3-87B0-6C2470404612}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WinServices", "WinServices", "{F8A014E8-CA59-4025-A477-F8C6A517E73D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinMedia", "SDNWinMedia\WinMedia.csproj", "{B76F602B-146A-4767-A901-38C07349F0E7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WinDesktop", "WinDesktop", "{5C8828AB-84C6-4C86-83A1-6AA8FF2DE76B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,9 +51,26 @@ Global
 		{9C2125FE-2377-43BF-BC8A-68E565DDDAED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C2125FE-2377-43BF-BC8A-68E565DDDAED}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9C2125FE-2377-43BF-BC8A-68E565DDDAED}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{451119DE-9865-4968-A941-667579AE8063}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{451119DE-9865-4968-A941-667579AE8063}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{451119DE-9865-4968-A941-667579AE8063}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{451119DE-9865-4968-A941-667579AE8063}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45F366CC-1488-47D3-87B0-6C2470404612}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45F366CC-1488-47D3-87B0-6C2470404612}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45F366CC-1488-47D3-87B0-6C2470404612}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45F366CC-1488-47D3-87B0-6C2470404612}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B76F602B-146A-4767-A901-38C07349F0E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B76F602B-146A-4767-A901-38C07349F0E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B76F602B-146A-4767-A901-38C07349F0E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B76F602B-146A-4767-A901-38C07349F0E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{451119DE-9865-4968-A941-667579AE8063} = {F8A014E8-CA59-4025-A477-F8C6A517E73D}
+		{45F366CC-1488-47D3-87B0-6C2470404612} = {F8A014E8-CA59-4025-A477-F8C6A517E73D}
+		{B76F602B-146A-4767-A901-38C07349F0E7} = {5C8828AB-84C6-4C86-83A1-6AA8FF2DE76B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CE95D66B-73D2-43E6-B0F1-EA4628A46DC6}

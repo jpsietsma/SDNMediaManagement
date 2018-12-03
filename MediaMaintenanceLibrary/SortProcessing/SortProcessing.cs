@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Management.Automation;
+using System.Text.RegularExpressions;
+using MediaMaintenanceLibrary.Config;
 
 namespace MediaMaintenanceLibrary.SortProcessing
 {
@@ -235,6 +237,45 @@ namespace MediaMaintenanceLibrary.SortProcessing
             }
 
             return finalSize;
+        }
+
+        /// <summary>
+        /// Get Show Name from unsanitized file name
+        /// </summary>
+        /// <param name="filename">Filename from which to extract Show Name</param>
+        /// <param name="delimiter">Character that separates words in filename</param>
+        /// <returns></returns>
+        public static string GetShowFromFileName(this string filename, char delimiter = '.')
+        {
+            string finalShow = string.Empty;
+            string file = filename;
+
+            if (delimiter == '.')
+            {
+                Regex pattern = new Regex(MediaManagerConfiguration.TelevisionDottedRegexPattern);
+            }
+            else
+            {
+                Regex pattern = new Regex(MediaManagerConfiguration.TelevisionSpacedRegexPattern);
+            }            
+
+            return finalShow;
+        }
+
+
+        public static long FreeDriveSpace(string driveLetter)
+        {
+            long finalFree = -1;
+
+            foreach (DriveInfo info in DriveInfo.GetDrives())
+            {
+                if (info.IsReady && info.Name == driveLetter)
+                {
+                    finalFree = info.AvailableFreeSpace;
+                }                        
+            }
+
+            return finalFree;
         }
 
     }

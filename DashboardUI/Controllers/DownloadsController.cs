@@ -3,6 +3,7 @@ using MediaMaintenanceLibrary;
 using MediaMaintenanceLibrary.Apis;
 using SDNMediaModels.Api;
 using SDNMediaModels.Api.YIFY;
+using SDNMediaModels.DBContext;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,8 @@ namespace DashboardUI.Controllers
     [Authorize]
     public class DownloadsController : Controller
     {
-        
+        MediaManagerDB db = new MediaManagerDB();
+
         public ActionResult Index()
         {
             return View();
@@ -55,11 +57,11 @@ namespace DashboardUI.Controllers
         public ActionResult AutoEztvQueueDownload(FormCollection collection)
         {
             string displayMethod = string.Empty;
+
+
+
             ViewBag.DownloadMethod = "Queue Download";
-
-            //ViewBag.DownloadActionStatus = "successful";
-            ViewBag.DownloadActionStatus = "unsuccessful";
-
+            ViewBag.DownloadActionStatus = "successful";
             ViewBag.DownloadFileName = collection["downloadFileName"];
 
             //Set the download id of the added file to pass id to check status link in alert

@@ -27,7 +27,7 @@ namespace MediaMaintenanceLibrary
         /// <param name="page"># Page of download results</param>
         /// <param name="pageResults"># of downloads per page</param>
         /// <returns></returns>
-        public static List<EztvResult> GetEztvDownloads(string url = "https://eztv.ag/api/get-torrents", int page = 1, int pageResults = 50)
+        public static List<EztvResult> GetEztvDownloads(string url = "https://eztv.ag/api/get-torrents", int page = 1, int pageResults = 100)
         {
             string finalData;
             List<EztvResult> finalList = new List<EztvResult>();

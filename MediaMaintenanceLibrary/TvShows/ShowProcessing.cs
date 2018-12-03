@@ -97,33 +97,5 @@ namespace MediaMaintenanceLibrary.TvShows
             return finalResult;
         }
 
-        /// <summary>
-        /// Deactivates the show in the SDN Media Manager disallowing it from being searched and watched
-        /// </summary>
-        /// <param name="show">Model of show to deactivate</param>
-        /// <param name="conn">DBContext connection to use to deactivate show</param>
-        /// <returns>true if deactivated successfully</returns>
-        public static bool DeactivateShow(this TelevisionShow show, MediaManagerDB conn)
-        {
-            bool finalResult;
-
-            using (conn)
-            {
-                var db = conn.DeactivateShow(show.pk_ShowID);
-
-                if (db == 1)
-                {
-                    finalResult = true;
-                }
-                else
-                {
-                    finalResult = false;
-                }
-            }
-
-            return finalResult;
-        }
-
-
     }
 }
