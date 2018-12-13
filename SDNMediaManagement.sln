@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "svc_LibraryWatchdog", "WinS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "svc_SortWatchdog", "WinServices\SortWatchdog\svc_SortWatchdog.csproj", "{451119DE-9865-4968-A941-667579AE8063}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DashboardUI", "Web\DashboardUI\DashboardUI.csproj", "{04097839-77C7-4DBA-99DC-7DB2D9CD1CEC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -90,6 +92,12 @@ Global
 		{451119DE-9865-4968-A941-667579AE8063}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
 		{451119DE-9865-4968-A941-667579AE8063}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{451119DE-9865-4968-A941-667579AE8063}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04097839-77C7-4DBA-99DC-7DB2D9CD1CEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04097839-77C7-4DBA-99DC-7DB2D9CD1CEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04097839-77C7-4DBA-99DC-7DB2D9CD1CEC}.DebugLocal|Any CPU.ActiveCfg = Debug|Any CPU
+		{04097839-77C7-4DBA-99DC-7DB2D9CD1CEC}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
+		{04097839-77C7-4DBA-99DC-7DB2D9CD1CEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04097839-77C7-4DBA-99DC-7DB2D9CD1CEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -100,6 +108,7 @@ Global
 		{B76F602B-146A-4767-A901-38C07349F0E7} = {5C8828AB-84C6-4C86-83A1-6AA8FF2DE76B}
 		{45F366CC-1488-47D3-87B0-6C2470404612} = {F8A014E8-CA59-4025-A477-F8C6A517E73D}
 		{451119DE-9865-4968-A941-667579AE8063} = {F8A014E8-CA59-4025-A477-F8C6A517E73D}
+		{04097839-77C7-4DBA-99DC-7DB2D9CD1CEC} = {23A78BDF-BDC3-4031-8872-D152CA46AE6D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CE95D66B-73D2-43E6-B0F1-EA4628A46DC6}
