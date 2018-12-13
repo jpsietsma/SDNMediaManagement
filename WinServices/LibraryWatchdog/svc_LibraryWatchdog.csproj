@@ -57,11 +57,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MediaMaintenanceLibrary\MediaMaintenanceLibrary.csproj">
+    <ProjectReference Include="..\..\MediaMaintenanceLibrary\MediaMaintenanceLibrary.csproj">
       <Project>{f44501eb-8829-40dd-b986-0f2e1d27a07e}</Project>
       <Name>MediaMaintenanceLibrary</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SDNMediaModels\SDNMediaModels.csproj">
+    <ProjectReference Include="..\..\SDNMediaModels\SDNMediaModels.csproj">
       <Project>{d0d36fd0-616d-4244-9bcd-75f934acea5c}</Project>
       <Name>SDNMediaModels</Name>
     </ProjectReference>

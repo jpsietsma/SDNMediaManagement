@@ -13,8 +13,9 @@ namespace WinServices.SortWatchdog
     public class SortWatchdogSvc
     {
 
-        private readonly Timer _timer;
-
+        private readonly Timer _timer = new Timer(5000);
+        public bool TimerRunning = false;
+        
         public SortWatchdogSvc()
         {
             //Future constructor code in here
@@ -30,12 +31,37 @@ namespace WinServices.SortWatchdog
 
         public void Start()
         {
+            //Execute method TimerElapsed when timer elapses every 5 seconds
+            _timer.Elapsed += TimerElapsed;
+
+            //Start our timer when the service is started
             _timer.Start();
+
+            //Set TimerRunning to true as we have started the timer
+            TimerRunning = true;
         }
 
         public void Stop()
         {
+            //Stop timer when service is started
             _timer.Stop();
+
+            //Set TimerRunning to false as we have stopped the service
+            TimerRunning = false;
+        }
+
+        public void Pause()
+        {
+            _timer.Stop();
+
+            TimerRunning = false;
+        }
+
+        public void Resume()
+        {
+            _timer.Start();
+
+            TimerRunning = true;
         }
 
 

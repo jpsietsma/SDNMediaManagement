@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>sdnMediaManager</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{a0ca77b1-70ba-4e12-abf7-6c9d0defc196}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>sdnMediaManager</RootNamespace>
+    <AssemblyName>sdnMediaManager</AssemblyName>
+    <ModelCollation>1033,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo" />
+    <Folder Include="dbo\Tables" />
+    <Folder Include="dbo\Stored Procedures" />
+    <Folder Include="dbo\Views\" />
+    <Folder Include="Security\" />
+    <Folder Include="dbo\User Defined Types\" />
+    <Folder Include="Assemblies\" />
+    <Folder Include="Publish Profiles\" />
+    <Folder Include="SQL Data Compares" />
+    <Folder Include="SQL Schema Compares" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\ProcessQueue.sql" />
+    <Build Include="dbo\Tables\AspNetRoles.sql" />
+    <Build Include="dbo\Tables\list_AutomationStatuses.sql" />
+    <Build Include="dbo\Tables\AspNetUserRoles.sql" />
+    <Build Include="dbo\Tables\AspNetUsers.sql" />
+    <Build Include="dbo\Tables\TaskQueue.sql" />
+    <Build Include="dbo\Tables\list_permissionLevels.sql" />
+    <Build Include="dbo\Tables\AspNetUserClaims.sql" />
+    <Build Include="dbo\Tables\AspNetUserLogins.sql" />
+    <Build Include="dbo\Tables\__MigrationHistory.sql" />
+    <Build Include="dbo\Tables\DownloadQueue.sql" />
+    <Build Include="dbo\Tables\list_AutomationPriority.sql" />
+    <Build Include="dbo\Tables\list_MovieGenres.sql" />
+    <Build Include="dbo\Tables\Movies.sql" />
+    <Build Include="dbo\Tables\list_AutomationActions.sql" />
+    <Build Include="dbo\Tables\list_TaskTypes.sql" />
+    <Build Include="dbo\Tables\global_notifications.sql" />
+    <Build Include="dbo\Tables\TelevisionShows.sql" />
+    <Build Include="dbo\Tables\list_MediaTypes.sql" />
+    <Build Include="dbo\Tables\PlaybackHistory.sql" />
+    <Build Include="dbo\Tables\TelevisionSeasons.sql" />
+    <Build Include="dbo\Tables\list_MediaDrives.sql" />
+    <Build Include="dbo\Tables\sortItems.sql" />
+    <Build Include="dbo\Tables\list_MediaSubTypes.sql" />
+    <Build Include="dbo\Tables\TrackedShows.sql" />
+    <Build Include="dbo\Tables\UserRequests.sql" />
+    <Build Include="dbo\Tables\FileMoveHistory.sql" />
+    <Build Include="dbo\Tables\TelevisionEpisodes.sql" />
+    <Build Include="dbo\Tables\ApiTokens.sql" />
+    <Build Include="dbo\Views\vw_UserAccountOverview.sql" />
+    <Build Include="Security\sdn.sql" />
+    <Build Include="Security\sdnmediamanager.sql" />
+    <Build Include="Security\SSRSUser.sql" />
+    <Build Include="Security\SSRSUser_1.sql" />
+    <Build Include="Security\RoleMemberships.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllShows.sql" />
+    <Build Include="dbo\Stored Procedures\GetShowSeasons.sql" />
+    <Build Include="dbo\Stored Procedures\GetShowEpisodes.sql" />
+    <Build Include="dbo\Stored Procedures\GetShowEpisodesBySeason.sql" />
+    <Build Include="dbo\Stored Procedures\ActivateEpisode.sql" />
+    <Build Include="dbo\Stored Procedures\ActivateSeason.sql" />
+    <Build Include="dbo\Stored Procedures\ActivateShow.sql" />
+    <Build Include="dbo\Stored Procedures\GetSortItems.sql" />
+    <Build Include="dbo\Stored Procedures\GetOrphanSortItems.sql" />
+    <Build Include="dbo\Stored Procedures\GetMovies.sql" />
+    <Build Include="dbo\Stored Procedures\GetUsers.sql" />
+    <Build Include="dbo\Stored Procedures\GetShowIdByName.sql" />
+    <Build Include="dbo\Stored Procedures\GetDailyDownloads.sql" />
+    <Build Include="dbo\Stored Procedures\GetDisplayDuration.sql" />
+    <Build Include="dbo\Stored Procedures\BuildEpisodeStreamingUrl.sql" />
+    <Build Include="dbo\Stored Procedures\RS_Television_GetShowEpisodes.sql" />
+    <Build Include="dbo\Stored Procedures\DeactivateShow.sql" />
+    <Build Include="dbo\Stored Procedures\GrantUserSDNRole.sql" />
+    <Build Include="dbo\Stored Procedures\RevokeUserSDNRole.sql" />
+    <Build Include="dbo\User Defined Types\SQLNET.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assemblies\Z.Expressions.Compiler.dll" />
+    <None Include="Assemblies\Z.Expressions.SqlServer.Eval.dll" />
+    <None Include="Publish Profiles\NYSQLLIVE01_SDN.publish.xml" />
+    <None Include="SQL Data Compares\NYSQLLIVE01_SDN.dcmp" />
+    <None Include="SQL Schema Compares\CompareExpressToLive.scmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Z.Expressions.Compiler">
+      <HintPath>Assemblies\Z.Expressions.Compiler.dll</HintPath>
+      <SqlAssemblyName>Z.Expressions.Compiler</SqlAssemblyName>
+      <IsModelAware>True</IsModelAware>
+      <GenerateSqlClrDdl>False</GenerateSqlClrDdl>
+      <SqlOwnerName>dbo</SqlOwnerName>
+      <SqlPermissionSet>SAFE</SqlPermissionSet>
+    </Reference>
+    <Reference Include="Z.Expressions.SqlServer.Eval">
+      <HintPath>Assemblies\Z.Expressions.SqlServer.Eval.dll</HintPath>
+      <SqlAssemblyName>Z.Expressions.SqlServer.Eval</SqlAssemblyName>
+      <IsModelAware>True</IsModelAware>
+      <GenerateSqlClrDdl>False</GenerateSqlClrDdl>
+      <SqlOwnerName>dbo</SqlOwnerName>
+      <SqlPermissionSet>SAFE</SqlPermissionSet>
+    </Reference>
+  </ItemGroup>
+</Project>

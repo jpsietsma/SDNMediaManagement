@@ -1,0 +1,3 @@
+﻿CREATE LOGIN [SSRSUser]
+    WITH PASSWORD = N'rhq|bw|azoy~{ulnfpoos{bwmsFT7_&#$!~<ijzbg|c|j3n ', SID = 0x8BA2F64E22C777489DDA04EE7D8B65D7, DEFAULT_LANGUAGE = [us_english], CHECK_POLICY = OFF;
+

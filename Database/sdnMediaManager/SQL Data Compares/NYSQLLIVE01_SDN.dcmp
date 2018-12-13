@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DataComparison>
+  <Version>10</Version>
+  <ConnectionProperties1>
+    <ConnectionString>Data Source=JIMMYBEAST-SDN\SQLEXPRESS;Initial Catalog=sdnMediaManager;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True</ConnectionString>
+    <FullDisplayName>JIMMYBEAST-SDN\SQLEXPRESS.sdnMediaManager (JIMMYBEAST-SDN\Bobswat)</FullDisplayName>
+  </ConnectionProperties1>
+  <ConnectionProperties2>
+    <ConnectionString>Data Source=NYPLEXSERV-SDN\NYSQLLIVE01_SDN;Initial Catalog=sdnMediaManager;Persist Security Info=True;User ID=sa;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True</ConnectionString>
+    <FullDisplayName>NYPLEXSERV-SDN\NYSQLLIVE01_SDN.sdnMediaManager (sa)</FullDisplayName>
+  </ConnectionProperties2>
+  <SessionSettings>Default</SessionSettings>
+  <DeselectedTable>[dbo].[__MigrationHistory]</DeselectedTable>
+  <DeselectedTable>[dbo].[ApiTokens]</DeselectedTable>
+  <DeselectedTable>[dbo].[AspNetRoles]</DeselectedTable>
+  <DeselectedTable>[dbo].[AspNetUserClaims]</DeselectedTable>
+  <DeselectedTable>[dbo].[AspNetUserLogins]</DeselectedTable>
+  <DeselectedTable>[dbo].[AspNetUserRoles]</DeselectedTable>
+  <DeselectedTable>[dbo].[AspNetUsers]</DeselectedTable>
+  <DeselectedTable>[dbo].[DownloadQueue]</DeselectedTable>
+  <DeselectedTable>[dbo].[FileMoveHistory]</DeselectedTable>
+  <DeselectedTable>[dbo].[global_notifications]</DeselectedTable>
+  <DeselectedTable>[dbo].[list_AutomationActions]</DeselectedTable>
+  <DeselectedTable>[dbo].[list_AutomationPriority]</DeselectedTable>
+  <DeselectedTable>[dbo].[list_AutomationStatuses]</DeselectedTable>
+  <DeselectedTable>[dbo].[list_MediaDrives]</DeselectedTable>
+  <DeselectedTable>[dbo].[list_MediaSubTypes]</DeselectedTable>
+  <DeselectedTable>[dbo].[list_MediaTypes]</DeselectedTable>
+  <DeselectedTable>[dbo].[list_MovieGenres]</DeselectedTable>
+  <DeselectedTable>[dbo].[list_permissionLevels]</DeselectedTable>
+  <DeselectedTable>[dbo].[list_TaskTypes]</DeselectedTable>
+  <DeselectedTable>[dbo].[Movies]</DeselectedTable>
+  <DeselectedTable>[dbo].[PlaybackHistory]</DeselectedTable>
+  <DeselectedTable>[dbo].[ProcessQueue]</DeselectedTable>
+  <DeselectedTable>[dbo].[sortItems]</DeselectedTable>
+  <DeselectedTable>[dbo].[TaskQueue]</DeselectedTable>
+  <DeselectedTable>[dbo].[TelevisionEpisodes]</DeselectedTable>
+  <DeselectedTable>[dbo].[TelevisionSeasons]</DeselectedTable>
+  <DeselectedTable>[dbo].[TelevisionShows]</DeselectedTable>
+  <DeselectedTable>[dbo].[TrackedShows]</DeselectedTable>
+  <DeselectedTable>[dbo].[UserRequests]</DeselectedTable>
+</DataComparison>

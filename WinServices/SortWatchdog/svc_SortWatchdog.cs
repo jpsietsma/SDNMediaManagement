@@ -24,12 +24,21 @@ namespace WinServices.SortWatchdog
                     s.ConstructUsing(watchdog => new SortWatchdogSvc());
                     s.WhenStarted(watchdog => watchdog.Start());
                     s.WhenStopped(watchdog => watchdog.Stop());
+                    s.WhenPaused(watchdog => watchdog.Pause());
+                    s.WhenContinued(watchdog => watchdog.Resume());
+
 
                 });
 
                 //Set our user permissions for the service to run as local system
                 //may need to change this in the future to support accessing UNC paths
                 x.RunAsLocalSystem();
+
+                //Allow us to additionally pause and resume the service as opposed to default of just stop/start
+                x.EnablePauseAndContinue();
+
+                //Automatic startup type
+                x.StartAutomatically();
 
                 //machine friendly name, no spaces
                 x.SetServiceName("SDNSortWatchdogSvc");

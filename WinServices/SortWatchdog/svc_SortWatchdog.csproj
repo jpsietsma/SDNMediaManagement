@@ -57,7 +57,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MediaMaintenanceLibrary\MediaMaintenanceLibrary.csproj">
+    <ProjectReference Include="..\..\MediaMaintenanceLibrary\MediaMaintenanceLibrary.csproj">
       <Project>{F44501EB-8829-40DD-B986-0F2E1D27A07E}</Project>
       <Name>MediaMaintenanceLibrary</Name>
     </ProjectReference>

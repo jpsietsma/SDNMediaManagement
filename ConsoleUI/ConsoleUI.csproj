@@ -66,10 +66,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DashboardUI\DashboardUI.csproj">
-      <Project>{04097839-77C7-4DBA-99DC-7DB2D9CD1CEC}</Project>
-      <Name>DashboardUI</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MediaMaintenanceLibrary\MediaMaintenanceLibrary.csproj">
       <Project>{f44501eb-8829-40dd-b986-0f2e1d27a07e}</Project>
       <Name>MediaMaintenanceLibrary</Name>
