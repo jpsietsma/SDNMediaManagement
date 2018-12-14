@@ -3,28 +3,18 @@
   <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
-    <DataSource Name="SQLEXPRESS">
-      <ConnectionProperties>
-        <DataProvider>SQL</DataProvider>
-        <ConnectString>Data Source=NYPLEXSERV-SDN\NYSQLLIVE01_SDN;Initial Catalog=sdnMediaManager</ConnectString>
-      </ConnectionProperties>
+    <DataSource Name="NYSQLLIVE01_SDN">
+      <DataSourceReference>NYSQLLIVE01_SDN</DataSourceReference>
       <rd:SecurityType>DataBase</rd:SecurityType>
       <rd:DataSourceID>d463055d-5079-497f-81f7-3639c6b209a0</rd:DataSourceID>
-    </DataSource>
-    <DataSource Name="NYSQLLIVE01_SDN">
-      <ConnectionProperties>
-        <DataProvider>SQL</DataProvider>
-        <ConnectString>Data Source=NYPLEXSERV-SDN\NYSQLLIVE01_SDN;Initial Catalog=sdnMediaManager</ConnectString>
-      </ConnectionProperties>
-      <rd:SecurityType>DataBase</rd:SecurityType>
-      <rd:DataSourceID>0f915d9e-fa5f-4b8c-a95b-31253119be7d</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
     <DataSet Name="DefaultDataSet">
       <Query>
         <DataSourceName>NYSQLLIVE01_SDN</DataSourceName>
-        <CommandText>SELECT * FROM dbo.TelevisionShows</CommandText>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>GetAllShows</CommandText>
       </Query>
       <Fields>
         <Field Name="pk_ShowID">

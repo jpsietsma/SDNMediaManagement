@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RptDataSource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="NYSQLLIVE01_SDN">
+  <ConnectionProperties>
+    <Extension>SQL</Extension>
+    <ConnectString>Data Source=NYPLEXSERV-SDN\NYSQLLIVE01_SDN;Initial Catalog=sdnMediaManager</ConnectString>
+  </ConnectionProperties>
+  <DataSourceID>d2f1d20d-75d3-4ae8-9a2f-cc38f2950973</DataSourceID>
+</RptDataSource>
