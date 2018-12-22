@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MobileEntities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="MobileLogin">
+          <Key>
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="fk_UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Movies">
+          <Key>
+            <PropertyRef Name="pk_MovieID" />
+          </Key>
+          <Property Name="pk_MovieID" Type="int" Nullable="false" />
+          <Property Name="MovieTitle" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="MovieYear" Type="int" />
+          <Property Name="fk_MovieGenre" Type="int" Nullable="false" />
+          <Property Name="FilePath" Type="nvarchar" MaxLength="200" />
+          <Property Name="ImdbID" Type="nvarchar" MaxLength="25" />
+          <Property Name="TvdbID" Type="nvarchar" MaxLength="25" />
+          <Property Name="SubtitlesExist" Type="int" Nullable="false" />
+          <Property Name="fk_MediaID" Type="int" />
+          <Property Name="fk_MediaType" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TelevisionShows">
+          <Key>
+            <PropertyRef Name="pk_ShowID" />
+          </Key>
+          <Property Name="pk_ShowID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ShowName" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ShowDriveLetter" Type="nvarchar" MaxLength="1" Nullable="false" />
+          <Property Name="ShowHomePath" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="ShowNumSeasons" Type="int" />
+          <Property Name="ShowNumEpisodes" Type="int" />
+          <Property Name="ShowAlbumArtPath" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="IsEnabled" Type="bit" Nullable="false" />
+          <Property Name="TvdbID" Type="nvarchar" MaxLength="50" />
+          <Property Name="ImdbID" Type="nvarchar" MaxLength="50" />
+          <Property Name="fk_MediaType" Type="int" />
+        </EntityType>
+        <EntityContainer Name="MobileEntitiesStoreContainer">
+          <EntitySet Name="MobileLogin" EntityType="Self.MobileLogin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Movies" EntityType="Self.Movies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TelevisionShows" EntityType="Self.TelevisionShows" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MobileEntities" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="MobileLogin">
+          <Key>
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="fk_UserId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Movy">
+          <Key>
+            <PropertyRef Name="pk_MovieID" />
+          </Key>
+          <Property Name="pk_MovieID" Type="Int32" Nullable="false" />
+          <Property Name="MovieTitle" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MovieYear" Type="Int32" />
+          <Property Name="fk_MovieGenre" Type="Int32" Nullable="false" />
+          <Property Name="FilePath" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ImdbID" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="TvdbID" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="SubtitlesExist" Type="Int32" Nullable="false" />
+          <Property Name="fk_MediaID" Type="Int32" />
+          <Property Name="fk_MediaType" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TelevisionShow">
+          <Key>
+            <PropertyRef Name="pk_ShowID" />
+          </Key>
+          <Property Name="pk_ShowID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ShowName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ShowDriveLetter" Type="String" MaxLength="1" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ShowHomePath" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ShowNumSeasons" Type="Int32" />
+          <Property Name="ShowNumEpisodes" Type="Int32" />
+          <Property Name="ShowAlbumArtPath" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="TvdbID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ImdbID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fk_MediaType" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="MobileLoginEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="MobileLogins" EntityType="Self.MobileLogin" />
+          <EntitySet Name="Movies" EntityType="Self.Movy" />
+          <EntitySet Name="TelevisionShows" EntityType="Self.TelevisionShow" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MobileEntitiesStoreContainer" CdmEntityContainer="MobileLoginEntities">
+          <EntitySetMapping Name="MobileLogins">
+            <EntityTypeMapping TypeName="MobileEntities.MobileLogin">
+              <MappingFragment StoreEntitySet="MobileLogin">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="fk_UserId" ColumnName="fk_UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Movies">
+            <EntityTypeMapping TypeName="MobileEntities.Movy">
+              <MappingFragment StoreEntitySet="Movies">
+                <ScalarProperty Name="pk_MovieID" ColumnName="pk_MovieID" />
+                <ScalarProperty Name="MovieTitle" ColumnName="MovieTitle" />
+                <ScalarProperty Name="MovieYear" ColumnName="MovieYear" />
+                <ScalarProperty Name="fk_MovieGenre" ColumnName="fk_MovieGenre" />
+                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+                <ScalarProperty Name="ImdbID" ColumnName="ImdbID" />
+                <ScalarProperty Name="TvdbID" ColumnName="TvdbID" />
+                <ScalarProperty Name="SubtitlesExist" ColumnName="SubtitlesExist" />
+                <ScalarProperty Name="fk_MediaID" ColumnName="fk_MediaID" />
+                <ScalarProperty Name="fk_MediaType" ColumnName="fk_MediaType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TelevisionShows">
+            <EntityTypeMapping TypeName="MobileEntities.TelevisionShow">
+              <MappingFragment StoreEntitySet="TelevisionShows">
+                <ScalarProperty Name="pk_ShowID" ColumnName="pk_ShowID" />
+                <ScalarProperty Name="ShowName" ColumnName="ShowName" />
+                <ScalarProperty Name="ShowDriveLetter" ColumnName="ShowDriveLetter" />
+                <ScalarProperty Name="ShowHomePath" ColumnName="ShowHomePath" />
+                <ScalarProperty Name="ShowNumSeasons" ColumnName="ShowNumSeasons" />
+                <ScalarProperty Name="ShowNumEpisodes" ColumnName="ShowNumEpisodes" />
+                <ScalarProperty Name="ShowAlbumArtPath" ColumnName="ShowAlbumArtPath" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+                <ScalarProperty Name="TvdbID" ColumnName="TvdbID" />
+                <ScalarProperty Name="ImdbID" ColumnName="ImdbID" />
+                <ScalarProperty Name="fk_MediaType" ColumnName="fk_MediaType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

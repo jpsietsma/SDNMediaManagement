@@ -134,6 +134,7 @@
     <Compile Include="Logs\IFileMoveHistory.cs" />
     <Compile Include="Logs\IPlaybackHistory.cs" />
     <Compile Include="Logs\PlaybackHistory.cs" />
+    <Compile Include="Mobile\ShowResult.cs" />
     <Compile Include="Movies\IMovie.cs" />
     <Compile Include="Movies\Movie.cs" />
     <Compile Include="Permission\SDNPermissionLevel.cs" />

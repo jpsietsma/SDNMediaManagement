@@ -77,5 +77,13 @@ namespace MediaMaintenanceLibrary.Config
 
         #endregion
 
+        #region WPF Configurations
+
+        /// <summary>
+        /// Url to make calls to the web api
+        /// </summary>
+        public static string WebAPIUrl { get; set; } = @"http://jimmysietsma.com:8077/api/";
+
+        #endregion
     }
 }
