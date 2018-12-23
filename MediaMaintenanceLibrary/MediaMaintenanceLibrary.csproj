@@ -76,6 +76,7 @@
     <Compile Include="Configuration.cs" />
     <Compile Include="Config\Configuration.cs" />
     <Compile Include="DataAccess.cs" />
+    <Compile Include="Exceptions\SortExceptions.cs" />
     <Compile Include="LogUIException.cs" />
     <Compile Include="MediaConversion.cs" />
     <Compile Include="MediaProcessingLibrary.cs" />

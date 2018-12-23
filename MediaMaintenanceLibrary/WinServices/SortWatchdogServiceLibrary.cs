@@ -86,5 +86,35 @@ namespace MediaMaintenanceLibrary.WinServices
             return finalSpace;
         }
 
+        /// <summary>
+        /// Begin running Sort Precheck steps 1 - 3
+        /// </summary>
+        /// <returns>true if all prechecks pass, false if any fail</returns>
+        public bool RunSortPrechecks()
+        {
+            if (RunPrecheckStep1() && RunPrecheckStep2() && RunPrecheckStep3())
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public virtual bool RunPrecheckStep1()
+        {
+
+            return false;
+        }
+
+        public virtual bool RunPrecheckStep2()
+        {
+            return false;
+        }
+
+        public virtual bool RunPrecheckStep3()
+        {
+            return false;
+        }
+
     }
 }
