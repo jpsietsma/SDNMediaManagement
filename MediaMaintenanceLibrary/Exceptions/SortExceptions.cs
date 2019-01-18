@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -48,6 +49,21 @@ namespace MediaMaintenanceLibrary.Exceptions
         public DuplicateSortFileException(string message = null) : base(message: message)
         {
             message += "";
+        }
+    }
+
+    /// <summary>
+    /// Occurs when automation detects a download of an already existing episode
+    /// </summary>
+    public class DuplicateExistingEpisodeDownloadException : Exception
+    {
+        /// <summary>
+        /// Occurs when automation detects a download of an already existing episode
+        /// </summary>
+        /// <param name="message"></param>
+        public DuplicateExistingEpisodeDownloadException(FileSystemEventArgs e, string message = null) : base(message: message)
+        {
+            message += $@"[{ DateTime.Now.ToShortDateString() }] - Duplicate Existing Episode: '{ e.Name }' has been downloaded.";
         }
     }
 

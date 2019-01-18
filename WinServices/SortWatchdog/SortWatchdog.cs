@@ -1,51 +1,35 @@
-﻿using MediaMaintenanceLibrary;
-using MediaMaintenanceLibrary.Config;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data.SqlClient;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Timers;
+using SortWatchdog.Library;
 
 namespace WinServices.SortWatchdog
 {
     public class SortWatchdogSvc
     {
-        static string watchPath = @"S:\";
-        static string fileFilter = @"*.*";
+        static readonly string WatchPath = @"S:\";
+        static readonly string FileFilter = @"*.*";
         public bool TimerRunning = false;
 
-        public FileSystemWatcher sortWatcher = new FileSystemWatcher(watchPath, fileFilter);
-        private readonly Timer _timer = new Timer(5000);
-        
+        public FileSystemWatcher sortWatcher = new FileSystemWatcher(WatchPath, FileFilter);
+        public Timer _timer = new Timer(5000);       
+                        
         public SortWatchdogSvc()
         {
             //Future constructor code in here
-        }
-
-        public void WorkerTimer(object sender, ElapsedEventArgs e)
-        {
-            Console.WriteLine("Timer Ticked");
-        }
-
-        private void SortWatcher_Created(object sender, FileSystemEventArgs e)
-        {
-            Console.WriteLine($@"{ e.Name } dropped in sort folder.");
-            Console.WriteLine();
-        }
+        }        
 
         public void Start()
         {
+            _timer.Elapsed += SortWatchdogLib.WorkerTimer;
+
             //Start our timer when the service is started
-            _timer.Elapsed += WorkerTimer;
             _timer.Start();
             TimerRunning = true;
 
             //Start listening to folder for file create events
-            sortWatcher.Created += SortWatcher_Created;
+            sortWatcher.Created += SortWatchdogLib.SortWatcher_FileDropped;
             sortWatcher.EnableRaisingEvents = true;
         }
 

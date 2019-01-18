@@ -1,25 +1,31 @@
 ﻿
 namespace SDNMediaModels.enums
 {
+    //Show airing status
     /// <summary>
-    /// Airing status of the show
+    /// Reflects whether the show is still actively airing new episodes or has ended
     /// </summary>
     public enum ShowAiringStatus
     {
         /// <summary>
-        /// Show is actively airing new episodes
+        /// Show is still airing new episodes
         /// </summary>
-        ACTIVE,
+        ACTIVE = 0,
 
         /// <summary>
-        /// Waiting confirmation if show will be renewed
+        /// Show is no longer airing new episodes
         /// </summary>
-        PENDING,
+        ENDED = 1,
 
         /// <summary>
-        /// Show has stopped airing new episodes
+        /// Show previously ended, but has now begun airing new episodes again as the same series
         /// </summary>
-        ENDED
+        REBOOT = 2,
+
+        /// <summary>
+        /// Unknown/Unsure if the show is or will be airing new episodes.  Pending shows should be marked as other.
+        /// </summary>
+        OTHER = 3
 
     }
 }

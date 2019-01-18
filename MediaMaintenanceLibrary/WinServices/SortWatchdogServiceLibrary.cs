@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace MediaMaintenanceLibrary.WinServices
 {
@@ -92,7 +93,7 @@ namespace MediaMaintenanceLibrary.WinServices
         /// <returns>true if all prechecks pass, false if any fail</returns>
         public bool RunSortPrechecks()
         {
-            if (RunPrecheckStep1() && RunPrecheckStep2() && RunPrecheckStep3())
+            if (RunPrecheckStep1(out int numRecycledFiles, out List<string> recycledFiles) && RunPrecheckStep2(out int numDuplicateEpisodes) && RunPrecheckStep3(out int numTrackedEpisodes))
             {
                 return true;
             }
@@ -100,19 +101,38 @@ namespace MediaMaintenanceLibrary.WinServices
             return false;
         }
 
-        public virtual bool RunPrecheckStep1()
+        /// <summary>
+        /// Runs pre-check 1: log and move .txt, .jpg, .jpeg, to recycle folder
+        /// </summary>
+        /// <returns>Returns true if check runs successfully</returns>
+        public virtual bool RunPrecheckStep1(out int numRecycledFiles, out List<string> recycledFiles)
         {
+            recycledFiles = new List<string>();
+
+            numRecycledFiles = recycledFiles.Count();
 
             return false;
         }
 
-        public virtual bool RunPrecheckStep2()
+        /// <summary>
+        /// Runs pre-check 2: Check for duplicate episodes and duplicate existing episodes and move to recycle folder
+        /// </summary>
+        /// <returns>Returns true if check runs successfully</returns>
+        public virtual bool RunPrecheckStep2(out int numDuplicateEpisodes)
         {
+            numDuplicateEpisodes = 0;
+
             return false;
         }
 
-        public virtual bool RunPrecheckStep3()
+        /// <summary>
+        /// Runs pre-check 3: Build list of files that passed check, check for tracked shows and move
+        /// </summary>
+        /// <returns>Returns true if check runs successfully</returns>
+        public virtual bool RunPrecheckStep3(out int numTrackedEpisodes)
         {
+            numTrackedEpisodes = 0;
+
             return false;
         }
 

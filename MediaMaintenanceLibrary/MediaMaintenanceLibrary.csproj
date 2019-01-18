@@ -76,6 +76,8 @@
     <Compile Include="Configuration.cs" />
     <Compile Include="Config\Configuration.cs" />
     <Compile Include="DataAccess.cs" />
+    <Compile Include="Exceptions\LibraryExceptions.cs" />
+    <Compile Include="Exceptions\MaintenanceExceptions.cs" />
     <Compile Include="Exceptions\SortExceptions.cs" />
     <Compile Include="LogUIException.cs" />
     <Compile Include="MediaConversion.cs" />
@@ -86,6 +88,7 @@
     <Compile Include="SortProcessing\SortProcessing.cs" />
     <Compile Include="TvShows\ShowProcessing.cs" />
     <Compile Include="UI\Notifications\SDNErrorWarnings.cs" />
+    <Compile Include="WinServices\LibraryWatchdogServiceLibrary.cs" />
     <Compile Include="WinServices\SortWatchdogServiceLibrary.cs" />
   </ItemGroup>
   <ItemGroup>
