@@ -46,5 +46,31 @@ namespace MediaMaintenanceLibrary
 
             return "Average Download Speed of " + finalAvg + " Mb/s";
         }
+
+        /// <summary>
+        /// Calculate the number of downloaded, unprocessed files sitting in sort
+        /// </summary>
+        /// <returns>number of files</returns>
+        public static int CalculateUnprocessedSort()
+        {
+            int finalNum = 0;
+
+
+
+            return finalNum;
+        }
+
+        /// <summary>
+        /// Calculate the number of downloads queued in the autoqueue folder
+        /// </summary>
+        /// <returns></returns>
+        public static int CalculateQueuedDownloads()
+        {
+            int finalCount = 0;
+
+
+
+            return finalCount;
+        }
     }
 }
