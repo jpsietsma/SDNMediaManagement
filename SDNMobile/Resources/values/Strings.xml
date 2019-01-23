@@ -1,4 +1,5 @@
 <resources>
+    <string name="title_welcome">Sietsma Development Media - Mobile</string>
     <string name="app_name">SDNMobile</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>

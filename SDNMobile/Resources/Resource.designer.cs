@@ -2233,26 +2233,26 @@ namespace SDNMobile
 			// aapt resource value: 0x7f020053
 			public const int avd_hide_password = 2130837587;
 			
-			// aapt resource value: 0x7f02006d
-			public const int avd_hide_password_1 = 2130837613;
-			
 			// aapt resource value: 0x7f02006e
-			public const int avd_hide_password_2 = 2130837614;
+			public const int avd_hide_password_1 = 2130837614;
 			
 			// aapt resource value: 0x7f02006f
-			public const int avd_hide_password_3 = 2130837615;
+			public const int avd_hide_password_2 = 2130837615;
+			
+			// aapt resource value: 0x7f020070
+			public const int avd_hide_password_3 = 2130837616;
 			
 			// aapt resource value: 0x7f020054
 			public const int avd_show_password = 2130837588;
 			
-			// aapt resource value: 0x7f020070
-			public const int avd_show_password_1 = 2130837616;
-			
 			// aapt resource value: 0x7f020071
-			public const int avd_show_password_2 = 2130837617;
+			public const int avd_show_password_1 = 2130837617;
 			
 			// aapt resource value: 0x7f020072
-			public const int avd_show_password_3 = 2130837618;
+			public const int avd_show_password_2 = 2130837618;
+			
+			// aapt resource value: 0x7f020073
+			public const int avd_show_password_3 = 2130837619;
 			
 			// aapt resource value: 0x7f020055
 			public const int design_bottom_navigation_item_background = 2130837589;
@@ -2308,11 +2308,11 @@ namespace SDNMobile
 			// aapt resource value: 0x7f020066
 			public const int notification_icon_background = 2130837606;
 			
-			// aapt resource value: 0x7f02006b
-			public const int notification_template_icon_bg = 2130837611;
-			
 			// aapt resource value: 0x7f02006c
-			public const int notification_template_icon_low_bg = 2130837612;
+			public const int notification_template_icon_bg = 2130837612;
+			
+			// aapt resource value: 0x7f02006d
+			public const int notification_template_icon_low_bg = 2130837613;
 			
 			// aapt resource value: 0x7f020067
 			public const int notification_tile_bg = 2130837607;
@@ -2321,10 +2321,13 @@ namespace SDNMobile
 			public const int notify_panel_notification_icon_bg = 2130837608;
 			
 			// aapt resource value: 0x7f020069
-			public const int tooltip_frame_dark = 2130837609;
+			public const int Television = 2130837609;
 			
 			// aapt resource value: 0x7f02006a
-			public const int tooltip_frame_light = 2130837610;
+			public const int tooltip_frame_dark = 2130837610;
+			
+			// aapt resource value: 0x7f02006b
+			public const int tooltip_frame_light = 2130837611;
 			
 			static Drawable()
 			{
@@ -3253,8 +3256,8 @@ namespace SDNMobile
 			// aapt resource value: 0x7f090010
 			public const int abc_toolbar_collapse_description = 2131296272;
 			
-			// aapt resource value: 0x7f090027
-			public const int app_name = 2131296295;
+			// aapt resource value: 0x7f090028
+			public const int app_name = 2131296296;
 			
 			// aapt resource value: 0x7f09001e
 			public const int appbar_scrolling_view_behavior = 2131296286;
@@ -3286,14 +3289,17 @@ namespace SDNMobile
 			// aapt resource value: 0x7f090026
 			public const int status_bar_notification_info_overflow = 2131296294;
 			
-			// aapt resource value: 0x7f090029
-			public const int title_dashboard = 2131296297;
-			
-			// aapt resource value: 0x7f090028
-			public const int title_home = 2131296296;
-			
 			// aapt resource value: 0x7f09002a
-			public const int title_notifications = 2131296298;
+			public const int title_dashboard = 2131296298;
+			
+			// aapt resource value: 0x7f090029
+			public const int title_home = 2131296297;
+			
+			// aapt resource value: 0x7f09002b
+			public const int title_notifications = 2131296299;
+			
+			// aapt resource value: 0x7f090027
+			public const int title_welcome = 2131296295;
 			
 			static String()
 			{
